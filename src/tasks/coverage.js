@@ -58,7 +58,9 @@ const getCoverageTag = function(tag) {
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
 const checkCoverage = async function() {
-  if (!(await hasCoverage())) {
+  const shouldCover = await hasCoverage()
+
+  if (!shouldCover) {
     return
   }
 

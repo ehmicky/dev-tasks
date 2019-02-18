@@ -6,7 +6,9 @@ const gulpExeca = require('../exec')
 const { hasCoverage, uploadCoverage, checkCoverage } = require()
 
 const unit = async function() {
-  if (!(await hasCoverage())) {
+  const shouldCoverage = await hasCoverage()
+
+  if (!shouldCoverage) {
     return gulpExeca('ava')
   }
 
