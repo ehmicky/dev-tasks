@@ -78,7 +78,6 @@
     "gulp-ignore": "^2.0.2",
     "gulp-jscpd": "0.0.8",
     "gulp-yaml": "^2.0.3",
-    "has-ansi": "^3.0.0",
     "is-ci": "^2.0.0",
     "nyc": "^13.3.0",
     "plugin-error": "^1.0.1",
