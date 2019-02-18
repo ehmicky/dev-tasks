@@ -5,5 +5,4 @@ module.exports = {
   ...require('./test'),
   ...require('./check'),
   ...require('./unit'),
-  ...require('./coverage'),
 }
