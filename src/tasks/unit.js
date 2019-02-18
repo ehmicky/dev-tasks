@@ -4,12 +4,14 @@ const { version } = require('process')
 const { platform } = require('os')
 
 const isCi = require('is-ci')
+const fastGlob = require('fast-glob')
 
 const { getWatchTask } = require('../utils')
 const gulpExeca = require('../exec')
+const { BUILD } = require('../files')
 
 const unit = async function() {
-  if (!isCi) {
+  if (!(await runCoverage())) {
     return gulpExeca('ava')
   }
 
@@ -22,6 +24,18 @@ const unit = async function() {
       bash codecov -f coverage/coverage-final.json -F ${os} -F ${nodeVersion} -Z && \
       rm codecov`,
   )
+}
+
+// Only run test coverage on CI because it's slow.
+// Also do not run it on repositories without source code, e.g. with only
+// configuration or text files.
+const runCoverage = async function() {
+  if (!isCi) {
+    return false
+  }
+
+  const files = await fastGlob(`${BUILD}/**.js`)
+  return files.length !== 0
 }
 
 const PLATFORMS = {
