@@ -3,7 +3,7 @@
 const { getWatchTask } = require('../utils')
 const gulpExeca = require('../exec')
 
-const { hasCoverage, uploadCoverage, checkCoverage } = require()
+const { hasCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
 const unit = async function() {
   const shouldCoverage = await hasCoverage()
