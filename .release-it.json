@@ -4,8 +4,5 @@
   "pkgFiles": ["package.json", "package-lock.json"],
   "github": {
     "release": true
-  },
-  "npm": {
-    "publish": false
   }
 }
