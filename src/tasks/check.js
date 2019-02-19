@@ -60,10 +60,16 @@ const outdated = () => gulpExeca('npm outdated')
 // eslint-disable-next-line fp/no-mutation
 outdated.description = 'Report outdated dependencies'
 
-const check = parallel(lint, dup, audit, outdated)
+const check = parallel(lint, dup)
 
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint and check for code duplication'
+
+const fullCheck = parallel(lint, dup, audit, outdated)
+
+// eslint-disable-next-line fp/no-mutation
+fullCheck.description =
+  'Lint, check for code duplication and outdated/vulnerable dependencies'
 
 const checkwatch = getWatchTask({ CHECK: check }, check)
 
@@ -73,6 +79,7 @@ checkwatch.description = 'Lint and test the application in watch mode'
 module.exports = {
   check,
   checkwatch,
+  fullCheck,
   lint,
   dup,
   audit,
