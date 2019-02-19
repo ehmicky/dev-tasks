@@ -1,14 +1,11 @@
 'use strict'
 
 const { series } = require('gulp')
+const releaseIt = require('release-it')
 
 const { test } = require('./test')
 
 const releaseItTask = async function(increment) {
-  // Does not support Node <8
-  // TODO: put top-level after dropping support for Node <8
-  const releaseIt = require('release-it')
-
   await releaseIt({ ...config, increment })
 }
 
