@@ -1,9 +1,5 @@
 {
-  "CHECK": [
-    "{.babelrc,index,gulpfile.babel,register}.js",
-    "*.md",
-    "{src,gulp,test}/**/*.{js,md}"
-  ],
+  "CHECK": ["{index,register}.js", "*.md", "{src,gulp,test}/**/*.{js,md}"],
   "BUILD": "src",
   "BUILD_DIST": "dist"
 }
