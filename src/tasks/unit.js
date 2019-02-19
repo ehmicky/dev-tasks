@@ -12,7 +12,9 @@ const unit = async function() {
     return gulpExeca('ava')
   }
 
-  await gulpExeca('nyc ava')
+  await gulpExeca(
+    'nyc --reporter=lcov --reporter=text --reporter=html --reporter=json ava',
+  )
 
   await uploadCoverage()
 }
