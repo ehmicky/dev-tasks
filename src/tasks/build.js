@@ -6,8 +6,8 @@ const del = require('del')
 const yamlToJson = require('gulp-yaml')
 
 const { BUILD, BUILD_DIST } = require('../files')
-const { getWatchTask } = require('../utils')
 const gulpExeca = require('../exec')
+const { getWatchTask } = require('../watch')
 
 const clean = () => del(BUILD_DIST)
 
@@ -44,14 +44,11 @@ const build = series(clean, parallel(copy, babel, yaml))
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build the application'
 
-const buildwatch = getWatchTask({ BUILD: build }, build)
-
-// eslint-disable-next-line fp/no-mutation
-buildwatch.description = 'Build the application in watch mode'
+const buildw = getWatchTask(build, BUILD)
 
 module.exports = {
   build,
-  buildwatch,
+  buildw,
   clean,
   copy,
   babel,

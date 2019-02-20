@@ -4,8 +4,8 @@ const { src, series, parallel } = require('gulp')
 const jscpd = require('gulp-jscpd')
 
 const { CHECK } = require('../files')
-const { getWatchTask } = require('../utils')
 const gulpExeca = require('../exec')
+const { getWatchTask } = require('../watch')
 
 const format = () =>
   gulpExeca(`prettier --write --loglevel warn ${CHECK.join(' ')}`)
@@ -65,20 +65,17 @@ const check = parallel(lint, dup)
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint and check for code duplication'
 
+const checkw = getWatchTask(check, CHECK)
+
 const fullCheck = parallel(lint, dup, audit, outdated)
 
 // eslint-disable-next-line fp/no-mutation
 fullCheck.description =
   'Lint, check for code duplication and outdated/vulnerable dependencies'
 
-const checkwatch = getWatchTask({ CHECK: check }, check)
-
-// eslint-disable-next-line fp/no-mutation
-checkwatch.description = 'Lint and test the application in watch mode'
-
 module.exports = {
   check,
-  checkwatch,
+  checkw,
   fullCheck,
   lint,
   dup,

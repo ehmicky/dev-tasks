@@ -2,7 +2,6 @@
 
 const { platform } = require('process')
 
-const { getWatchTask } = require('../utils')
 const gulpExeca = require('../exec')
 
 const { hasCoverage, uploadCoverage, checkCoverage } = require('./coverage')
@@ -35,18 +34,11 @@ const getAvaFlags = function() {
 // eslint-disable-next-line fp/no-mutation
 unit.description = 'Run unit tests'
 
-// We have to use this to debug Ava test files with Chrome devtools
-const unitwatch = getWatchTask({ CHECK: unit }, unit)
-
-// eslint-disable-next-line fp/no-mutation
-unitwatch.description = 'Run unit tests in watch mode'
-
 const coverage = checkCoverage
 // eslint-disable-next-line fp/no-mutation
 coverage.description = 'Check all source files are covered by tests'
 
 module.exports = {
   unit,
-  unitwatch,
   coverage,
 }
