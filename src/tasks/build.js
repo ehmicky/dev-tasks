@@ -23,7 +23,7 @@ const babel = () =>
     .pipe(include(/\.(js)$/u))
     .pipe(sourcemaps.init())
     .pipe(gulpBabel({ comments: false, minified: true, retainLines: true }))
-    .pipe(sourcemaps.write('.'))
+    .pipe(sourcemaps.write('.', { sourceRoot: '../src/' }))
     .pipe(dest(BUILD_DIST))
 
 const yaml = () =>
