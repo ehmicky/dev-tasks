@@ -28,8 +28,8 @@ const jscpd = async () => {
 const JSCPD_OPTS = {
   reporters: ['consoleFull'],
   minLines: 1,
-  minTokens: 30,
-  mode: 'weak',
+  maxLines: 5e3,
+  minTokens: 35,
 }
 
 module.exports = {
