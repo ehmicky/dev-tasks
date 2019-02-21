@@ -5,6 +5,7 @@ const { include } = require('gulp-ignore')
 const gulpBabel = require('gulp-babel')
 const del = require('del')
 const yamlToJson = require('gulp-yaml')
+const sourcemaps = require('gulp-sourcemaps')
 
 const { BUILD, BUILD_DIST } = require('../files')
 const { getWatchTask } = require('../watch')
@@ -18,10 +19,12 @@ const copy = () =>
   }).pipe(dest(BUILD_DIST))
 
 const babel = () =>
-  src(`${BUILD}/**`, { dot: true, since: lastRun(babel), sourcemaps: true })
+  src(`${BUILD}/**`, { dot: true, since: lastRun(babel) })
     .pipe(include(/\.(js)$/u))
+    .pipe(sourcemaps.init())
     .pipe(gulpBabel({ comments: false, minified: true, retainLines: true }))
-    .pipe(dest(BUILD_DIST, { sourcemaps: '.' }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(dest(BUILD_DIST))
 
 const yaml = () =>
   src(`${BUILD}/**`, { dot: true, since: lastRun(yaml) })
