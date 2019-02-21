@@ -3,6 +3,9 @@
 const { promisify } = require('util')
 
 const { watch } = require('gulp')
+const asyncDone = require('async-done')
+
+const pAsyncDone = promisify(asyncDone)
 
 // Watch files to run a task.
 // Returns the watch task.
@@ -31,7 +34,9 @@ const runInitialTask = async function({ initial, task }) {
   }
 
   const initialTask = getInitialTask({ initial, task })
-  await initialTask()
+  // Gulp tasks use `async-done` to support several types of ways of making
+  // a function async. E.g. gulp.series() uses a function callback.
+  await pAsyncDone(initialTask)
 }
 
 const getInitialTask = function({ initial, task }) {
