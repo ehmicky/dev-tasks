@@ -53,9 +53,9 @@
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-ignore": "^2.0.2",
-    "gulp-jscpd": "0.0.8",
     "gulp-yaml": "^2.0.3",
     "is-ci": "^2.0.0",
+    "jscpd": "^2.0.6",
     "nyc": "^13.3.0",
     "plugin-error": "^1.0.1",
     "release-it": "^10.1.0"

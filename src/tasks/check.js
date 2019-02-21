@@ -1,11 +1,12 @@
 'use strict'
 
-const { src, series, parallel } = require('gulp')
-const jscpd = require('gulp-jscpd')
+const { series, parallel } = require('gulp')
 
 const { CHECK } = require('../files')
 const gulpExeca = require('../exec')
 const { getWatchTask } = require('../watch')
+
+const { jscpd } = require('./jscpd')
 
 const format = () =>
   gulpExeca(`prettier --write --loglevel warn ${CHECK.join(' ')}`)
@@ -24,17 +25,6 @@ const escapePattern = function(pattern) {
 
 const lint = series(format, eslint)
 
-const dup = () =>
-  src(CHECK).pipe(
-    jscpd({
-      verbose: true,
-      blame: true,
-      'min-lines': 0,
-      'min-tokens': 30,
-      'skip-comments': true,
-    }),
-  )
-
 const audit = async () => {
   // Older `npm` versions do not have this command
   try {
@@ -48,14 +38,14 @@ const audit = async () => {
 
 const outdated = () => gulpExeca('npm outdated')
 
-const check = parallel(lint, dup)
+const check = parallel(lint, jscpd)
 
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint and check for code duplication'
 
 const checkw = getWatchTask(check, CHECK)
 
-const fullCheck = parallel(lint, dup, audit, outdated)
+const fullCheck = parallel(lint, jscpd, audit, outdated)
 
 // eslint-disable-next-line fp/no-mutation
 fullCheck.description =
@@ -65,4 +55,5 @@ module.exports = {
   check,
   checkw,
   fullCheck,
+  jscpd,
 }
