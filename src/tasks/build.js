@@ -1,12 +1,12 @@
 'use strict'
 
-const { src, dest, series, parallel } = require('gulp')
+const { src, dest, series, parallel, lastRun } = require('gulp')
 const { include } = require('gulp-ignore')
+const gulpBabel = require('gulp-babel')
 const del = require('del')
 const yamlToJson = require('gulp-yaml')
 
 const { BUILD, BUILD_DIST } = require('../files')
-const gulpExeca = require('../exec')
 const { getWatchTask } = require('../watch')
 
 const clean = () => del(BUILD_DIST)
@@ -14,25 +14,28 @@ const clean = () => del(BUILD_DIST)
 const copy = () =>
   src([`${BUILD}/**`, `!${BUILD}/**/*.{y{,a}ml,js,ts,jsx,tsx}`], {
     dot: true,
+    since: lastRun(copy),
   }).pipe(dest(BUILD_DIST))
 
 const babel = () =>
-  gulpExeca(
-    `babel ${BUILD} --out-dir ${BUILD_DIST} --source-maps --no-comments --minified --retain-lines`,
-  )
+  src(`${BUILD}/**`, { dot: true, since: lastRun(babel), sourcemaps: true })
+    .pipe(include(/\.(js)$/u))
+    .pipe(gulpBabel({ comments: false, minified: true, retainLines: true }))
+    .pipe(dest(BUILD_DIST, { sourcemaps: '.' }))
 
 const yaml = () =>
-  src(`${BUILD}/**`, { dot: true })
+  src(`${BUILD}/**`, { dot: true, since: lastRun(yaml) })
     .pipe(include(/\.ya?ml$/u))
     .pipe(yamlToJson({ schema: 'JSON_SCHEMA', space: 2 }))
     .pipe(dest(BUILD_DIST))
 
-const build = series(clean, parallel(copy, babel, yaml))
+const rebuild = parallel(copy, babel, yaml)
+const build = series(clean, rebuild)
 
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build the application'
 
-const buildw = getWatchTask(build, BUILD)
+const buildw = getWatchTask(rebuild, BUILD, { initial: build })
 
 module.exports = {
   build,

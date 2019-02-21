@@ -51,6 +51,7 @@
     "execa": "^1.0.0",
     "fast-glob": "^2.2.6",
     "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-ignore": "^2.0.2",
     "gulp-jscpd": "0.0.8",
     "gulp-yaml": "^2.0.3",
