@@ -2,22 +2,21 @@
 
 const { promisify } = require('util')
 
-const { watch, task: getGulpTask } = require('gulp')
+const { watch } = require('gulp')
 
 // Watch files to run a task.
 // Returns the watch task.
-const getWatchTask = function(task, files, watchOpts) {
-  const taskA = getTask(task)
-  const watchTask = runWatch.bind(null, { task: taskA, files, watchOpts })
-  addDescription({ watchTask, task: taskA })
+const getWatchTask = function(
+  task,
+  files,
+  { initial = true, ...watchOpts } = {},
+) {
+  const watchTask = runWatch.bind(null, { task, files, initial, watchOpts })
+  addDescription({ watchTask, task, initial })
   return watchTask
 }
 
-const runWatch = async function({
-  task,
-  files,
-  watchOpts: { initial = true, ...watchOpts } = {},
-}) {
+const runWatch = async function({ task, files, initial, watchOpts }) {
   await runInitialTask({ initial, task })
 
   const watcher = watch(files, task, watchOpts)
@@ -36,10 +35,6 @@ const runInitialTask = async function({ initial, task }) {
 }
 
 const getInitialTask = function({ initial, task }) {
-  if (typeof initial === 'string') {
-    return getTask(initial)
-  }
-
   if (typeof initial === 'function') {
     return initial
   }
@@ -47,7 +42,9 @@ const getInitialTask = function({ initial, task }) {
   return task
 }
 
-const addDescription = function({ watchTask, task: { description } }) {
+const addDescription = function({ watchTask, task, initial }) {
+  const description = getDescription({ initial, task })
+
   if (typeof description !== 'string') {
     return
   }
@@ -56,12 +53,12 @@ const addDescription = function({ watchTask, task: { description } }) {
   watchTask.description = `${description} (watch mode)`
 }
 
-const getTask = function(task) {
-  if (typeof task !== 'string') {
-    return task
-  }
+const getDescription = function({ initial, task }) {
+  return [initial, task].map(getTaskDescription).find(Boolean)
+}
 
-  return getGulpTask(task)
+const getTaskDescription = function({ description }) {
+  return description
 }
 
 module.exports = {
