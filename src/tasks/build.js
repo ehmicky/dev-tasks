@@ -1,6 +1,10 @@
 'use strict'
 
-const { relative } = require('path')
+const {
+  // Source maps use URLs, i.e. should use slashes.
+  // So we use `path.posix.relative()` instead of `path.relative()`
+  posix: { relative },
+} = require('path')
 
 const { src, dest, series, parallel, lastRun } = require('gulp')
 const { include } = require('gulp-ignore')
