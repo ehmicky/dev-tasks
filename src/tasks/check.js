@@ -24,9 +24,6 @@ const escapePattern = function(pattern) {
 
 const lint = series(format, eslint)
 
-// eslint-disable-next-line fp/no-mutation
-lint.description = 'Lint source files'
-
 const dup = () =>
   src(CHECK).pipe(
     jscpd({
@@ -37,9 +34,6 @@ const dup = () =>
       'skip-comments': true,
     }),
   )
-
-// eslint-disable-next-line fp/no-mutation
-dup.description = 'Check for code duplication'
 
 const audit = async () => {
   // Older `npm` versions do not have this command
@@ -52,13 +46,7 @@ const audit = async () => {
   await gulpExeca('npm audit', { stdout: 'ignore' })
 }
 
-// eslint-disable-next-line fp/no-mutation
-audit.description = 'Check for security vulnerabilities'
-
 const outdated = () => gulpExeca('npm outdated')
-
-// eslint-disable-next-line fp/no-mutation
-outdated.description = 'Report outdated dependencies'
 
 const check = parallel(lint, dup)
 
