@@ -21,17 +21,21 @@ const config = {
   },
 }
 
-const releaseMajor = series(test, releaseItTask.bind(null, 'major'))
+// Cannot use `func.bind()` otherwise task name will be prepended with `bound `
+const releaseItMajor = () => releaseItTask('major')
+const releaseMajor = series(test, releaseItMajor)
 
 // eslint-disable-next-line fp/no-mutation
 releaseMajor.description = 'Release a new major version x.*.*'
 
-const releaseMinor = series(test, releaseItTask.bind(null, 'minor'))
+const releaseItMinor = () => releaseItTask('minor')
+const releaseMinor = series(test, releaseItMinor)
 
 // eslint-disable-next-line fp/no-mutation
 releaseMinor.description = 'Release a new minor version *.x.*'
 
-const releasePatch = series(test, releaseItTask.bind(null, 'patch'))
+const releaseItPatch = () => releaseItTask('patch')
+const releasePatch = series(test, releaseItPatch)
 
 // eslint-disable-next-line fp/no-mutation
 releasePatch.description = 'Release a new patch version *.*.x'
