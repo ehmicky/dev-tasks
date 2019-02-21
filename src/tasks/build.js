@@ -49,8 +49,4 @@ const buildw = getWatchTask(build, BUILD)
 module.exports = {
   build,
   buildw,
-  clean,
-  copy,
-  babel,
-  yaml,
 }

@@ -77,8 +77,4 @@ module.exports = {
   check,
   checkw,
   fullCheck,
-  lint,
-  dup,
-  audit,
-  outdated,
 }
