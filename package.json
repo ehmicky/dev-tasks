@@ -54,7 +54,6 @@
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-ignore": "^2.0.2",
-    "gulp-sourcemaps": "^2.6.5",
     "gulp-yaml": "^2.0.3",
     "is-ci": "^2.0.0",
     "jscpd": "^2.0.6",
