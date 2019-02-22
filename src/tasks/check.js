@@ -56,10 +56,12 @@ const check = parallel(lint, jscpd)
 check.description = 'Lint and check for code duplication'
 
 const checkw = getWatchTask(check, CHECK)
+const eslintw = getWatchTask(eslintWatch, CHECK)
 
 module.exports = {
   check,
   checkw,
   eslint,
   eslintWatch,
+  eslintw,
 }
