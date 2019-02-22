@@ -24,7 +24,7 @@ const warn = parallel(audit, outdated)
 // eslint-disable-next-line fp/no-mutation
 warn.description = 'Check for outdated/vulnerable dependencies'
 
-const warnw = getWatchTask(warn, WARN)
+const warnw = getWatchTask(WARN, warn)
 
 module.exports = {
   warn,

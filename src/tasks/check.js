@@ -71,7 +71,7 @@ const checkWatch = parallel(lintWatch, jscpd)
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint and check for code issues'
 
-const checkw = getWatchTask(checkWatch, CHECK, { initial: check })
+const checkw = getWatchTask(CHECK, checkWatch, { initial: check })
 
 module.exports = {
   check,

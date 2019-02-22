@@ -5,8 +5,8 @@ const { watch, parallel } = require('gulp')
 // Watch files to run a task.
 // Returns the watch task.
 const getWatchTask = function(
-  task,
   files,
+  task,
   { initial = true, ...watchOpts } = {},
 ) {
   // We do not use `func.bind()` to make the task name `watchTask` instead

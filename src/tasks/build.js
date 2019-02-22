@@ -45,7 +45,7 @@ const build = series(clean, rebuild)
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build the application'
 
-const buildw = getWatchTask(rebuild, BUILD, { initial: build })
+const buildw = getWatchTask(BUILD, rebuild, { initial: build })
 
 module.exports = {
   build,
