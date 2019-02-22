@@ -2,6 +2,7 @@
 
 const { src, dest, series, parallel, lastRun } = require('gulp')
 const gulpEslint = require('gulp-eslint')
+const gulpPrettier = require('gulp-prettier')
 const gulpIf = require('gulp-if')
 
 const { CHECK } = require('../files')
@@ -10,8 +11,15 @@ const { getWatchTask } = require('../watch')
 
 const { jscpd } = require('./jscpd')
 
-const format = () =>
-  gulpExeca(`prettier --write --loglevel warn ${CHECK.join(' ')}`)
+const prettier = function() {
+  return src(CHECK, { dot: true, since: lastRun(prettier) })
+    .pipe(gulpPrettier({ loglevel: 'warn' }))
+    .pipe(gulpIf(isPrettified, dest(getFileBase)))
+}
+
+const isPrettified = function({ isPrettier }) {
+  return isPrettier
+}
 
 // `gulp-eslint` does not support --cache
 // (https://github.com/adametry/gulp-eslint/issues/132)
@@ -27,7 +35,10 @@ const eslint = function() {
   )
 }
 
-// eslint-disable-next-line no-unused-vars
+const escapePattern = function(pattern) {
+  return `"${pattern}"`
+}
+
 const eslintWatch = function() {
   return src(CHECK, { dot: true, since: lastRun(eslintWatch) })
     .pipe(
@@ -52,17 +63,15 @@ const getFileBase = function({ base }) {
   return base
 }
 
-const escapePattern = function(pattern) {
-  return `"${pattern}"`
-}
-
-const lint = series(format, eslint)
+const lint = series(prettier, eslint)
+const lintWatch = series(prettier, eslintWatch)
 const check = parallel(lint, jscpd)
+const checkWatch = parallel(lintWatch, jscpd)
 
 // eslint-disable-next-line fp/no-mutation
-check.description = 'Lint and check for code duplication'
+check.description = 'Lint and check for code issues'
 
-const checkw = getWatchTask(check, CHECK)
+const checkw = getWatchTask(checkWatch, CHECK)
 
 module.exports = {
   check,
