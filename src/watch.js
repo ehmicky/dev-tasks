@@ -2,10 +2,7 @@
 
 const { promisify } = require('util')
 
-const { watch } = require('gulp')
-const asyncDone = require('async-done')
-
-const pAsyncDone = promisify(asyncDone)
+const { watch, parallel } = require('gulp')
 
 // Watch files to run a task.
 // Returns the watch task.
@@ -14,56 +11,44 @@ const getWatchTask = function(
   files,
   { initial = true, ...watchOpts } = {},
 ) {
-  const watchTask = runWatch.bind(null, { task, files, initial, watchOpts })
-  addDescription({ watchTask, task, initial })
-  return watchTask
+  const watchTask = runWatch.bind(null, { task, files, watchOpts })
+  const watchTaskA = addInitial({ watchTask, task, initial })
+  addDescription({ watchTask: watchTaskA, task, initial })
+  return watchTaskA
 }
 
-const runWatch = async function({ task, files, initial, watchOpts }) {
-  await runInitialTask({ initial, task })
-
+const runWatch = async function({ task, files, watchOpts }) {
   const watcher = watch(files, task, watchOpts)
 
   // Wait for watching to be setup to mark the `watch` task as complete
   await promisify(watcher.on.bind(watcher))('ready')
 }
 
-const runInitialTask = async function({ initial, task }) {
+const addInitial = function({ watchTask, task, initial }) {
   if (initial === false) {
-    return
+    return watchTask
   }
 
-  const initialTask = getInitialTask({ initial, task })
-  // Gulp tasks use `async-done` to support several types of ways of making
-  // a function async. E.g. gulp.series() uses a function callback.
-  await pAsyncDone(initialTask)
-}
-
-const getInitialTask = function({ initial, task }) {
-  if (typeof initial === 'function') {
-    return initial
+  if (initial === true) {
+    return parallel(task, watchTask)
   }
 
-  return task
+  return parallel(initial, watchTask)
 }
 
 const addDescription = function({ watchTask, task, initial }) {
-  const description = getDescription({ initial, task })
+  const taskA = [initial, task].find(hasDescription)
 
-  if (typeof description !== 'string') {
+  if (!hasDescription(taskA)) {
     return
   }
 
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  watchTask.description = `${description} (watch mode)`
+  watchTask.description = `${taskA.description} (watch mode)`
 }
 
-const getDescription = function({ initial, task }) {
-  return [initial, task].map(getTaskDescription).find(Boolean)
-}
-
-const getTaskDescription = function({ description }) {
-  return description
+const hasDescription = function(task) {
+  return typeof task === 'function' && typeof task.description === 'string'
 }
 
 module.exports = {
