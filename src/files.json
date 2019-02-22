@@ -1,4 +1,5 @@
 {
+  "WARN": ["package-lock.json"],
   "CHECK": [
     "{index,register,gulpfile.babel}.js",
     "*.md",
