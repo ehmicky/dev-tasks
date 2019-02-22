@@ -30,6 +30,9 @@ const JSCPD_OPTS = {
   minLines: 1,
   maxLines: 5e3,
   minTokens: 35,
+  // The default store uses LevelDB which is slower and creates a `.jscpd/`
+  // folder. The `memory` store has issues with huge repositories though.
+  storeOptions: { '*': { type: 'memory' } },
 }
 
 module.exports = {
