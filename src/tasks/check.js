@@ -55,5 +55,4 @@ module.exports = {
   check,
   checkw,
   fullCheck,
-  jscpd,
 }
