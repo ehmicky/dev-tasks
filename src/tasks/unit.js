@@ -9,9 +9,9 @@ const { hasCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 const unit = async function() {
   const flags = getAvaFlags()
 
-  const shouldCoverage = await hasCoverage()
+  const shouldCover = await hasCoverage()
 
-  if (!shouldCoverage) {
+  if (!shouldCover) {
     return gulpExeca(`ava ${flags}`)
   }
 
@@ -20,6 +20,12 @@ const unit = async function() {
   )
 
   await uploadCoverage()
+}
+
+// Ava watch mode is better than using `gulp.watch()`
+const unitw = async function() {
+  const flags = getAvaFlags()
+  await gulpExeca(`ava -w ${flags}`)
 }
 
 // Workaround for https://github.com/istanbuljs/istanbuljs/issues/141
@@ -40,5 +46,6 @@ coverage.description = 'Check all source files are covered by tests'
 
 module.exports = {
   unit,
+  unitw,
   coverage,
 }
