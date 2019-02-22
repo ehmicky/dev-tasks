@@ -2,7 +2,7 @@
 
 const { platform } = require('process')
 
-const gulpExeca = require('../exec')
+const execa = require('../exec')
 
 const { hasCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
@@ -12,12 +12,17 @@ const unit = async function() {
   const shouldCover = await hasCoverage()
 
   if (!shouldCover) {
-    return gulpExeca(`ava ${flags}`)
+    return execa('ava', flags)
   }
 
-  await gulpExeca(
-    `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json ava ${flags}`,
-  )
+  await execa('nyc', [
+    '--reporter=lcov',
+    '--reporter=text',
+    '--reporter=html',
+    '--reporter=json',
+    'ava',
+    ...flags,
+  ])
 
   await uploadCoverage()
 }
@@ -28,7 +33,7 @@ unit.description = 'Run unit tests'
 // Ava watch mode is better than using `gulp.watch()`
 const unitw = async function() {
   const flags = getAvaFlags()
-  await gulpExeca(`ava -w ${flags}`)
+  await execa('ava', ['-w', ...flags])
 }
 
 // eslint-disable-next-line fp/no-mutation
@@ -37,10 +42,10 @@ unitw.description = 'Run unit tests (watch mode)'
 // Workaround for https://github.com/istanbuljs/istanbuljs/issues/141
 const getAvaFlags = function() {
   if (platform !== 'win32') {
-    return ''
+    return []
   }
 
-  return '--serial'
+  return ['--serial']
 }
 
 const coverage = checkCoverage

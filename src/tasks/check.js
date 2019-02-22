@@ -6,7 +6,7 @@ const gulpPrettier = require('gulp-prettier')
 const gulpIf = require('gulp-if')
 
 const { CHECK } = require('../files')
-const gulpExeca = require('../exec')
+const execa = require('../exec')
 const { getWatchTask } = require('../watch')
 
 const { jscpd } = require('./jscpd')
@@ -29,14 +29,15 @@ const isPrettified = function({ isPrettier }) {
 //   - `eslint` task is faster when not running in watch mode
 //   - `eslintWatch` task is faster when running in watch mode
 const eslint = function() {
-  const files = CHECK.map(escapePattern).join(' ')
-  return gulpExeca(
-    `eslint ${files} --ignore-path .gitignore --fix --cache --format codeframe --max-warnings 0 --report-unused-disable-directives`,
-  )
-}
-
-const escapePattern = function(pattern) {
-  return `"${pattern}"`
+  return execa('eslint', [
+    ...CHECK,
+    '--ignore-path=.gitignore',
+    '--fix',
+    '--cache',
+    '--format=codeframe',
+    '--max-warnings=0',
+    '--report-unused-disable-directives',
+  ])
 }
 
 const eslintWatch = function() {
@@ -76,4 +77,5 @@ const checkw = getWatchTask(CHECK, checkWatch, { initial: check })
 module.exports = {
   check,
   checkw,
+  eslint,
 }

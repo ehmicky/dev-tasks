@@ -11,7 +11,7 @@ const fastGlob = require('fast-glob')
 const fetch = require('cross-fetch')
 const PluginError = require('plugin-error')
 
-const gulpExeca = require('../exec')
+const execa = require('../exec')
 const { BUILD } = require('../files')
 
 // Only run test coverage on CI because it's slow.
@@ -30,19 +30,20 @@ const hasCoverage = async function() {
 const uploadCoverage = async function() {
   const tags = getCoverageTags()
 
-  await gulpExeca(
-    `curl -s https://codecov.io/bash > codecov && \
-      bash codecov -f coverage/coverage-final.json ${tags} -Z && \
-      rm codecov`,
-  )
+  const { stdout } = await execa('curl', ['-s', 'https://codecov.io/bash'], {
+    stdout: 'pipe',
+  })
+  await execa('bash', ['-c', stdout, `-f=${COVERAGE_PATH}`, ...tags, '-Z'])
 }
+
+const COVERAGE_PATH = 'coverage/coverage-final.json'
 
 // Tag test coverage with OS and Node.js version
 const getCoverageTags = function() {
   const os = PLATFORMS[platform()]
   // `codecov` only allows restricted characters
   const nodeVersion = `node_${version.replace(/\./gu, '_')}`
-  return [os, nodeVersion].map(getCoverageTag).join(' ')
+  return [os, nodeVersion].map(getCoverageTag)
 }
 
 const PLATFORMS = {

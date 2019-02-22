@@ -6,15 +6,36 @@ const PluginError = require('plugin-error')
 // Execute a shell command
 // To create a Gulp task, one should not use `bind()` as it removes
 // `Function.name`. Instead one should do `const taskName = () => exec(...)`
-const exec = async function(command, opts = {}) {
-  const optsA = addStdio({ opts })
+// We avoid `exec.shell()` as it leads to shell-specific input which is not
+// cross-platform.
+// We avoid using a single string as input and tokenizing it as it's difficult
+// with whitespaces escaping. Also escaping is shell-specific, e.g. on Windows
+// `cmd.exe` only use double quotes not single quotes.
+const exec = async function(command, args, opts) {
+  const [argsA, optsA] = parseArgs(args, opts)
+
+  const optsB = addStdio({ opts: optsA })
 
   try {
-    await execa.shell(command, optsA)
+    const result = await execa(command, argsA, optsB)
+    return result
   } catch (error) {
-    const message = getErrorMessage({ error, command })
+    const message = getErrorMessage({ error, command, args: argsA })
     throw new PluginError('gulp-execa', message)
   }
+}
+
+const parseArgs = function(args, opts) {
+  const [argsA = [], optsA = {}] = parseOptionalArgs(args, opts)
+  return [argsA, optsA]
+}
+
+const parseOptionalArgs = function(args, opts) {
+  if (typeof args === 'object' && !Array.isArray(args)) {
+    return [undefined, args]
+  }
+
+  return [args, opts]
 }
 
 // Default to piping shell stdin|stdout|stderr to console.
@@ -35,10 +56,12 @@ const addStdio = function({ opts }) {
 const getErrorMessage = function({
   error: { message, code, timedOut, signal },
   command,
+  args,
 }) {
+  const commandA = [command, ...args].join(' ')
   const description = getErrorDescription({ code, timedOut, signal })
   const trace = getErrorTrace({ message })
-  const messageB = `Command '${command}' ${description} ${trace}`
+  const messageB = `Command '${commandA}' ${description} ${trace}`
   return messageB
 }
 
