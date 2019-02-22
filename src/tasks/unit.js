@@ -22,11 +22,17 @@ const unit = async function() {
   await uploadCoverage()
 }
 
+// eslint-disable-next-line fp/no-mutation
+unit.description = 'Run unit tests'
+
 // Ava watch mode is better than using `gulp.watch()`
 const unitw = async function() {
   const flags = getAvaFlags()
   await gulpExeca(`ava -w ${flags}`)
 }
+
+// eslint-disable-next-line fp/no-mutation
+unitw.description = 'Run unit tests (watch mode)'
 
 // Workaround for https://github.com/istanbuljs/istanbuljs/issues/141
 const getAvaFlags = function() {
@@ -36,9 +42,6 @@ const getAvaFlags = function() {
 
   return '--serial'
 }
-
-// eslint-disable-next-line fp/no-mutation
-unit.description = 'Run unit tests'
 
 const coverage = checkCoverage
 // eslint-disable-next-line fp/no-mutation
