@@ -14,12 +14,20 @@ const PluginError = require('plugin-error')
 const createTask = function(command, args, opts) {
   const [argsA, optsA] = parseArgs(args, opts)
 
-  const task = exec.bind(null, command, argsA, optsA)
+  const task = execCommand.bind(null, command, argsA, optsA)
 
   setDisplayName({ task, command })
 
   return task
 }
+
+const exec = function(command, args, opts) {
+  const [argsA, optsA] = parseArgs(args, opts)
+  return execCommand(command, argsA, optsA)
+}
+
+// eslint-disable-next-line fp/no-mutation
+exec.task = createTask
 
 const parseArgs = function(args, opts) {
   const [argsA = [], optsA = {}] = parseOptionalArgs(args, opts)
@@ -49,7 +57,7 @@ const addStdio = function({ opts }) {
   return { stdin: 'inherit', stdout: 'inherit', stderr: 'inherit', ...opts }
 }
 
-const exec = async function(command, args, opts) {
+const execCommand = async function(command, args, opts) {
   try {
     return await execa(command, args, opts)
   } catch (error) {
@@ -57,9 +65,6 @@ const exec = async function(command, args, opts) {
     throw new PluginError('gulp-execa', message)
   }
 }
-
-// eslint-disable-next-line fp/no-mutation
-exec.task = createTask
 
 // Retrieve error message to print
 const getErrorMessage = function({
