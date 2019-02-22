@@ -31,10 +31,7 @@ const unit = async function() {
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-const unitw = async function() {
-  const flags = getAvaFlags()
-  await execa('ava', ['-w', ...flags])
-}
+const unitw = () => execa('ava', ['-w', ...getAvaFlags()])
 
 // eslint-disable-next-line fp/no-mutation
 unitw.description = 'Run unit tests (watch mode)'

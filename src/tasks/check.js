@@ -28,17 +28,15 @@ const isPrettified = function({ isPrettier }) {
 // This leads us to two use cases:
 //   - `eslint` task is faster when not running in watch mode
 //   - `eslintWatch` task is faster when running in watch mode
-const eslint = function() {
-  return execa('eslint', [
-    ...CHECK,
-    '--ignore-path=.gitignore',
-    '--fix',
-    '--cache',
-    '--format=codeframe',
-    '--max-warnings=0',
-    '--report-unused-disable-directives',
-  ])
-}
+const eslint = execa.task('eslint', [
+  ...CHECK,
+  '--ignore-path=.gitignore',
+  '--fix',
+  '--cache',
+  '--format=codeframe',
+  '--max-warnings=0',
+  '--report-unused-disable-directives',
+])
 
 const eslintWatch = function() {
   return src(CHECK, { dot: true, since: lastRun(eslintWatch) })
@@ -77,5 +75,4 @@ const checkw = getWatchTask(CHECK, checkWatch, { initial: check })
 module.exports = {
   check,
   checkw,
-  eslint,
 }

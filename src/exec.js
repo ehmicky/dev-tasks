@@ -11,23 +11,20 @@ const PluginError = require('plugin-error')
 // We avoid using a single string as input and tokenizing it as it's difficult
 // with whitespaces escaping. Also escaping is shell-specific, e.g. on Windows
 // `cmd.exe` only use double quotes not single quotes.
-const exec = async function(command, args, opts) {
+const createTask = function(command, args, opts) {
   const [argsA, optsA] = parseArgs(args, opts)
 
-  const optsB = addStdio({ opts: optsA })
+  const task = exec.bind(null, command, argsA, optsA)
 
-  try {
-    const result = await execa(command, argsA, optsB)
-    return result
-  } catch (error) {
-    const message = getErrorMessage({ error, command, args: argsA })
-    throw new PluginError('gulp-execa', message)
-  }
+  setDisplayName({ task, command })
+
+  return task
 }
 
 const parseArgs = function(args, opts) {
   const [argsA = [], optsA = {}] = parseOptionalArgs(args, opts)
-  return [argsA, optsA]
+  const optsB = addStdio({ opts: optsA })
+  return [argsA, optsB]
 }
 
 const parseOptionalArgs = function(args, opts) {
@@ -51,6 +48,18 @@ const addStdio = function({ opts }) {
 
   return { stdin: 'inherit', stdout: 'inherit', stderr: 'inherit', ...opts }
 }
+
+const exec = async function(command, args, opts) {
+  try {
+    return await execa(command, args, opts)
+  } catch (error) {
+    const message = getErrorMessage({ error, command, args })
+    throw new PluginError('gulp-execa', message)
+  }
+}
+
+// eslint-disable-next-line fp/no-mutation
+exec.task = createTask
 
 // Retrieve error message to print
 const getErrorMessage = function({
@@ -88,5 +97,16 @@ const getErrorTrace = function({ message }) {
 // `execa` adds a default error message that we don't want because it includes
 // full stdout|stderr, which should already printed on console
 const DEFAULT_MESSAGE = 'Command failed: '
+
+// We want to allow users to do `const task = execa(...)` instead of the
+// more verbose `const task = () => execa(...)`. This is especially
+// important when using `gulp.series()` or `gulp.parallel()`.
+// However after binding a function or using a closure, assigning it to
+// a variable does not change its `function.name` anymore. But this is
+// used by Gulp as the displayed task name. So we use the command instead.
+const setDisplayName = function({ task, command }) {
+  // eslint-disable-next-line fp/no-mutation, no-param-reassign
+  task.displayName = String(command)
+}
 
 module.exports = exec
