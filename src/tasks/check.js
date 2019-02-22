@@ -13,7 +13,13 @@ const { jscpd } = require('./jscpd')
 const format = () =>
   gulpExeca(`prettier --write --loglevel warn ${CHECK.join(' ')}`)
 
-// We do not use `gulp-eslint` because it does not support --cache
+// `gulp-eslint` does not support --cache
+// (https://github.com/adametry/gulp-eslint/issues/132)
+// `gulp.lastRun()` allows linting only modified files, which is 10 times faster
+// than using `eslint --cache`. However it does not persist the cache.
+// This leads us to two use cases:
+//   - `eslint` task is faster when not running in watch mode
+//   - `eslintWatch` task is faster when running in watch mode
 const eslint = function() {
   const files = CHECK.map(escapePattern).join(' ')
   return gulpExeca(
@@ -21,6 +27,7 @@ const eslint = function() {
   )
 }
 
+// eslint-disable-next-line no-unused-vars
 const eslintWatch = function() {
   return src(CHECK, { dot: true, since: lastRun(eslintWatch) })
     .pipe(
@@ -56,12 +63,8 @@ const check = parallel(lint, jscpd)
 check.description = 'Lint and check for code duplication'
 
 const checkw = getWatchTask(check, CHECK)
-const eslintw = getWatchTask(eslintWatch, CHECK)
 
 module.exports = {
   check,
   checkw,
-  eslint,
-  eslintWatch,
-  eslintw,
 }
