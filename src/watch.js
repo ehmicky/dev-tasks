@@ -1,7 +1,5 @@
 'use strict'
 
-const { promisify } = require('util')
-
 const { watch, parallel } = require('gulp')
 
 // Watch files to run a task.
@@ -11,17 +9,12 @@ const getWatchTask = function(
   files,
   { initial = true, ...watchOpts } = {},
 ) {
-  const watchTask = runWatch.bind(null, { task, files, watchOpts })
+  // We do not use `func.bind()` to make the task name `watchTask` instead
+  // of `bound watchTask`
+  const watchTask = () => watch(files, task, watchOpts)
   const watchTaskA = addInitial({ watchTask, task, initial })
   addDescription({ watchTask: watchTaskA, task, initial })
   return watchTaskA
-}
-
-const runWatch = async function({ task, files, watchOpts }) {
-  const watcher = watch(files, task, watchOpts)
-
-  // Wait for watching to be setup to mark the `watch` task as complete
-  await promisify(watcher.on.bind(watcher))('ready')
 }
 
 const addInitial = function({ watchTask, task, initial }) {
