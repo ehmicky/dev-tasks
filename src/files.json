@@ -1,11 +1,6 @@
 {
   "WARN": ["package-lock.json"],
-  "CHECK": [
-    "{index,register,gulpfile.babel}.js",
-    "*.md",
-    "src/**/*.{js,md}",
-    "{gulp,test}/**/*.js"
-  ],
+  "CHECK": ["*.{js,md}", "src/**/*.{js,md}", "{gulp,test}/**/*.js"],
   "BUILD": "src",
   "BUILD_DIST": "dist"
 }
