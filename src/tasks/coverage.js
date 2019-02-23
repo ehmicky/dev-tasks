@@ -16,6 +16,8 @@ const PluginError = require('plugin-error')
 const execa = require('../exec')
 const { BUILD } = require('../files')
 
+const COVERAGE_PATH = `${__dirname}/../../coverage/coverage-final.json`
+
 const pWriteFile = promisify(writeFile)
 const pUnlink = promisify(unlink)
 
@@ -39,11 +41,9 @@ const uploadCoverage = async function() {
     stdout: 'pipe',
   })
   await pWriteFile('codecov.sh', stdout)
-  await execa('bash', ['codecov.sh', `-f=${COVERAGE_PATH}`, ...tags, '-Z'])
+  await execa('bash', ['codecov.sh', '-f', COVERAGE_PATH, ...tags, '-Z'])
   await pUnlink('codecov.sh')
 }
-
-const COVERAGE_PATH = 'coverage/coverage-final.json'
 
 // Tag test coverage with OS and Node.js version
 const getCoverageTags = function() {
