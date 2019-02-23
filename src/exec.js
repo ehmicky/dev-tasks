@@ -2,6 +2,8 @@
 
 const execa = require('execa')
 const PluginError = require('plugin-error')
+const fancyLog = require('fancy-log')
+const { cyan } = require('chalk')
 
 // Execute a shell command
 // To create a Gulp task, one should not use `bind()` as it removes
@@ -58,24 +60,38 @@ const addStdio = function({ opts }) {
 }
 
 const execCommand = async function(command, args, opts) {
+  const commandStr = stringifyCommand({ command, args })
+
+  printEcho({ commandStr, opts })
+
   try {
     return await execa(command, args, opts)
   } catch (error) {
-    const message = getErrorMessage({ error, command, args })
+    const message = getErrorMessage({ error, commandStr })
     throw new PluginError('gulp-execa', message)
   }
+}
+
+const stringifyCommand = function({ command, args }) {
+  return [command, ...args].join(' ')
+}
+
+const printEcho = function({ commandStr, opts: { echo = false } }) {
+  if (!echo) {
+    return
+  }
+
+  fancyLog(cyan.dim(commandStr))
 }
 
 // Retrieve error message to print
 const getErrorMessage = function({
   error: { message, code, timedOut, signal },
-  command,
-  args,
+  commandStr,
 }) {
-  const commandA = [command, ...args].join(' ')
   const description = getErrorDescription({ code, timedOut, signal })
   const trace = getErrorTrace({ message })
-  const messageB = `Command '${commandA}' ${description} ${trace}`
+  const messageB = `Command '${commandStr}' ${description} ${trace}`
   return messageB
 }
 
