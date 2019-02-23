@@ -1,9 +1,14 @@
 'use strict'
 
+const {
+  constants: { errno },
+} = require('os')
+
 const execa = require('execa')
 const PluginError = require('plugin-error')
 const fancyLog = require('fancy-log')
 const { cyan } = require('chalk')
+const ms = require('ms')
 
 // Execute a shell command
 // To create a Gulp task, one should not use `bind()` as it removes
@@ -67,7 +72,7 @@ const execCommand = async function(command, args, opts) {
   try {
     return await execa(command, args, opts)
   } catch (error) {
-    const message = getErrorMessage({ error, commandStr })
+    const message = getErrorMessage({ error, commandStr, opts })
     throw new PluginError('gulp-execa', message)
   }
 }
@@ -88,26 +93,34 @@ const printEcho = function({ commandStr, opts: { echo = false } }) {
 const getErrorMessage = function({
   error: { message, code, timedOut, signal },
   commandStr,
+  opts,
 }) {
-  const description = getErrorDescription({ code, timedOut, signal })
-  const trace = getErrorTrace({ message })
-  const messageB = `Command '${commandStr}' ${description} ${trace}`
-  return messageB
+  const description = getErrorDescription({ code, timedOut, signal, opts })
+  const stack = getErrorStack({ message })
+  const messageA = `Command '${commandStr}' ${description}${stack}`
+  return messageA
 }
 
-const getErrorDescription = function({ code, timedOut, signal }) {
+const getErrorDescription = function({
+  code,
+  timedOut,
+  signal,
+  opts: { timeout },
+}) {
   if (timedOut) {
-    return 'timed out'
+    const timeoutStr = ms(timeout, { long: true })
+    return `timed out after ${timeoutStr}`
   }
 
   if (signal !== null) {
     return `was killed with ${signal}`
   }
 
-  return `failed with exit code ${code}`
+  const codeA = getExitCode({ code })
+  return `failed with exit code ${codeA}`
 }
 
-const getErrorTrace = function({ message }) {
+const getErrorStack = function({ message }) {
   if (message.startsWith(DEFAULT_MESSAGE)) {
     return ''
   }
@@ -118,6 +131,22 @@ const getErrorTrace = function({ message }) {
 // `execa` adds a default error message that we don't want because it includes
 // full stdout|stderr, which should already printed on console
 const DEFAULT_MESSAGE = 'Command failed: '
+
+// Retrieve exit code both as a number and as a string
+const getExitCode = function({ code }) {
+  // `execa` already tried to retrieve the exit code name
+  if (Number.isInteger(code)) {
+    return `${code}`
+  }
+
+  const codeNum = errno[code]
+
+  if (codeNum === undefined) {
+    return code
+  }
+
+  return `${codeNum} (${code})`
+}
 
 // We want to allow users to do `const task = execa(...)` instead of the
 // more verbose `const task = () => execa(...)`. This is especially
