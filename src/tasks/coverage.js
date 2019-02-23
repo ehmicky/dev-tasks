@@ -5,8 +5,6 @@ const {
   env: { TRAVIS_REPO_SLUG, TRAVIS_COMMIT },
 } = require('process')
 const { platform } = require('os')
-const { writeFile, unlink } = require('fs')
-const { promisify } = require('util')
 
 const isCi = require('is-ci')
 const fastGlob = require('fast-glob')
@@ -18,9 +16,6 @@ const { BUILD } = require('../files')
 
 // Run in Bash, i.e. should use slashes even on Windows
 const COVERAGE_PATH = 'coverage/coverage-final.json'
-
-const pWriteFile = promisify(writeFile)
-const pUnlink = promisify(unlink)
 
 // Only run test coverage on CI because it's slow.
 // Also do not run it on repositories without source code, e.g. with only
@@ -38,13 +33,13 @@ const hasCoverage = async function() {
 const uploadCoverage = async function() {
   const tags = getCoverageTags()
 
-  const { stdout } = await execa('curl', ['-s', 'https://codecov.io/bash'], {
-    stdout: 'pipe',
+  const { body } = await fetch(CODECOV_SCRIPT)
+  await execa('bash', ['-s', '-f', COVERAGE_PATH, ...tags, '-Z'], {
+    input: body,
   })
-  await pWriteFile('codecov.sh', stdout)
-  await execa('bash', ['codecov.sh', '-f', COVERAGE_PATH, ...tags, '-Z'])
-  await pUnlink('codecov.sh')
 }
+
+const CODECOV_SCRIPT = 'https://codecov.io/bash'
 
 // Tag test coverage with OS and Node.js version
 const getCoverageTags = function() {
