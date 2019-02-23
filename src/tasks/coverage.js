@@ -4,6 +4,7 @@ const {
   version,
   env: { TRAVIS_REPO_SLUG, TRAVIS_COMMIT },
 } = require('process')
+const { normalize } = require('path')
 const { platform } = require('os')
 const { writeFile, unlink } = require('fs')
 const { promisify } = require('util')
@@ -14,9 +15,10 @@ const fetch = require('cross-fetch')
 const PluginError = require('plugin-error')
 
 const execa = require('../exec')
+// eslint-disable-next-line import/max-dependencies
 const { BUILD } = require('../files')
 
-const COVERAGE_PATH = `${__dirname}/../../coverage/coverage-final.json`
+const COVERAGE_PATH = normalize('coverage/coverage-final.json')
 
 const pWriteFile = promisify(writeFile)
 const pUnlink = promisify(unlink)
