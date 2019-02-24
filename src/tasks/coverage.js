@@ -12,7 +12,7 @@ const fetch = require('cross-fetch')
 const PluginError = require('plugin-error')
 
 const { exec } = require('../exec')
-const { BUILD_SRC } = require('../files')
+const { JAVASCRIPT_SRC } = require('../files')
 
 // Run in Bash, i.e. should use slashes even on Windows
 const COVERAGE_PATH = 'coverage/coverage-final.json'
@@ -25,7 +25,7 @@ const hasCoverage = async function() {
     return false
   }
 
-  const files = await fastGlob(`${BUILD_SRC}/**.js`)
+  const files = await fastGlob(JAVASCRIPT_SRC)
   return files.length !== 0
 }
 

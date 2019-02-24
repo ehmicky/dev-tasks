@@ -5,14 +5,17 @@ const gulpEslint = require('gulp-eslint')
 const gulpPrettier = require('gulp-prettier')
 const gulpIf = require('gulp-if')
 
-const { CHECK } = require('../files')
+const { JAVASCRIPT, MARKDOWN } = require('../files')
 const { task } = require('../exec')
 const { getWatchTask } = require('../watch')
 
 const { jscpd } = require('./jscpd')
 
 const prettier = function() {
-  return src(CHECK, { dot: true, since: lastRun(prettier) })
+  return src([...JAVASCRIPT, ...MARKDOWN], {
+    dot: true,
+    since: lastRun(prettier),
+  })
     .pipe(gulpPrettier({ loglevel: 'warn' }))
     .pipe(gulpIf(isPrettified, dest(getFileBase)))
 }
@@ -29,7 +32,8 @@ const isPrettified = function({ isPrettier }) {
 //   - `eslint` task is faster when not running in watch mode
 //   - `eslintWatch` task is faster when running in watch mode
 const eslint = task('eslint', [
-  ...CHECK,
+  ...JAVASCRIPT,
+  ...MARKDOWN,
   '--ignore-path=.gitignore',
   '--fix',
   '--cache',
@@ -39,7 +43,10 @@ const eslint = task('eslint', [
 ])
 
 const eslintWatch = function() {
-  return src(CHECK, { dot: true, since: lastRun(eslintWatch) })
+  return src([...JAVASCRIPT, ...MARKDOWN], {
+    dot: true,
+    since: lastRun(eslintWatch),
+  })
     .pipe(
       gulpEslint({
         ignorePath: '.gitignore',
@@ -70,7 +77,9 @@ const checkWatch = parallel(lintWatch, jscpd)
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint and check for code issues'
 
-const checkw = getWatchTask(CHECK, checkWatch, { initial: check })
+const checkw = getWatchTask([...JAVASCRIPT, ...MARKDOWN], checkWatch, {
+  initial: check,
+})
 
 module.exports = {
   check,

@@ -4,12 +4,12 @@ const { JSCPD } = require('jscpd')
 const fastGlob = require('fast-glob')
 const PluginError = require('plugin-error')
 
-const { CHECK } = require('../files')
+const { JAVASCRIPT } = require('../files')
 
 // Must always run on all files even in watch mode, since code duplication
 // is cross-files.
 const jscpd = async () => {
-  const files = await fastGlob(CHECK)
+  const files = await fastGlob(JAVASCRIPT)
   const clones = await jscpdInstance.detectInFiles(files)
 
   if (clones.length === 0) {

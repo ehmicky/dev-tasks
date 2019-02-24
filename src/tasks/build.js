@@ -7,37 +7,34 @@ const {
 } = require('path')
 
 const { src, dest, series, parallel, lastRun } = require('gulp')
-const { include } = require('gulp-ignore')
 const gulpBabel = require('gulp-babel')
 const del = require('del')
 const yamlToJson = require('gulp-yaml')
 const mapSources = require('@gulp-sourcemaps/map-sources')
 
-const { BUILD_SRC, BUILD_DIST } = require('../files')
+const { SRC, DIST, JAVASCRIPT_SRC, YAML_SRC } = require('../files')
 const { getWatchTask } = require('../watch')
 
-const clean = () => del(BUILD_DIST)
+const clean = () => del(DIST)
 
 const copy = () =>
-  src([`${BUILD_SRC}/**`, `!${BUILD_SRC}/**/*.{y{,a}ml,js,ts,jsx,tsx}`], {
+  src([`${SRC}/**`, `!${JAVASCRIPT_SRC}`, `!${YAML_SRC}`], {
     dot: true,
     since: lastRun(copy),
-  }).pipe(dest(BUILD_DIST))
+  }).pipe(dest(DIST))
 
 const babel = () =>
-  src(`${BUILD_SRC}/**`, { dot: true, since: lastRun(babel), sourcemaps: true })
-    .pipe(include(/\.(js)$/u))
+  src(JAVASCRIPT_SRC, { dot: true, since: lastRun(babel), sourcemaps: true })
     .pipe(gulpBabel({ comments: false, minified: true, retainLines: true }))
     .pipe(mapSources(path => `${sourceRoot}/${path}`))
-    .pipe(dest(BUILD_DIST, { sourcemaps: '.' }))
+    .pipe(dest(DIST, { sourcemaps: '.' }))
 
-const sourceRoot = relative(BUILD_DIST, BUILD_SRC)
+const sourceRoot = relative(DIST, SRC)
 
 const yaml = () =>
-  src(`${BUILD_SRC}/**`, { dot: true, since: lastRun(yaml) })
-    .pipe(include(/\.ya?ml$/u))
+  src(YAML_SRC, { dot: true, since: lastRun(yaml) })
     .pipe(yamlToJson({ schema: 'JSON_SCHEMA', space: 2 }))
-    .pipe(dest(BUILD_DIST))
+    .pipe(dest(DIST))
 
 const rebuild = parallel(copy, babel, yaml)
 const build = series(clean, rebuild)
@@ -45,7 +42,7 @@ const build = series(clean, rebuild)
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build the application'
 
-const buildw = getWatchTask(BUILD_SRC, rebuild, { initial: build })
+const buildw = getWatchTask(SRC, rebuild, { initial: build })
 
 module.exports = {
   build,

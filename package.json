@@ -57,7 +57,6 @@
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^5.0.0",
     "gulp-if": "^2.0.2",
-    "gulp-ignore": "^2.0.2",
     "gulp-prettier": "^2.1.0",
     "gulp-yaml": "^2.0.3",
     "is-ci": "^2.0.0",

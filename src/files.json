@@ -1,6 +1,9 @@
 {
-  "WARN": ["package-lock.json"],
-  "CHECK": ["{,src,docs,examples/**/}*.{js,md}", "{gulp,test}/**/*.js"],
-  "BUILD_SRC": "src",
-  "BUILD_DIST": "dist"
+  "SRC": "src",
+  "DIST": "dist",
+  "JAVASCRIPT": ["{,src/**/,docs/**/,examples/**/,gulp/**/,test/**/}*.js"],
+  "JAVASCRIPT_SRC": ["src/**/*.js"],
+  "MARKDOWN": ["{,src/**/,docs/**/,examples/**/}*.md"],
+  "YAML_SRC": ["src/**/*.y{,a}ml"],
+  "DEPENDENCIES": ["package-lock.json"]
 }
