@@ -1,6 +1,6 @@
 {
   "name": "gulp-shared-tasks",
-  "version": "0.7.7",
+  "version": "0.8.0",
   "main": "index.js",
   "files": [
     "dist",
