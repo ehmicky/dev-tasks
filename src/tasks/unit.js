@@ -2,7 +2,7 @@
 
 const { platform } = require('process')
 
-const execa = require('../exec')
+const { exec } = require('../exec')
 
 const { hasCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
@@ -12,10 +12,10 @@ const unit = async function() {
   const shouldCover = await hasCoverage()
 
   if (!shouldCover) {
-    return execa('ava', flags)
+    return exec('ava', flags)
   }
 
-  await execa('nyc', [
+  await exec('nyc', [
     '--reporter=lcov',
     '--reporter=text',
     '--reporter=html',
@@ -31,7 +31,7 @@ const unit = async function() {
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-const unitw = () => execa('ava', ['-w', ...getAvaFlags()])
+const unitw = () => exec('ava', ['-w', ...getAvaFlags()])
 
 // eslint-disable-next-line fp/no-mutation
 unitw.description = 'Run unit tests (watch mode)'

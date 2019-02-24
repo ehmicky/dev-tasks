@@ -2,22 +2,22 @@
 
 const { parallel } = require('gulp')
 
-const execa = require('../exec')
+const { exec } = require('../exec')
 const { WARN } = require('../files')
 const { getWatchTask } = require('../watch')
 
 const audit = async () => {
   // Older `npm` versions do not have this command
   try {
-    await execa('npm', ['audit', '-h'], { stdout: 'ignore' })
+    await exec('npm', ['audit', '-h'], { stdout: 'ignore' })
   } catch {
     return
   }
 
-  await execa('npm', ['audit'], { stdout: 'ignore' })
+  await exec('npm', ['audit'], { stdout: 'ignore' })
 }
 
-const outdated = () => execa('npm', ['outdated'])
+const outdated = () => exec('npm', ['outdated'])
 
 const warn = parallel(audit, outdated)
 

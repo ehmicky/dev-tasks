@@ -11,7 +11,7 @@ const fastGlob = require('fast-glob')
 const fetch = require('cross-fetch')
 const PluginError = require('plugin-error')
 
-const execa = require('../exec')
+const { exec } = require('../exec')
 const { BUILD } = require('../files')
 
 // Run in Bash, i.e. should use slashes even on Windows
@@ -34,7 +34,7 @@ const uploadCoverage = async function() {
   const tags = getCoverageTags()
 
   const { body } = await fetch(CODECOV_SCRIPT)
-  await execa('bash', ['-s', '-f', COVERAGE_PATH, ...tags, '-Z'], {
+  await exec('bash', ['-s', '-f', COVERAGE_PATH, ...tags, '-Z'], {
     input: body,
   })
 }
