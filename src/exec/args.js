@@ -4,7 +4,10 @@
 const parseArgs = function(args, opts) {
   const [argsA = [], optsA = {}] = parseOptionalArgs(args, opts)
   const optsB = addStdio({ opts: optsA })
-  return [argsA, optsB]
+  // `shell` option encourages shell-specific syntax like globbing or
+  // variables expansion
+  const optsC = { ...optsB, shell: false }
+  return [argsA, optsC]
 }
 
 const parseOptionalArgs = function(args, opts) {
