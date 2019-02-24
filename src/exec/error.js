@@ -8,8 +8,8 @@ const PluginError = require('plugin-error')
 const ms = require('ms')
 
 // Throw a Gulp error
-const throwError = function(message) {
-  throw new PluginError('gulp-execa', message)
+const getError = function(message) {
+  return new PluginError('gulp-execa', message)
 }
 
 // Retrieve error message to print
@@ -74,6 +74,6 @@ const getExitCode = function({ code }) {
 }
 
 module.exports = {
-  throwError,
+  getError,
   getErrorMessage,
 }
