@@ -9,7 +9,7 @@ const { unit } = require('./unit')
 const testTask = series(build, check, unit)
 
 // eslint-disable-next-line fp/no-mutation
-testTask.description = 'Lint and test source files'
+testTask.description = 'Build, lint and test source files'
 
 module.exports = {
   test: testTask,

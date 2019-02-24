@@ -1,8 +1,8 @@
 'use strict'
 
 module.exports = {
-  ...require('./build'),
   ...require('./test'),
+  ...require('./build'),
   ...require('./check'),
   ...require('./unit'),
   ...require('./warn'),

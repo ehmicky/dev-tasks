@@ -40,7 +40,7 @@ const rebuild = parallel(copy, babel, yaml)
 const build = series(clean, rebuild)
 
 // eslint-disable-next-line fp/no-mutation
-build.description = 'Build the application'
+build.description = 'Build source files'
 
 const buildw = getWatchTask(SRC, rebuild, { initial: build })
 

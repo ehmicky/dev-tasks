@@ -47,7 +47,7 @@ const getAvaFlags = function() {
 
 const coverage = checkCoverage
 // eslint-disable-next-line fp/no-mutation
-coverage.description = 'Check all source files are covered by tests'
+coverage.description = 'Ensure source files are fully covered by tests'
 
 module.exports = {
   unit,
