@@ -6,7 +6,7 @@ const gulpPrettier = require('gulp-prettier')
 const gulpIf = require('gulp-if')
 
 const { CHECK } = require('../files')
-const execa = require('../exec')
+const { task } = require('../exec')
 const { getWatchTask } = require('../watch')
 
 const { jscpd } = require('./jscpd')
@@ -28,7 +28,7 @@ const isPrettified = function({ isPrettier }) {
 // This leads us to two use cases:
 //   - `eslint` task is faster when not running in watch mode
 //   - `eslintWatch` task is faster when running in watch mode
-const eslint = execa.task('eslint', [
+const eslint = task('eslint', [
   ...CHECK,
   '--ignore-path=.gitignore',
   '--fix',
