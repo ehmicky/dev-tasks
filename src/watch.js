@@ -7,6 +7,7 @@ const {
 } = require('process')
 
 const { watch, parallel } = require('gulp')
+const asyncDone = require('async-done')
 const Nodemon = require('nodemon')
 
 // Watch files to run a task.
@@ -69,10 +70,21 @@ const addInitial = function({ watchTask, task, initial }) {
   }
 
   if (initial === true) {
-    return parallel(task, watchTask)
+    return parallel(allowInitialFailure(task), watchTask)
   }
 
-  return parallel(initial, watchTask)
+  return parallel(allowInitialFailure(initial), watchTask)
+}
+
+// If the initial task fails, make initial run still succeeds so that watching
+// keeps running
+const allowInitialFailure = function(func) {
+  // eslint-disable-next-line promise/prefer-await-to-callbacks
+  const funcA = cb => asyncDone(func, () => cb())
+
+  // eslint-disable-next-line fp/no-mutation
+  funcA.displayName = 'initial'
+  return funcA
 }
 
 const addDescription = function({ watchTask, task, initial }) {
