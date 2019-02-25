@@ -12,10 +12,16 @@ const { getError } = require('./error')
 // call to those functions would be more efficient that creating lots of
 // child processes through streaming.
 const execStream = function(mapFunc, opts) {
-  // Without `stdio: pipe`, `vinyl.exec` does not get `stdout|stderr` properties
-  const optsA = { stdio: 'pipe', ...opts }
+  const optsA = { ...DEFAULT_OPTS, ...opts }
 
   return through.obj(execVinyl.bind(null, { mapFunc, opts: optsA }))
+}
+
+const DEFAULT_OPTS = {
+  // Without `stdio: pipe`, `vinyl.exec` does not get `stdout|stderr` properties
+  stdio: 'pipe',
+  // Prevents echoing by default because it would be done too many times
+  echo: false,
 }
 
 // eslint-disable-next-line max-params, promise/prefer-await-to-callbacks

@@ -1,5 +1,7 @@
 'use strict'
 
+const isCi = require('is-ci')
+
 // Parse main arguments and options
 const parseOpts = function(opts) {
   const optsA = { ...DEFAULT_OPTS, ...opts }
@@ -10,7 +12,11 @@ const parseOpts = function(opts) {
   return optsC
 }
 
-const DEFAULT_OPTS = { echo: false }
+const DEFAULT_OPTS = {
+  // We default `opts.echo` to `false` for less verbosity.
+  // However on CI we want to be verbose.
+  echo: isCi,
+}
 
 // Default to piping shell stdin|stdout|stderr to console.
 const addStdio = function({ opts }) {
