@@ -1,9 +1,8 @@
 'use strict'
 
 const execa = require('execa')
-const fancyLog = require('fancy-log')
-const { cyan } = require('chalk')
 
+const { printEcho } = require('./echo')
 const { splitInput } = require('./split')
 const { getError, getErrorMessage } = require('./error')
 
@@ -19,15 +18,6 @@ const execCommand = async function(input, opts) {
     const message = getErrorMessage({ error, input, opts })
     throw getError(message)
   }
-}
-
-// If `opts.echo` is `true` echo the command on the terminal
-const printEcho = function({ input, opts: { echo = false } }) {
-  if (!echo) {
-    return
-  }
-
-  fancyLog(cyan.dim(input))
 }
 
 module.exports = {
