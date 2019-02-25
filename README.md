@@ -114,6 +114,8 @@ module such as
 
 Custom Gulp tasks can be specified using a `gulp` top-level folder:
 
+<!-- eslint-disable node/no-unpublished-require -->
+
 ```js
 'use strict'
 
