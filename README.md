@@ -12,15 +12,18 @@ workflow using
 [codecov](https://codecov.io/) and
 [YAML](https://en.wikipedia.org/wiki/YAML).
 
+[Gulp](https://gulpjs.com/) is a task runner automating build tasks like
+linting, testing or compiling.
+
 # Usage
 
-After cloning the repository, install dependencies with:
+First clone the repository. Then run:
 
 ```bash
 npm install
 ```
 
-You can now run any task using `gulp` for example:
+Any task can now be run using `gulp` for example:
 
 ```bash
 gulp build
@@ -71,17 +74,16 @@ Run unit tests with [Ava](https://github.com/avajs/ava).
 
 If run in CI ([Travis](https://travis-ci.org/)) tests coverage is performed with
 [nyc](https://github.com/istanbuljs/nyc) and uploaded to
-[codecov](https://codecov.io/). If the repositories does not have any JavaScript
-source files, no tests coverage is performed.
+[codecov](https://codecov.io/). This is not performed if the repository does not
+have any JavaScript source files.
 
 ## `gulp test`
 
 Runs [`gulp build`](#gulpbuild) then [`gulp check`](#gulpcheck) then
 [`gulp unit`](#gulpunit).
 
-This is performed on CI ([Travis](https://travis-ci.org/)) for each supported
-Node.js version (see the `package.json` `engines.node` field) and OS (Windows,
-Mac, Linux).
+This is performed on CI ([Travis](https://travis-ci.org/)) for each OS (Windows,
+Mac, Linux) and supported Node.js version.
 
 ## `gulp warn`
 
@@ -113,8 +115,8 @@ changing the Gulp tasks themselves.
 
 # Add to a new repository
 
-To add to a new repository copy the setup from other repositories using this
-module such as
+To add to a new repository copy the relevant top-level files and dependencies
+from other repositories using this module such as
 [`log-process-errors`](https://github.com/ehmicky/log-process-errors).
 
 Custom Gulp tasks can be specified using a `gulp` top-level folder:
