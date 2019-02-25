@@ -20,8 +20,13 @@ After cloning the repository, install dependencies with:
 npm install
 ```
 
-Run any task using `gulp` followed by the task name. If you're on Windows
-`cmd.exe` use `npx gulp` instead.
+You can now run any task using `gulp` for example:
+
+```bash
+gulp build
+```
+
+If you're on Windows `cmd.exe` use `npx gulp ...` instead.
 
 # Overview
 
