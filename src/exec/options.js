@@ -1,13 +1,16 @@
 'use strict'
 
 // Parse main arguments and options
-const parseOpts = function(opts = {}) {
-  const optsA = addStdio({ opts })
+const parseOpts = function(opts) {
+  const optsA = { ...DEFAULT_OPTS, ...opts }
+  const optsB = addStdio({ opts: optsA })
   // `shell` option encourages shell-specific syntax like globbing or
   // variables expansion
-  const optsB = { ...optsA, shell: false }
-  return optsB
+  const optsC = { ...optsB, shell: false }
+  return optsC
 }
+
+const DEFAULT_OPTS = { echo: false }
 
 // Default to piping shell stdin|stdout|stderr to console.
 const addStdio = function({ opts }) {
