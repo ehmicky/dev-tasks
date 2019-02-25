@@ -18,9 +18,12 @@ const execStream = function(mapFunc, opts) {
 }
 
 const DEFAULT_OPTS = {
-  // Without `stdio: pipe`, `vinyl.exec` does not get `stdout|stderr` properties
-  stdio: 'pipe',
-  // Prevents echoing by default because it would be done too many times
+  // Without `pipe`, `vinyl.exec` does not get `stdout|stderr` properties.
+  // Also we do not want to print to console by default because it would be
+  // done on each iteration.
+  stdout: 'pipe',
+  stderr: 'pipe',
+  // Prevents echoing by default because it would be done on each iteration.
   echo: false,
 }
 
