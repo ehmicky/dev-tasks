@@ -9,7 +9,8 @@ const printEcho = function({ input, opts: { echo = false } }) {
     return
   }
 
-  fancyLog(cyan.dim(input))
+  const inputA = cyan.dim(input)
+  fancyLog(inputA)
 }
 
 module.exports = {
