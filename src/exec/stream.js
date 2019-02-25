@@ -21,9 +21,9 @@ const execStream = function(mapFunc, opts) {
 // eslint-disable-next-line max-params, promise/prefer-await-to-callbacks
 const execVinyl = async function({ mapFunc, opts }, file, encoding, cb) {
   try {
-    const command = mapFunc(file)
+    const input = mapFunc(file)
 
-    const result = await exec(command, opts)
+    const result = await fireCommand({ input, opts })
 
     addToVinyl({ file, result })
 
@@ -34,6 +34,16 @@ const execVinyl = async function({ mapFunc, opts }, file, encoding, cb) {
     // eslint-disable-next-line promise/prefer-await-to-callbacks
     return cb(errorA)
   }
+}
+
+const fireCommand = function({ input, opts }) {
+  // Returning `undefined` or invalid command skips it silently.
+  // `file.exec` array will be pushed with `undefined`.
+  if (typeof input !== 'string' || input.trim() === '') {
+    return
+  }
+
+  return exec(input, opts)
 }
 
 const addToVinyl = function({ file, result }) {
