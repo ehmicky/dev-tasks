@@ -115,7 +115,6 @@ module such as
 Custom Gulp tasks can be specified using a `gulp` top-level folder:
 
 ```js
-// eslint-disable-next-line filenames/match-regex
 'use strict'
 
 module.exports = {
