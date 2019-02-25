@@ -1,15 +1,16 @@
 'use strict'
 
-const { parseArgs } = require('./args')
+const { parseOpts } = require('./options')
 const { execCommand } = require('./command')
+const { splitInput } = require('./split')
 
 // Create a Gulp task
-const createTask = function(command, args, opts) {
-  const [argsA, optsA] = parseArgs(args, opts)
+const createTask = function(input, opts) {
+  const optsA = parseOpts(opts)
 
-  const task = execCommand.bind(null, command, argsA, optsA)
+  const task = execCommand.bind(null, input, optsA)
 
-  setDisplayName({ task, command })
+  setDisplayName({ task, input })
 
   return task
 }
@@ -20,7 +21,8 @@ const createTask = function(command, args, opts) {
 // However after binding a function or using a closure, assigning it to
 // a variable does not change its `function.name` anymore. But this is
 // used by Gulp as the displayed task name. So we use the command instead.
-const setDisplayName = function({ task, command }) {
+const setDisplayName = function({ task, input }) {
+  const { command } = splitInput({ input })
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
   task.displayName = String(command)
 }

@@ -1,6 +1,6 @@
 'use strict'
 
-const { parseArgs } = require('./args')
+const { parseOpts } = require('./options')
 const { execCommand } = require('./command')
 
 // Execute a shell command
@@ -11,9 +11,9 @@ const { execCommand } = require('./command')
 // We avoid using a single string as input and tokenizing it as it's difficult
 // with whitespaces escaping. Also escaping is shell-specific, e.g. on Windows
 // `cmd.exe` only use double quotes not single quotes.
-const exec = function(command, args, opts) {
-  const [argsA, optsA] = parseArgs(args, opts)
-  return execCommand(command, argsA, optsA)
+const exec = function(input, opts) {
+  const optsA = parseOpts(opts)
+  return execCommand(input, optsA)
 }
 
 module.exports = {

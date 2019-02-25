@@ -9,15 +9,15 @@ const { getWatchTask } = require('../watch')
 const audit = async () => {
   // Older `npm` versions do not have this command
   try {
-    await exec('npm', ['audit', '-h'], { stdout: 'ignore' })
+    await exec('npm audit -h', { stdout: 'ignore' })
   } catch {
     return
   }
 
-  await exec('npm', ['audit'], { stdout: 'ignore' })
+  await exec('npm audit', { stdout: 'ignore' })
 }
 
-const outdated = () => exec('npm', ['outdated'])
+const outdated = () => exec('npm outdated')
 
 const warn = parallel(audit, outdated)
 

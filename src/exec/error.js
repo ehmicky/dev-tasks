@@ -15,12 +15,12 @@ const getError = function(message) {
 // Retrieve error message to print
 const getErrorMessage = function({
   error: { message, code, timedOut, signal },
-  commandStr,
+  input,
   opts,
 }) {
   const description = getErrorDescription({ code, timedOut, signal, opts })
   const stack = getErrorStack({ message })
-  const messageA = `Command '${commandStr}' ${description}${stack}`
+  const messageA = `Command '${input}' ${description}${stack}`
   return messageA
 }
 

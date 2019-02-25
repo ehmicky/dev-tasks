@@ -21,9 +21,9 @@ const execStream = function(mapFunc, opts) {
 // eslint-disable-next-line max-params, promise/prefer-await-to-callbacks
 const execVinyl = async function({ mapFunc, opts }, file, encoding, cb) {
   try {
-    const [command, args] = mapFunc(file)
+    const command = mapFunc(file)
 
-    const result = await exec(command, args, opts)
+    const result = await exec(command, opts)
 
     addToVinyl({ file, result })
 

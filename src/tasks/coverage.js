@@ -34,9 +34,7 @@ const uploadCoverage = async function() {
   const tags = getCoverageTags()
 
   const { body } = await fetch(CODECOV_SCRIPT)
-  await exec('bash', ['-s', '-f', COVERAGE_PATH, ...tags, '-Z'], {
-    input: body,
-  })
+  await exec(`bash -s -f ${COVERAGE_PATH} ${tags} -Z`, { input: body })
 }
 
 const CODECOV_SCRIPT = 'https://codecov.io/bash'
@@ -46,7 +44,7 @@ const getCoverageTags = function() {
   const os = PLATFORMS[platform()]
   // `codecov` only allows restricted characters
   const nodeVersion = `node_${version.replace(/\./gu, '_')}`
-  return [os, nodeVersion].map(getCoverageTag)
+  return [os, nodeVersion].map(getCoverageTag).join(' ')
 }
 
 const PLATFORMS = {

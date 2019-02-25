@@ -4,33 +4,30 @@ const execa = require('execa')
 const fancyLog = require('fancy-log')
 const { cyan } = require('chalk')
 
+const { splitInput } = require('./split')
 const { getError, getErrorMessage } = require('./error')
 
 // Fire the command with `execa()`
-const execCommand = async function(command, args, opts) {
-  const commandStr = stringifyCommand({ command, args })
+const execCommand = async function(input, opts) {
+  printEcho({ input, opts })
 
-  printEcho({ commandStr, opts })
+  const { command, args } = splitInput({ input })
 
   try {
     return await execa(command, args, opts)
   } catch (error) {
-    const message = getErrorMessage({ error, commandStr, opts })
+    const message = getErrorMessage({ error, input, opts })
     throw getError(message)
   }
 }
 
-const stringifyCommand = function({ command, args }) {
-  return [command, ...args].join(' ')
-}
-
 // If `opts.echo` is `true` echo the command on the terminal
-const printEcho = function({ commandStr, opts: { echo = false } }) {
+const printEcho = function({ input, opts: { echo = false } }) {
   if (!echo) {
     return
   }
 
-  fancyLog(cyan.dim(commandStr))
+  fancyLog(cyan.dim(input))
 }
 
 module.exports = {

@@ -31,16 +31,11 @@ const isPrettified = function({ isPrettier }) {
 // This leads us to two use cases:
 //   - `eslint` task is faster when not running in watch mode
 //   - `eslintWatch` task is faster when running in watch mode
-const eslint = task('eslint', [
-  ...JAVASCRIPT,
-  ...MARKDOWN,
-  '--ignore-path=.gitignore',
-  '--fix',
-  '--cache',
-  '--format=codeframe',
-  '--max-warnings=0',
-  '--report-unused-disable-directives',
-])
+const eslint = task(
+  `eslint ${JAVASCRIPT.join(' ')} ${MARKDOWN.join(
+    ' ',
+  )} --ignore-path=.gitignore --fix --cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
+)
 
 const eslintWatch = function() {
   return src([...JAVASCRIPT, ...MARKDOWN], {
