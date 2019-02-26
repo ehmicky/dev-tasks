@@ -1,11 +1,9 @@
 {
   "SRC": "src",
   "DIST": "dist",
-  "JAVASCRIPT": [
-    "{,src/,src/**/,docs/,docs/**/,examples/,examples/**/,gulp/,gulp/**/,test/,test/**/}*.js"
-  ],
+  "JAVASCRIPT": ["{,{src,docs,examples,gulp,test}/{,**/}}*.js"],
   "JAVASCRIPT_SRC": ["src/**/*.js"],
-  "MARKDOWN": ["{,src/,src/**/,docs/,docs/**/,examples/,examples/**/}*.md"],
+  "MARKDOWN": ["{,{src,docs,examples}/{,**/}}*.md"],
   "YAML_SRC": ["src/**/*.y{,a}ml"],
   "DEPENDENCIES": ["package-lock.json"]
 }
