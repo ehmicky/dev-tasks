@@ -3,9 +3,8 @@
 const { series } = require('gulp')
 const releaseIt = require('release-it')
 
-const { checkNodeVersion } = require('../version')
-
 const { test } = require('./test')
+const { checkVersions } = require('./version')
 
 const releaseItTask = async function(increment) {
   await releaseIt({ ...config, increment })
@@ -23,7 +22,7 @@ const config = {
   },
 }
 
-const prereleaseTasks = [checkNodeVersion, test]
+const prereleaseTasks = [checkVersions, test]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
