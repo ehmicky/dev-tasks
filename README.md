@@ -58,7 +58,7 @@ This is triggered by [`husky`](https://github.com/typicode/husky) before any
 
 ## `gulp unit`
 
-Run unit tests with [Ava](https://github.com/avajs/ava).
+Run unit tests (from the `test` folder) with [Ava](https://github.com/avajs/ava).
 
 If run in CI ([Travis](https://travis-ci.org/)) tests coverage is performed with
 [nyc](https://github.com/istanbuljs/nyc) and uploaded to
