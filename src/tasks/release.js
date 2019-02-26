@@ -3,6 +3,8 @@
 const { series } = require('gulp')
 const releaseIt = require('release-it')
 
+const { checkNodeVersion } = require('../version')
+
 const { test } = require('./test')
 
 const releaseItTask = async function(increment) {
@@ -21,21 +23,23 @@ const config = {
   },
 }
 
+const prereleaseTasks = [checkNodeVersion, test]
+
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
-const releaseMajor = series(test, releaseItMajor)
+const releaseMajor = series(...prereleaseTasks, releaseItMajor)
 
 // eslint-disable-next-line fp/no-mutation
 releaseMajor.description = 'Release a new major version x.*.*'
 
 const releaseItMinor = () => releaseItTask('minor')
-const releaseMinor = series(test, releaseItMinor)
+const releaseMinor = series(...prereleaseTasks, releaseItMinor)
 
 // eslint-disable-next-line fp/no-mutation
 releaseMinor.description = 'Release a new minor version *.x.*'
 
 const releaseItPatch = () => releaseItTask('patch')
-const releasePatch = series(test, releaseItPatch)
+const releasePatch = series(...prereleaseTasks, releaseItPatch)
 
 // eslint-disable-next-line fp/no-mutation
 releasePatch.description = 'Release a new patch version *.*.x'
