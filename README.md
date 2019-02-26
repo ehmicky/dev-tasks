@@ -22,8 +22,8 @@ If you're on `cmd.exe` (Windows) use `npx gulp ...` instead.
 
 # Overview
 
-- Use [`gulp build`](#gulpbuild) to build source files.
-- Run unit tests with [`gulp unit`](#gulpunit).
+- Use [`gulp build`](#gulp-build) to build source files.
+- Run unit tests with [`gulp unit`](#gulp-unit).
 - Before `git push`, `gulp check` will automatically be triggered and
   lint/format the JavaScript files.
 - Adding a `w` to `gulp build`, `gulp check` or `gulp unit` runs it in watch
@@ -67,8 +67,8 @@ have any JavaScript source files.
 
 ## `gulp test`
 
-Runs [`gulp build`](#gulpbuild) then [`gulp check`](#gulpcheck) then
-[`gulp unit`](#gulpunit).
+Runs [`gulp build`](#gulp-build) then [`gulp check`](#gulp-check) then
+[`gulp unit`](#gulp-unit).
 
 This is performed on CI ([Travis](https://travis-ci.org/)) for each OS (Windows,
 Mac, Linux) and supported Node.js version.
