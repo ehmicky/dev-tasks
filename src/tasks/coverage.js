@@ -15,6 +15,7 @@ const { exec } = require('../exec')
 const { JAVASCRIPT_SRC } = require('../files')
 
 // Run in Bash, i.e. should use slashes even on Windows
+const CODECOV_SCRIPT = `${__dirname}/codecov.sh`
 const COVERAGE_PATH = 'coverage/coverage-final.json'
 
 // Only run test coverage on CI because it's slow.
@@ -32,12 +33,8 @@ const hasCoverage = async function() {
 // Upload test coverage to codecov
 const uploadCoverage = async function() {
   const tags = getCoverageTags()
-
-  const { body } = await fetch(CODECOV_SCRIPT)
-  await exec(`bash -s -f ${COVERAGE_PATH} ${tags} -Z`, { input: body })
+  await exec(`bash ${CODECOV_SCRIPT} -f ${COVERAGE_PATH} ${tags} -Z`)
 }
-
-const CODECOV_SCRIPT = 'https://codecov.io/bash'
 
 // Tag test coverage with OS and Node.js version
 const getCoverageTags = function() {
