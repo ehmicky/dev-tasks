@@ -1,5 +1,6 @@
 {
   "SRC": "src",
+  "TEST": "test",
   "DIST": "dist",
   "JAVASCRIPT": ["{,{src,docs,examples,gulp,test}/{,**/}}*.js"],
   "MARKDOWN": ["{,{src,docs,examples}/{,**/}}*.md"],
