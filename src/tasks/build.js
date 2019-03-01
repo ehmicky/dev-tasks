@@ -18,7 +18,7 @@ const { getWatchTask } = require('../watch')
 const clean = () => del(DIST)
 
 const copy = () =>
-  src([`${SRC}/**`, `!${JAVASCRIPT_SRC}`, `!${YAML_SRC}`], {
+  src([`${SRC}/**/*[^~]`, `!${JAVASCRIPT_SRC}`, `!${YAML_SRC}`], {
     dot: true,
     since: lastRun(copy),
   }).pipe(dest(DIST))
