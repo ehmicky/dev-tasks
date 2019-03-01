@@ -2,8 +2,6 @@
   "SRC": "src",
   "DIST": "dist",
   "JAVASCRIPT": ["{,{src,docs,examples,gulp,test}/{,**/}}*.js"],
-  "JAVASCRIPT_SRC": ["src/**/*.js"],
   "MARKDOWN": ["{,{src,docs,examples}/{,**/}}*.md"],
-  "YAML_SRC": ["src/**/*.y{,a}ml"],
   "DEPENDENCIES": ["package-lock.json"]
 }

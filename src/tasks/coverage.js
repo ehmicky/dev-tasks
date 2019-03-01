@@ -12,7 +12,7 @@ const fetch = require('cross-fetch')
 const PluginError = require('plugin-error')
 
 const { exec } = require('../exec')
-const { JAVASCRIPT_SRC } = require('../files')
+const { SRC } = require('../files')
 
 // Run in Bash, i.e. should use slashes even on Windows
 const CODECOV_SCRIPT = `${__dirname}/codecov.sh`
@@ -26,7 +26,7 @@ const hasCoverage = async function() {
     return false
   }
 
-  const files = await fastGlob(JAVASCRIPT_SRC)
+  const files = await fastGlob(`${SRC}/**/*.js`)
   return files.length !== 0
 }
 
