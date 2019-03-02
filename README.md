@@ -35,7 +35,7 @@ If you're on `cmd.exe` (Windows) use `npx gulp ...` instead.
 
 ## `gulp build`
 
-Build source files from the `src` and `test` directories to the `dist` directory:
+Build source files from the `src` and `test` directories to the `build` directory:
 
 - JavaScript files are transpiled with [Babel](https://babeljs.io/) (see the
   [configuration file](.babelrc.js)).

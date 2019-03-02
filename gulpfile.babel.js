@@ -2,7 +2,7 @@
 'use strict'
 
 module.exports = {
-  // We do not use `dist` folder to avoid hard-to-debug problems due to
+  // We do not use `build` folder to avoid hard-to-debug problems due to
   // recursion
   ...require('./src'),
   ...require('./gulp'),
