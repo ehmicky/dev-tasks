@@ -12,11 +12,11 @@ const unit = async function() {
   const shouldCover = await hasCoverage()
 
   if (!shouldCover) {
-    return exec(`ava${flags}`)
+    return exec(`ava ${flags}`)
   }
 
   await exec(
-    `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json ava${flags}`,
+    `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json ava ${flags}`,
   )
 
   await uploadCoverage()
@@ -26,7 +26,7 @@ const unit = async function() {
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-const unitw = () => exec(`ava -w${getAvaFlags()}`)
+const unitw = () => exec(`ava -w ${getAvaFlags()}`)
 
 // eslint-disable-next-line fp/no-mutation
 unitw.description = 'Run unit tests (watch mode)'
@@ -37,7 +37,7 @@ const getAvaFlags = function() {
     return ''
   }
 
-  return ' --serial'
+  return '--serial'
 }
 
 const coverage = checkCoverage
