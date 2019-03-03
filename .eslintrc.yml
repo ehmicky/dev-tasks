@@ -1,6 +1,1 @@
 extends: eslint-config-standard-prettier-fp
-
-rules:
-  ava/no-ignored-test-files:
-    - 2
-    - files: [test/**/*.js]
