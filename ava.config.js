@@ -1,10 +1,7 @@
-// eslint-disable-next-line filenames/match-regex
 import { platform } from 'process'
 
-// eslint-disable-next-line import/no-internal-modules
 import files from './build/src/files'
 
-// eslint-disable-next-line import/no-default-export
 export default {
   files: [files.BUILD_TEST],
   // Otherwise tests are triggered in watch mode on `src` changes too,
