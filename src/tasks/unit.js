@@ -1,22 +1,18 @@
 'use strict'
 
-const { platform } = require('process')
-
 const { exec } = require('../exec')
 
 const { hasCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
 const unit = async function() {
-  const flags = getAvaFlags()
-
   const shouldCover = await hasCoverage()
 
   if (!shouldCover) {
-    return exec(`ava ${flags}`)
+    return exec('ava')
   }
 
   await exec(
-    `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json ava ${flags}`,
+    'nyc --reporter=lcov --reporter=text --reporter=html --reporter=json ava',
   )
 
   await uploadCoverage()
@@ -26,19 +22,10 @@ const unit = async function() {
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-const unitw = () => exec(`ava -w ${getAvaFlags()}`)
+const unitw = () => exec('ava -w')
 
 // eslint-disable-next-line fp/no-mutation
 unitw.description = 'Run unit tests (watch mode)'
-
-// Workaround for https://github.com/istanbuljs/istanbuljs/issues/141
-const getAvaFlags = function() {
-  if (platform !== 'win32') {
-    return ''
-  }
-
-  return '--serial'
-}
 
 const coverage = checkCoverage
 // eslint-disable-next-line fp/no-mutation

@@ -1,5 +1,7 @@
 'use strict'
 
+const { relative } = require('path')
+
 const { src, dest, series, parallel, lastRun } = require('gulp')
 const gulpBabel = require('gulp-babel')
 const del = require('del')
@@ -22,7 +24,7 @@ const copy = () =>
 const babel = () =>
   src(`${SOURCES}/*.js`, { dot: true, since: lastRun(babel), sourcemaps: true })
     .pipe(gulpBabel({ comments: false, minified: true, retainLines: true }))
-    .pipe(mapSources(path => `../../${path}`))
+    .pipe(mapSources(path => `${relative(path, '.')}/${path}`))
     .pipe(dest(BUILD, { sourcemaps: '.' }))
 
 const yaml = () =>
