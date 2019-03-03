@@ -22,7 +22,7 @@ If you're on `cmd.exe` (Windows) use `npx gulp ...` instead.
 
 # Overview
 
-- Use [`gulp build`](#gulp-build) to build source files.
+- Use [`gulp build`](#gulp-build) to build source files and test files.
 - Run unit tests with [`gulp unit`](#gulp-unit).
 - Before `git push`, `gulp check` will automatically be triggered and
   lint/format the JavaScript files.
@@ -35,12 +35,17 @@ If you're on `cmd.exe` (Windows) use `npx gulp ...` instead.
 
 ## `gulp build`
 
-Build source files from the `src` and `test` directories to the `build` directory:
+Build source files and test files:
 
 - JavaScript files are transpiled with [Babel](https://babeljs.io/) (see the
   [configuration file](.babelrc.js)).
 - [YAML](https://en.wikipedia.org/wiki/YAML) files are converted to JSON.
 - Other files are copied as is.
+
+Source files are built from the `src` directory to the `build/src` directory.
+Test files are built from the `test` directory to the `build/test` directory.
+
+This must be done before running any code or unit tests.
 
 ## `gulp check`
 
@@ -58,7 +63,8 @@ This is triggered by [`husky`](https://github.com/typicode/husky) before any
 
 ## `gulp unit`
 
-Run unit tests (from the `test` folder) with [Ava](https://github.com/avajs/ava).
+Run unit tests (from the `build/test` folder) with
+[Ava](https://github.com/avajs/ava).
 
 If run in CI ([Travis](https://travis-ci.org/)) tests coverage is performed with
 [nyc](https://github.com/istanbuljs/nyc) and uploaded to
@@ -97,6 +103,9 @@ Ensures that files are fully covered by tests using
 Like `gulp build`, `gulp check`, `gulp unit` and `gulp warn` but in watch mode.
 The watch mode works even when installing/updating/uninstalling dependencies or
 changing the Gulp tasks themselves.
+
+They can be performed together, e.g. `gulp buildw` in one terminal tab and
+`gulp unitw` in another.
 
 # Add to a new repository
 
