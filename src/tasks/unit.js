@@ -12,7 +12,7 @@ const unit = async function() {
   }
 
   await exec(
-    'nyc --reporter=lcov --reporter=text --reporter=html --reporter=json ava',
+    'nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js ava',
   )
 
   await uploadCoverage()
