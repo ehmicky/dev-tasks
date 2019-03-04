@@ -3,7 +3,8 @@
 const { series } = require('gulp')
 const releaseIt = require('release-it')
 
-const { test } = require('./test')
+const { test } = require('../test')
+
 const { checkVersions } = require('./version')
 
 const releaseItTask = async function(increment) {
