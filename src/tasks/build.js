@@ -7,6 +7,7 @@ const gulpBabel = require('gulp-babel')
 const del = require('del')
 const yamlToJson = require('gulp-yaml')
 const mapSources = require('@gulp-sourcemaps/map-sources')
+const PluginError = require('plugin-error')
 
 const { SRC, TEST, BUILD } = require('../files')
 const { getWatchTask } = require('../watch')
@@ -44,8 +45,18 @@ const BABEL_CONFIG = {
 
 const yaml = () =>
   src(`${SOURCES}/*.y{,a}ml`, { dot: true, since: lastRun(yaml) })
-    .pipe(yamlToJson({ schema: 'JSON_SCHEMA', space: 2 }))
+    .pipe(yamlToJson(JS_YAML_CONFIG))
     .pipe(dest(BUILD))
+
+const onWarning = function(error) {
+  throw new PluginError('gulp-yaml', error.message)
+}
+
+const JS_YAML_CONFIG = {
+  schema: 'JSON_SCHEMA',
+  space: 2,
+  onWarning,
+}
 
 const rebuild = parallel(copy, babel, yaml)
 const build = series(clean, rebuild)
