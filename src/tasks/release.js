@@ -7,10 +7,10 @@ const { test } = require('./test')
 const { checkVersions } = require('./version')
 
 const releaseItTask = async function(increment) {
-  await releaseIt({ ...config, increment })
+  await releaseIt({ ...RELEASE_IT_CONFIG, increment })
 }
 
-const config = {
+const RELEASE_IT_CONFIG = {
   'non-interactive': true,
   'disable-metrics': true,
   pkgFiles: ['package.json', 'package-lock.json'],
