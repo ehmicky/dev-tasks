@@ -1,1 +1,1 @@
-extends: eslint-config-standard-prettier-fp
+extends: ./build/src/tasks/.eslintrc.json

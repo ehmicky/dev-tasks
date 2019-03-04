@@ -13,6 +13,8 @@ const { getWatchTask } = require('../watch')
 
 const { jscpd } = require('./jscpd')
 
+const ESLINT_CONFIG = `${__dirname}/.eslintrc.json`
+
 const prettier = function() {
   return src([...JAVASCRIPT, ...MARKDOWN], {
     dot: true,
@@ -36,7 +38,7 @@ const isPrettified = function({ isPrettier }) {
 const eslint = task(
   `eslint ${JAVASCRIPT.join(' ')} ${MARKDOWN.join(
     ' ',
-  )} --ignore-path=.gitignore --fix --cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
+  )} --config ${ESLINT_CONFIG} --ignore-path=.gitignore --fix --cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
 )
 
 const eslintWatch = function() {
@@ -46,6 +48,7 @@ const eslintWatch = function() {
   })
     .pipe(
       gulpEslint({
+        config: ESLINT_CONFIG,
         ignorePath: '.gitignore',
         fix: true,
         maxWarnings: 0,
