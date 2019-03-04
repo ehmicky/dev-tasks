@@ -5,12 +5,12 @@ const gulpEslint = require('gulp-eslint')
 const gulpPrettier = require('gulp-prettier')
 const gulpIf = require('gulp-if')
 
-const { JAVASCRIPT, MARKDOWN } = require('../files')
-const { task } = require('../exec')
-const { getWatchTask } = require('../watch')
+const { JAVASCRIPT, MARKDOWN } = require('../../files')
+const { task } = require('../../exec')
+const { getWatchTask } = require('../../watch')
 
-const prettierConfig = require('./.prettierrc')
 const { jscpd } = require('./jscpd')
+const prettierConfig = require('./.prettierrc')
 
 const ESLINT_CONFIG = `${__dirname}/.eslintrc.json`
 

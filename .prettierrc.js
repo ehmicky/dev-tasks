@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = require('./build/src/tasks/.prettierrc')
+module.exports = require('./build/src/tasks/check/.prettierrc')
