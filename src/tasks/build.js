@@ -23,11 +23,11 @@ const copy = () =>
 
 const babel = () =>
   src(`${SOURCES}/*.js`, { dot: true, since: lastRun(babel), sourcemaps: true })
-    .pipe(gulpBabel(babelConfig))
+    .pipe(gulpBabel(BABEL_CONFIG))
     .pipe(mapSources(path => `${relative(path, '.')}/${path}`))
     .pipe(dest(BUILD, { sourcemaps: '.' }))
 
-const babelConfig = {
+const BABEL_CONFIG = {
   babelrc: false,
   presets: [
     [
