@@ -11,8 +11,8 @@ const fastGlob = require('fast-glob')
 const fetch = require('cross-fetch')
 const PluginError = require('plugin-error')
 
-const { exec } = require('../exec')
-const { SRC } = require('../files')
+const { exec } = require('../../exec')
+const { SRC } = require('../../files')
 
 // Run in Bash, i.e. should use slashes even on Windows
 const CODECOV_SCRIPT = `${__dirname}/codecov.sh`

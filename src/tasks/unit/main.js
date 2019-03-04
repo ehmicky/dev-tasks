@@ -1,6 +1,6 @@
 'use strict'
 
-const { exec } = require('../exec')
+const { exec } = require('../../exec')
 
 const { hasCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
