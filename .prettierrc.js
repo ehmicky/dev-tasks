@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = require('eslint-config-standard-prettier-fp/build/src/.prettierrc')
+module.exports = require('./build/src/tasks/.prettierrc')

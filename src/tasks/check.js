@@ -4,13 +4,12 @@ const { src, dest, series, parallel, lastRun } = require('gulp')
 const gulpEslint = require('gulp-eslint')
 const gulpPrettier = require('gulp-prettier')
 const gulpIf = require('gulp-if')
-// eslint-disable-next-line import/no-internal-modules, import/no-extraneous-dependencies
-const prettierConfig = require('eslint-config-standard-prettier-fp/build/src/.prettierrc')
 
 const { JAVASCRIPT, MARKDOWN } = require('../files')
 const { task } = require('../exec')
 const { getWatchTask } = require('../watch')
 
+const prettierConfig = require('./.prettierrc')
 const { jscpd } = require('./jscpd')
 
 const ESLINT_CONFIG = `${__dirname}/.eslintrc.json`
