@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = require('./build/src/tasks/check/.eslintrc')
+module.exports = require('eslint-config-standard-prettier-fp')
