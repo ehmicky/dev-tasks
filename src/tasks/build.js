@@ -23,9 +23,24 @@ const copy = () =>
 
 const babel = () =>
   src(`${SOURCES}/*.js`, { dot: true, since: lastRun(babel), sourcemaps: true })
-    .pipe(gulpBabel({ comments: false, minified: true, retainLines: true }))
+    .pipe(gulpBabel(babelConfig))
     .pipe(mapSources(path => `${relative(path, '.')}/${path}`))
     .pipe(dest(BUILD, { sourcemaps: '.' }))
+
+const babelConfig = {
+  babelrc: false,
+  presets: [
+    [
+      '@babel/preset-env',
+      { targets: { node: '8.10.0' }, useBuiltIns: 'usage' },
+    ],
+  ],
+  plugins: ['@babel/plugin-transform-runtime'],
+  comments: false,
+  shouldPrintComment: comment => comment.includes('istanbul ignore'),
+  minified: true,
+  retainLines: true,
+}
 
 const yaml = () =>
   src(`${SOURCES}/*.y{,a}ml`, { dot: true, since: lastRun(yaml) })
