@@ -30,24 +30,11 @@ const addCoverage = async function(command) {
   return `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js ${commandA}`
 }
 
-// Only run test coverage on CI because it's slow.
-// One can also use the `--cover` flag to trigger it locally.
-// Also do not run it on repositories without source code, e.g. with only
-// configuration or text files.
-const shouldCover = async function(command) {
-  if (!isCi && !command.includes(COVER_FLAG)) {
-    return false
-  }
-
-  const files = await fastGlob(`${SRC}/**/*.js`)
-  return files.length !== 0
-}
-
-const COVER_FLAG = '--cover'
-
 // Upload test coverage to codecov
 const uploadCoverage = async function() {
-  if (!isCi) {
+  const shouldAddCoverage = await shouldCover()
+
+  if (!shouldAddCoverage) {
     return
   }
 
@@ -72,6 +59,21 @@ const PLATFORMS = {
 const getCoverageTag = function(tag) {
   return `-F ${tag}`
 }
+
+// Only run test coverage on CI because it's slow.
+// One can also use the `--cover` flag to trigger it locally.
+// Also do not run it on repositories without source code, e.g. with only
+// configuration or text files.
+const shouldCover = function(command = '') {
+  return (isCi || command.includes(COVER_FLAG)) && hasCode()
+}
+
+const hasCode = async function() {
+  const files = await fastGlob(`${SRC}/**/*.js`)
+  return files.length !== 0
+}
+
+const COVER_FLAG = '--cover'
 
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
