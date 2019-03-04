@@ -1,3 +1,5 @@
+import { platform } from 'process'
+
 import files from './build/src/files'
 
 export default {
@@ -10,4 +12,6 @@ export default {
   babel: false,
   // Must be used otherwise babel is still performed
   compileEnhancements: false,
+  // Workaround for https://github.com/istanbuljs/istanbuljs/issues/141
+  serial: platform === 'win32',
 }
