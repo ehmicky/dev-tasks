@@ -1,28 +1,65 @@
 'use strict'
 
+const { argv } = require('process')
+
+const findUp = require('find-up')
+const moize = require('moize').default
+
 const { exec } = require('../../exec')
 
-const { hasCoverage, uploadCoverage, checkCoverage } = require('./coverage')
+const { addCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
-const unit = async function() {
-  const shouldCover = await hasCoverage()
+// Run `ava` and `nyc`
+const runAva = async function(args) {
+  const ava = await getAva(args)
 
-  if (!shouldCover) {
-    return exec('ava')
-  }
+  const avaA = await addCoverage(ava)
 
-  await exec(
-    'nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js ava',
-  )
+  await exec(avaA)
 
   await uploadCoverage()
 }
+
+// Allow passing flags to `ava`.
+// Can also use `--inspect` or `--inspect-brk`.
+const getAva = async function(args) {
+  // eslint-disable-next-line no-magic-numbers
+  const argsA = [...argv.slice(3), ...args]
+  const { args: argsB, inspect } = extractInspect(argsA)
+  const argsStr = argsB.join(' ')
+
+  if (inspect === undefined) {
+    return `ava ${argsStr}`
+  }
+
+  const profile = await mGetAvaProfile()
+  return `node ${inspect} ${profile} ${argsStr}`
+}
+
+const extractInspect = function(args) {
+  const inspect = args.find(isInspectArg)
+  const argsA = args.filter(arg => !isInspectArg(arg))
+  return { args: argsA, inspect }
+}
+
+const isInspectArg = function(arg) {
+  return arg.startsWith('--inspect')
+}
+
+// See https://github.com/avajs/ava/blob/master/docs/recipes/debugging-with-chrome-devtools.md
+const getAvaProfile = function() {
+  return findUp('node_modules/ava/profile.js')
+}
+
+const mGetAvaProfile = moize(getAvaProfile)
+
+const unit = () => runAva([])
 
 // eslint-disable-next-line fp/no-mutation
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-const unitw = () => exec('ava -w')
+const unitw = () => runAva(['-w'])
 
 // eslint-disable-next-line fp/no-mutation
 unitw.description = 'Run unit tests (watch mode)'

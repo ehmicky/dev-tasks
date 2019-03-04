@@ -66,10 +66,18 @@ This is triggered by [`husky`](https://github.com/typicode/husky) before any
 Run unit tests (from the `build/test` folder) with
 [Ava](https://github.com/avajs/ava).
 
-If run in CI ([Travis](https://travis-ci.org/)) tests coverage is performed with
-[nyc](https://github.com/istanbuljs/nyc) and uploaded to
-[codecov](https://codecov.io/). This is not performed if the repository does not
-have any JavaScript source files.
+[Ava options](https://github.com/avajs/ava/blob/master/docs/05-command-line.md)
+can be specified, e.g. `gulp unit --serial`.
+
+To debug with the Chrome DevTools use `gulp unit --inspect` or
+`gulp unit --inspect-brk`.
+
+Test coverage:
+
+- is performed when run in CI ([Travis](https://travis-ci.org/)) or when
+  `gulp unit --cover` is used.
+- is uploaded to [codecov](https://codecov.io/) when run in CI.
+- is not performed if the repository does not have any JavaScript source files.
 
 ## `gulp test`
 

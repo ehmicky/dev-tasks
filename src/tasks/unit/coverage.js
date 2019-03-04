@@ -18,11 +18,24 @@ const { SRC } = require('../../files')
 const CODECOV_SCRIPT = `${__dirname}/codecov.sh`
 const COVERAGE_PATH = 'coverage/coverage-final.json'
 
+// Wrap with `nyc` if in CI or `--cover` flag is used
+const addCoverage = async function(command) {
+  const shouldAddCoverage = await shouldCover(command)
+
+  if (!shouldAddCoverage) {
+    return command
+  }
+
+  const commandA = command.replace(COVER_FLAG, '')
+  return `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js ${commandA}`
+}
+
 // Only run test coverage on CI because it's slow.
+// One can also use the `--cover` flag to trigger it locally.
 // Also do not run it on repositories without source code, e.g. with only
 // configuration or text files.
-const hasCoverage = async function() {
-  if (!isCi) {
+const shouldCover = async function(command) {
+  if (!isCi && !command.includes(COVER_FLAG)) {
     return false
   }
 
@@ -30,8 +43,14 @@ const hasCoverage = async function() {
   return files.length !== 0
 }
 
+const COVER_FLAG = '--cover'
+
 // Upload test coverage to codecov
 const uploadCoverage = async function() {
+  if (!isCi) {
+    return
+  }
+
   const tags = getCoverageTags()
   await exec(`bash ${CODECOV_SCRIPT} -f ${COVERAGE_PATH} ${tags} -Z`)
 }
@@ -57,12 +76,6 @@ const getCoverageTag = function(tag) {
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
 const checkCoverage = async function() {
-  const shouldCover = await hasCoverage()
-
-  if (!shouldCover) {
-    return
-  }
-
   const covInfo = await getCoverage()
 
   if (covInfo >= COVERAGE_THRESHOLD) {
@@ -92,7 +105,7 @@ const getCoverage = async function() {
 const COVERAGE_THRESHOLD = 100
 
 module.exports = {
-  hasCoverage,
+  addCoverage,
   uploadCoverage,
   checkCoverage,
 }
