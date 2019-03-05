@@ -2,7 +2,12 @@
 
 const {
   version,
-  env: { TRAVIS_REPO_SLUG, TRAVIS_COMMIT },
+  env: {
+    TRAVIS_REPO_SLUG,
+    TRAVIS_COMMIT,
+    TRAVIS_PULL_REQUEST_SLUG,
+    TRAVIS_PULL_REQUEST_SHA,
+  },
 } = require('process')
 const { platform } = require('os')
 
@@ -91,7 +96,7 @@ const checkCoverage = async function() {
 }
 
 const getCoverage = async function() {
-  const codecovUrl = `https://codecov.io/api/gh/${TRAVIS_REPO_SLUG}/commit/${TRAVIS_COMMIT}`
+  const codecovUrl = getCodecovUrl()
   const response = await fetch(codecovUrl)
   const {
     commit: {
@@ -102,6 +107,12 @@ const getCoverage = async function() {
 
   const covInfoA = Number(covInfo)
   return covInfoA
+}
+
+const getCodecovUrl = function() {
+  const repoName = TRAVIS_REPO_SLUG || TRAVIS_PULL_REQUEST_SLUG
+  const commit = TRAVIS_COMMIT || TRAVIS_PULL_REQUEST_SHA
+  return `https://codecov.io/api/gh/${repoName}/commit/${commit}`
 }
 
 const COVERAGE_THRESHOLD = 100
