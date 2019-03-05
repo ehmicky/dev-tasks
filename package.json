@@ -56,7 +56,7 @@
     "core-js": "^2.6.5",
     "cross-fetch": "^3.0.1",
     "del": "^4.0.0",
-    "eslint": "^5.15.0",
+    "eslint": "^5.15.1",
     "eslint-config-prettier": "^4.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-prettier-fp": "^15.5.3",
