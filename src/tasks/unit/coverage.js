@@ -92,8 +92,6 @@ const checkCoverage = async function() {
 
 const getCoverage = async function() {
   const codecovUrl = getCodecovUrl()
-  // eslint-disable-next-line no-restricted-globals, no-console
-  console.log(codecovUrl)
   const response = await fetch(codecovUrl)
   const {
     commit: {
