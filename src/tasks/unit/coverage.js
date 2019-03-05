@@ -91,12 +91,14 @@ const checkCoverage = async function() {
 
   throw new PluginError(
     'gulp-codecov-check',
-    `Test coverage is ${covInfo}% but should be at least ${COVERAGE_THRESHOLD}%`,
+    `Test coverage is ${covInfo}% but should be at least ${COVERAGE_THRESHOLD}%. See ${getCodecovUrl()}`,
   )
 }
 
 const getCoverage = async function() {
   const codecovUrl = getCodecovUrl()
+  // eslint-disable-next-line no-restricted-globals, no-console
+  console.log(codecovUrl)
   const response = await fetch(codecovUrl)
   const {
     commit: {
