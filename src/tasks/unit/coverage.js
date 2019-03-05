@@ -112,8 +112,8 @@ const getCoverage = async function() {
 }
 
 const getCodecovUrl = function() {
-  const repoName = TRAVIS_REPO_SLUG || TRAVIS_PULL_REQUEST_SLUG
-  const commit = TRAVIS_COMMIT || TRAVIS_PULL_REQUEST_SHA
+  const repoName = TRAVIS_PULL_REQUEST_SLUG || TRAVIS_REPO_SLUG
+  const commit = TRAVIS_PULL_REQUEST_SHA || TRAVIS_COMMIT
   return `https://codecov.io/api/gh/${repoName}/commit/${commit}`
 }
 
