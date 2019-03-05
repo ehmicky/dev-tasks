@@ -13,6 +13,9 @@ const CODECOV_DIST = `${__dirname}/../src/tasks/codecov.sh`
 // run this Gulp task instead anytime the script has a new version.
 const download = () => downloadFile(CODECOV_URL)
 
+// eslint-disable-next-line fp/no-mutation
+download.description = 'Download latest codecov upload script'
+
 const CODECOV_URL = 'https://codecov.io/bash'
 
 // Download a URL and save to filesystem.
