@@ -1,6 +1,7 @@
 import { platform } from 'process'
 
-import files from './build/src/files'
+// eslint-disable-next-line import/extensions
+import files from './build/src/files.json'
 
 export default {
   files: [files.BUILD_TEST],
