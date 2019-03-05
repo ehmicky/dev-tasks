@@ -2,12 +2,7 @@
 
 const {
   version,
-  env: {
-    TRAVIS_REPO_SLUG,
-    TRAVIS_COMMIT,
-    TRAVIS_PULL_REQUEST_SLUG,
-    TRAVIS_PULL_REQUEST_SHA,
-  },
+  env: { TRAVIS_REPO_SLUG, TRAVIS_COMMIT, TRAVIS_PULL_REQUEST_SHA },
 } = require('process')
 const { platform } = require('os')
 
@@ -112,9 +107,8 @@ const getCoverage = async function() {
 }
 
 const getCodecovUrl = function() {
-  const repoName = TRAVIS_PULL_REQUEST_SLUG || TRAVIS_REPO_SLUG
   const commit = TRAVIS_PULL_REQUEST_SHA || TRAVIS_COMMIT
-  return `https://codecov.io/api/gh/${repoName}/commit/${commit}`
+  return `https://codecov.io/api/gh/${TRAVIS_REPO_SLUG}/commit/${commit}`
 }
 
 const COVERAGE_THRESHOLD = 100
