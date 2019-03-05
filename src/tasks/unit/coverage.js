@@ -84,9 +84,10 @@ const checkCoverage = async function() {
     return
   }
 
+  const codecovUrl = getCodecovUrl().replace('/api', '')
   throw new PluginError(
     'gulp-codecov-check',
-    `Test coverage is ${covInfo}% but should be at least ${COVERAGE_THRESHOLD}%. See ${getCodecovUrl()}`,
+    `Test coverage is ${covInfo}% but should be at least ${COVERAGE_THRESHOLD}%. See ${codecovUrl}`,
   )
 }
 
