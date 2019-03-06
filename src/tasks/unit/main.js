@@ -4,8 +4,7 @@ const { argv } = require('process')
 
 const findUp = require('find-up')
 const moize = require('moize').default
-
-const { exec } = require('../../exec')
+const { exec } = require('gulp-execa')
 
 const { addCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 

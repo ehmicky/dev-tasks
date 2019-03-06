@@ -6,8 +6,8 @@ const { promisify } = require('util')
 const { series } = require('gulp')
 const isCi = require('is-ci')
 const PluginError = require('plugin-error')
+const { exec } = require('gulp-execa')
 
-const { exec } = require('../../exec')
 const { NPMRC } = require('../../files')
 const { build } = require('../build')
 

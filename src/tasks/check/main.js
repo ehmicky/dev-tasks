@@ -4,9 +4,9 @@ const { src, dest, series, parallel, lastRun } = require('gulp')
 const gulpEslint = require('gulp-eslint')
 const gulpPrettier = require('gulp-prettier')
 const gulpIf = require('gulp-if')
+const { task } = require('gulp-execa')
 
 const { JAVASCRIPT, MARKDOWN } = require('../../files')
-const { task } = require('../../exec')
 const { getWatchTask } = require('../../watch')
 
 const { jscpd } = require('./jscpd')
