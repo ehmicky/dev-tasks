@@ -26,7 +26,7 @@ const getWatchTask = function(
 // of `bound watchTask`
 const getTask = function({ files, task, initial, watchOpts }) {
   if (GULP_WATCH !== 'no-restart') {
-    return () => startNodemon()
+    return startNodemon
   }
 
   const watchTask = () => watch(files, task, watchOpts)
