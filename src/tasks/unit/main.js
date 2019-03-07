@@ -4,28 +4,38 @@ const { argv } = require('process')
 
 const findUp = require('find-up')
 const moize = require('moize').default
-const { exec } = require('gulp-execa')
+const { src, lastRun } = require('gulp')
+const { stream: streamExec } = require('gulp-execa')
+const streamToPromise = require('stream-to-promise')
+
+const { BUILD, BUILD_TEST } = require('../../files')
+const { getWatchTask } = require('../../watch')
 
 const { addCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
 // Run `ava` and `nyc`
-const runAva = async function(args) {
-  const ava = await getAva(args)
-
+const unit = async function() {
+  const ava = await getAva()
   const avaA = await addCoverage(ava)
 
-  await exec(avaA)
+  const stream = src(BUILD_TEST, { dot: true, since: lastRun(unit) }).pipe(
+    streamExec(({ path }) => `${avaA}${path}`, {
+      stdout: 'inherit',
+      stderr: 'inherit',
+    }),
+  )
+  await streamToPromise(stream)
 
   await uploadCoverage()
 }
 
 // Allow passing flags to `ava`.
 // Can also use `--inspect` or `--inspect-brk`.
-const getAva = async function(args) {
+const getAva = async function() {
   // eslint-disable-next-line no-magic-numbers
-  const argsA = [...argv.slice(3), ...args]
-  const { args: argsB, inspect } = extractInspect(argsA)
-  const argsStr = argsB.join(' ')
+  const args = argv.slice(3)
+  const { args: argsA, inspect } = extractInspect(args)
+  const argsStr = argsA.join(' ')
 
   if (inspect === undefined) {
     return `ava ${argsStr}`
@@ -52,16 +62,10 @@ const getAvaProfile = function() {
 
 const mGetAvaProfile = moize(getAvaProfile)
 
-const unit = () => runAva([])
-
 // eslint-disable-next-line fp/no-mutation
 unit.description = 'Run unit tests'
 
-// Ava watch mode is better than using `gulp.watch()`
-const unitw = () => runAva(['-w'])
-
-// eslint-disable-next-line fp/no-mutation
-unitw.description = 'Run unit tests (watch mode)'
+const unitw = getWatchTask(BUILD, unit)
 
 const coverage = checkCoverage
 // eslint-disable-next-line fp/no-mutation

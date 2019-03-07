@@ -2,7 +2,7 @@
   "SRC": "src",
   "TEST": "test",
   "BUILD": "build",
-  "BUILD_TEST": "build/test",
+  "BUILD_TEST": ["build/test/**/*.js", "!build/test/helpers/**"],
   "JAVASCRIPT": ["{,{src,docs,examples,gulp,test}/{,**/}}*.js"],
   "MARKDOWN": ["{,{src,docs,examples}/{,**/}}*.md"],
   "DEPENDENCIES": ["package-lock.json"],
