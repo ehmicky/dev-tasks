@@ -15,18 +15,18 @@ const Nodemon = require('nodemon')
 const getWatchTask = function(
   files,
   task,
-  { initial = true, ...watchOpts } = {},
+  { initial = true, gulpfiles = [], ...watchOpts } = {},
 ) {
-  const watchTask = getTask({ files, task, initial, watchOpts })
+  const watchTask = getTask({ files, task, initial, gulpfiles, watchOpts })
   addDescription({ watchTask, task, initial })
   return watchTask
 }
 
 // We do not use `func.bind()` to make the task name `watchTask` instead
 // of `bound watchTask`
-const getTask = function({ files, task, initial, watchOpts }) {
+const getTask = function({ files, task, initial, gulpfiles, watchOpts }) {
   if (GULP_WATCH !== 'no-restart') {
-    return startNodemon
+    return () => startNodemon({ gulpfiles })
   }
 
   const watchTask = () => watch(files, task, watchOpts)
@@ -41,8 +41,9 @@ const getTask = function({ files, task, initial, watchOpts }) {
 // This works with `gulp` (default task) and `gulp taskA taskB` (multiple tasks)
 // We use an environment variable `GULP_WATCH` to distinguish between these
 // modes
-const startNodemon = async function() {
-  const nodemon = new Nodemon({ ...NODEMON_CONFIG, script, args })
+const startNodemon = async function({ gulpfiles }) {
+  const nodemonConfig = getNodemonConfig({ gulpfiles })
+  const nodemon = new Nodemon(nodemonConfig)
 
   // Otherwise Nodemon logs are silent
   // eslint-disable-next-line no-console, no-restricted-globals
@@ -51,29 +52,33 @@ const startNodemon = async function() {
   await promisify(nodemon.on.bind(nodemon))('start')
 }
 
-const NODEMON_CONFIG = {
-  env: { GULP_WATCH: 'no-restart' },
-  watch: [
-    'gulpfile.*',
-    'gulpfile.*.*',
-    'gulp/',
-    'package.json',
-    'package-lock.json',
-    'yarn.lock',
-  ],
-  delay: 100,
+const getNodemonConfig = function({ gulpfiles }) {
+  return {
+    script,
+    args,
+    env: { GULP_WATCH: 'no-restart' },
+    watch: [
+      'gulpfile.*',
+      'gulpfile.*.*',
+      'gulp/',
+      'package.json',
+      'package-lock.json',
+      'yarn.lock',
+      ...gulpfiles,
+    ],
+    delay: 100,
+  }
 }
 
+// Run the watched task in the beginning of the watch unless `opts.initial` is
+// `false`. `opts.initial` can either be `true` or a function.
 const addInitial = function({ watchTask, task, initial }) {
   if (initial === false) {
     return watchTask
   }
 
-  if (initial === true) {
-    return parallel(allowInitialFailure(task), watchTask)
-  }
-
-  return parallel(allowInitialFailure(initial), watchTask)
+  const initialTask = initial === true ? task : initial
+  return parallel(allowInitialFailure(initialTask), watchTask)
 }
 
 // If the initial task fails, make initial run still succeeds so that watching
@@ -87,6 +92,8 @@ const allowInitialFailure = function(func) {
   return funcA
 }
 
+// Add Gulp `taks.description` by re-using the watched task's or initial task's
+// description
 const addDescription = function({ watchTask, task, initial }) {
   const taskA = [initial, task].find(hasDescription)
 
