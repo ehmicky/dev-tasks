@@ -54,7 +54,7 @@ const mGetAvaProfile = moize(getAvaProfile)
 const unit = () => runAva([])
 
 // eslint-disable-next-line fp/no-mutation
-runAva.description = 'Run unit tests'
+unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
 const unitw = () => runAva(['-w'])
