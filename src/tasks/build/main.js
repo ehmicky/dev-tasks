@@ -16,7 +16,10 @@ const babelConfig = require('./.babelrc.js')
 
 const SOURCES = `{${SRC},${TEST}}/**`
 
-const clean = () => del(BUILD)
+// We remove files deeply but leave empty [sub]directories. Otherwise it creates
+// issues with `chokidar` (file waching used by `ava --watch` and
+// `gulp.watch()`)
+const clean = () => del(`${BUILD}/**`, { nodir: true })
 
 const copy = () =>
   src([`${SOURCES}/*[^~]`, `!${SOURCES}/*.js`, `!${SOURCES}/*.y{,a}ml`], {
