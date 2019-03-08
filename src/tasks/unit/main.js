@@ -6,6 +6,8 @@ const findUp = require('find-up')
 const moize = require('moize').default
 const { exec } = require('gulp-execa')
 
+const { getWatchTask } = require('../../watch')
+
 const { addCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
 // Run `ava` and `nyc`
@@ -57,7 +59,11 @@ const unit = () => runAva([])
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-const unitw = () => runAva(['-w'])
+const unitwatch = () => runAva(['-w'])
+
+// We use `getWatchTask()` only to restart `ava -w` on `package.json` changes,
+// so we don't need the first two arguments.
+const unitw = getWatchTask([], undefined, { initial: unitwatch })
 
 // eslint-disable-next-line fp/no-mutation
 unitw.description = 'Run unit tests (watch mode)'
