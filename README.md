@@ -69,8 +69,9 @@ Run unit tests (from the `build/test` folder) with
 [Ava options](https://github.com/avajs/ava/blob/master/docs/05-command-line.md)
 can be specified, e.g. `gulp unit --serial`.
 
-To debug with the Chrome DevTools use `gulp unit --inspect` or
-`gulp unit --inspect-brk`.
+To debug with the Chrome DevTools use `gulp unit --inspect build/test/file.js`
+or `gulp unit --inspect-brk build/test/file.js`. Specifying a file inside
+`build/test` is required.
 
 Test coverage:
 
