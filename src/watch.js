@@ -29,9 +29,21 @@ const getTask = function({ files, task, initial, gulpfiles, watchOpts }) {
     return () => startNodemon({ gulpfiles })
   }
 
-  const watchTask = () => watch(files, task, watchOpts)
+  const watchTask = () => startWatch({ files, task, watchOpts })
   const watchTaskA = addInitial({ watchTask, task, initial })
   return watchTaskA
+}
+
+const startWatch = async function({ files, task, watchOpts }) {
+  if (files.length === 0) {
+    return
+  }
+
+  const watcher = watch(files, watchOpts, task)
+  await Promise.race([
+    promisify(watcher.on.bind(watcher))('ready'),
+    promisify(watcher.on.bind(watcher))('error'),
+  ])
 }
 
 // We relaunch the same CLI command `gulp ...` but inside Nodemon.
