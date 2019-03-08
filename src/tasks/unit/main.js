@@ -2,12 +2,11 @@
 
 const { argv } = require('process')
 
-const findUp = require('find-up')
-const moize = require('moize').default
 const { exec } = require('gulp-execa')
 
 const { getWatchTask } = require('../../watch')
 
+const { isAvaDebug, getAvaDebug } = require('./debug')
 const { addCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
 // Run `ava` and `nyc`
@@ -21,37 +20,18 @@ const runAva = async function(args) {
 }
 
 // Allow passing flags to `ava`.
-// Can also use `--inspect` or `--inspect-brk`.
-const getAva = async function(args) {
+// Must use `--files=FILE` to select a single file.
+// Can also use `--inspect` or `--inspect-brk` but only if `--files` is used.
+const getAva = function(extraArgs) {
   // eslint-disable-next-line no-magic-numbers
-  const argsA = [...argv.slice(3), ...args]
-  const { args: argsB, inspect } = extractInspect(argsA)
-  const argsStr = argsB.join(' ')
+  const args = [...argv.slice(3), ...extraArgs].join(' ')
 
-  if (inspect === undefined) {
-    return `ava ${argsStr}`
+  if (isAvaDebug({ args })) {
+    return getAvaDebug({ args })
   }
 
-  const profile = await mGetAvaProfile()
-  return `node ${inspect} ${profile} ${argsStr}`
+  return `ava ${args}`
 }
-
-const extractInspect = function(args) {
-  const inspect = args.find(isInspectArg)
-  const argsA = args.filter(arg => !isInspectArg(arg))
-  return { args: argsA, inspect }
-}
-
-const isInspectArg = function(arg) {
-  return arg.startsWith('--inspect')
-}
-
-// See https://github.com/avajs/ava/blob/master/docs/recipes/debugging-with-chrome-devtools.md
-const getAvaProfile = function() {
-  return findUp('node_modules/ava/profile.js')
-}
-
-const mGetAvaProfile = moize(getAvaProfile)
 
 const unit = () => runAva([])
 
