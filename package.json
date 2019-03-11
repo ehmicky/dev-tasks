@@ -83,6 +83,7 @@
     "gulp-yaml": "^2.0.3",
     "is-ci": "^2.0.0",
     "jscpd": "^2.0.11",
+    "keep-func-props": "^1.1.0",
     "moize": "^5.4.2",
     "node-latest": "^3.1.0",
     "nodemon": "^1.18.10",
