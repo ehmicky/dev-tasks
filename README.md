@@ -22,16 +22,37 @@ If you're on `cmd.exe` (Windows) use `npx gulp ...` instead.
 
 # Overview
 
-- Use [`gulp build`](#gulp-build) to build source files and test files.
-- Run unit tests with [`gulp unit`](#gulp-unit).
-- Before `git push`, `gulp check` will automatically be triggered and
-  lint/format the JavaScript files.
-- Adding a `w` to `gulp build`, `gulp check` or `gulp unit` runs it in watch
-  mode.
-- [Travis CI](https://travis-ci.org/) ensures that tests pass on all supported
-  environments and that all source files are covered by tests.
+The main commands are:
+
+- [`gulp check`](#gulp-check): lint/format the JavaScript files.
+- [`gulp build`](#gulp-build): build source files and test files. Must be run
+  before running any code or unit tests.
+- [`gulp unit`](#gulp-unit): run unit tests.
+
+`gulp checkw`, `gulp buildw` and `gulp unitw` are the same but in watch mode.
+
+[Travis CI](https://travis-ci.org/) ensures that tests pass on all supported
+environments and that all source files are covered by tests and follow the same
+coding style.
 
 # Available tasks
+
+## `gulp check`
+
+Lint and check source files:
+
+- format JavaScript files with [Prettier](https://prettier.io/).
+- lint and
+  [autofix](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
+  JavaScript files using [ESLint](https://eslint.org/) (see the
+  [configuration file](https://github.com/ehmicky/eslint-config-standard-prettier-fp)).
+- find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
+
+This is triggered by [`husky`](https://github.com/typicode/husky) before any
+`git push`.
+
+We recommend using plugins with your IDE (code editor) for both Prettier and
+ESLint so that linting/formatting is performed as you code.
 
 ## `gulp build`
 
@@ -47,20 +68,6 @@ Test files are built from the `test` directory to the `build/test` directory.
 
 This must be done before running any code or unit tests.
 
-## `gulp check`
-
-Lint and check source files:
-
-- lint and
-  [autofix](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
-  JavaScript files using [ESLint](https://eslint.org/) (see the
-  [configuration file](https://github.com/ehmicky/eslint-config-standard-prettier-fp)).
-- format JavaScript files with [Prettier](https://prettier.io/).
-- find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
-
-This is triggered by [`husky`](https://github.com/typicode/husky) before any
-`git push`.
-
 ## `gulp unit`
 
 Run unit tests (from the `build/test` folder) with
@@ -70,8 +77,7 @@ Run unit tests (from the `build/test` folder) with
 can be specified, e.g. `gulp unit --serial`.
 
 To debug with the Chrome DevTools use `gulp unit --inspect build/test/file.js`
-or `gulp unit --inspect-brk build/test/file.js`. Specifying a file inside
-`build/test` is required.
+(or `--inspect-brk`). Specifying a file inside `build/test/` is required.
 
 Test coverage:
 
@@ -107,9 +113,9 @@ Ensures that files are fully covered by tests using
 [nyc](https://github.com/istanbuljs/nyc). This is performed on CI
 ([Travis](https://travis-ci.org/)).
 
-## `gulp buildw`, `gulp checkw`, `gulp unitw`, `gulp warnw`
+## `gulp checkw`, `gulp buildw`, `gulp unitw`, `gulp warnw`
 
-Like `gulp build`, `gulp check`, `gulp unit` and `gulp warn` but in watch mode.
+Like `gulp check`, `gulp build`, `gulp unit` and `gulp warn` but in watch mode.
 The watch mode works even when installing/updating/uninstalling dependencies or
 changing the Gulp tasks themselves.
 
