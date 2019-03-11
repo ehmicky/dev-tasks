@@ -88,7 +88,7 @@ Test coverage:
 
 ## `gulp test`
 
-Runs [`gulp build`](#gulp-build) then [`gulp check`](#gulp-check) then
+Runs [`gulp check`](#gulp-check) then [`gulp build`](#gulp-build) then
 [`gulp unit`](#gulp-unit).
 
 This is performed on CI ([Travis](https://travis-ci.org/)) for each OS (Windows,
