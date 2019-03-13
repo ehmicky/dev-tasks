@@ -79,6 +79,8 @@ const getNodemonConfig = function({ gulpfiles }) {
       ...gulpfiles,
     ],
     delay: 100,
+    // Does not use `nodemon.config` if one exists
+    configFile: ' ',
   }
 }
 
