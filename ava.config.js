@@ -1,15 +1,22 @@
+// We can't put this file under `src/` because it uses ES imports while the
+// rest of the code does not. This would create issues with building and linting
+// the `src/` folder.
+// Also `ava` only allows this file to be at the root folder.
 import { platform } from 'process'
 
-// eslint-disable-next-line import/extensions
-import files from './build/src/files.json'
+// We can't require `src/files.json` because it's not published by npm.
+// But we can't require `build/src/files.json` because `gulp check` would fail
+// if the repository has not run `gulp build` yet. So we inline the paths.
+const BUILD = 'build'
+const BUILD_TEST = 'build/test'
 
 export default {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
-  files: [`${files.BUILD_TEST}/**/*.js`],
+  files: [`${BUILD_TEST}/**/*.js`],
   // Otherwise tests are triggered in watch mode on `src` changes too,
   // i.e. triggered twice.
-  sources: [`${files.BUILD}/**/*.js`],
+  sources: [`${BUILD}/**/*.js`],
   verbose: true,
   // We have already compiled the tests with Babel..
   // Letting ava compile creates too many issues.
