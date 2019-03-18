@@ -8,7 +8,22 @@ This is a set of [Gulp](https://gulpjs.com/) tasks for a Node.js workflow using
 [YAML](https://en.wikipedia.org/wiki/YAML).
 
 [Gulp](https://gulpjs.com/) is a task runner automating development tasks like
-linting, testing or building.
+linting, testing or building. You don't need to learn
+[Gulp](https://gulpjs.com/) to use these tasks.
+
+# Workflow
+
+Code is compiled from the `src` to the `build` folder using
+[Babel](https://babeljs.io/), so you can use the latest JavaScript features.
+
+Linting and formatting are performed with [ESLint](https://eslint.org/),
+[Prettier](https://prettier.io/) and
+[Jscpd](https://github.com/kucherenko/jscpd). We recommend using plugins with
+your IDE (code editor) for both Prettier and ESLint so that linting/formatting
+is performed as you code.
+
+We use [Ava](https://github.com/avajs/ava) to run tests. Each line of code must
+be tested.
 
 # Usage
 
@@ -28,8 +43,9 @@ The main commands are:
 - [`gulp build`](#gulp-build): build source files and test files. Must be run
   before running any code or unit tests.
 - [`gulp unit`](#gulp-unit): run unit tests.
+- [`gulp test`](#gulp-test): perform the three tasks above.
 
-`gulp checkw`, `gulp buildw` and `gulp unitw` are the same but in watch mode.
+Use `gulp checkw`, `gulp buildw` and `gulp unitw` to run them in watch mode.
 
 [Travis CI](https://travis-ci.org/) ensures that tests pass on all supported
 environments and that all source files are covered by tests and follow the same
@@ -50,9 +66,6 @@ Lint and check source files:
 
 This is triggered by [`husky`](https://github.com/typicode/husky) before any
 `git push`.
-
-We recommend using plugins with your IDE (code editor) for both Prettier and
-ESLint so that linting/formatting is performed as you code.
 
 ## `gulp build`
 
@@ -94,6 +107,17 @@ Runs [`gulp check`](#gulp-check) then [`gulp build`](#gulp-build) then
 This is performed on CI ([Travis](https://travis-ci.org/)) for each OS (Windows,
 Mac, Linux) and supported Node.js version.
 
+## `gulp checkw`, `gulp buildw`, `gulp unitw`, `gulp warnw`
+
+Like `gulp check`, `gulp build`, `gulp unit` and `gulp warn` but in watch mode.
+The watch mode works even when installing/updating/uninstalling dependencies or
+changing the Gulp tasks themselves.
+
+They can be performed together, e.g. `gulp buildw` in one terminal tab and
+`gulp unitw` in another.
+
+# Other tasks
+
 ## `gulp warn`
 
 Check for security vulnerabilities (using
@@ -107,20 +131,13 @@ Release a new patch/minor/major version on npm and GitHub using
 
 The new version will only be published to npm after CI tests have passed.
 
+Only the repository owner can perform these tasks.
+
 ## `gulp coverage`
 
 Ensures that files are fully covered by tests using
-[nyc](https://github.com/istanbuljs/nyc). This is performed on CI
+[nyc](https://github.com/istanbuljs/nyc). This is meant to be performed on CI
 ([Travis](https://travis-ci.org/)).
-
-## `gulp checkw`, `gulp buildw`, `gulp unitw`, `gulp warnw`
-
-Like `gulp check`, `gulp build`, `gulp unit` and `gulp warn` but in watch mode.
-The watch mode works even when installing/updating/uninstalling dependencies or
-changing the Gulp tasks themselves.
-
-They can be performed together, e.g. `gulp buildw` in one terminal tab and
-`gulp unitw` in another.
 
 # Add to a new repository
 
