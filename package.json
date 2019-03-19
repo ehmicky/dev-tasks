@@ -6,7 +6,8 @@
     "build/src",
     "ava.config.js",
     ".eslintrc.js",
-    ".prettierrc.js"
+    ".prettierrc.js",
+    "!~"
   ],
   "scripts": {
     "test": "gulp test"
