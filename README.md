@@ -8,8 +8,8 @@ This is a set of [Gulp](https://gulpjs.com/) tasks for a Node.js workflow using
 [YAML](https://en.wikipedia.org/wiki/YAML).
 
 [Gulp](https://gulpjs.com/) is a task runner automating development tasks like
-linting, testing or building. You don't need to learn
-[Gulp](https://gulpjs.com/) to use these tasks.
+linting, testing or building. You don't need to know [Gulp](https://gulpjs.com/)
+to use these tasks.
 
 # Workflow
 
