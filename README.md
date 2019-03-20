@@ -64,8 +64,7 @@ Lint and check source files:
   [configuration file](https://github.com/ehmicky/eslint-config-standard-prettier-fp)).
 - find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
 
-This is triggered by [`husky`](https://github.com/typicode/husky) before any
-`git push`.
+This is automatically triggered before any `git push`.
 
 ## `gulp build`
 
