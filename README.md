@@ -13,7 +13,7 @@ to use these tasks.
 
 # Workflow
 
-Code is compiled from the `src` to the `build` folder using
+Code is compiled from the `src` to the `build` directory using
 [Babel](https://babeljs.io/), so you can use the latest JavaScript features.
 
 Linting and formatting are performed with [ESLint](https://eslint.org/),
@@ -82,7 +82,7 @@ This must be done before running any code or unit tests.
 
 ## `gulp unit`
 
-Run unit tests (from the `build/test` folder) with
+Run unit tests (from the `build/test` directory) with
 [Ava](https://github.com/avajs/ava).
 
 [Ava options](https://github.com/avajs/ava/blob/master/docs/05-command-line.md)
@@ -144,7 +144,7 @@ To add to a new repository copy the relevant top-level files and dependencies
 from other repositories using this module such as
 [`log-process-errors`](https://github.com/ehmicky/log-process-errors).
 
-Custom Gulp tasks can be specified using a `gulp` top-level folder:
+Custom Gulp tasks can be specified using a `gulp` top-level directory:
 
 <!-- eslint-disable node/no-unpublished-require -->
 

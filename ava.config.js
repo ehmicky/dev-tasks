@@ -1,7 +1,7 @@
 // We can't put this file under `src/` because it uses ES imports while the
 // rest of the code does not. This would create issues with building and linting
-// the `src/` folder.
-// Also `ava` only allows this file to be at the root folder.
+// the `src/` directory.
+// Also `ava` only allows this file to be at the root directory.
 import { platform } from 'process'
 
 // We can't require `src/files.json` because it's not published by npm.

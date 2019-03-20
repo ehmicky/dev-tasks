@@ -28,7 +28,7 @@ const jscpdInstance = new JSCPD({
   maxLines: 5e3,
   minTokens: 35,
   // The default store uses LevelDB which is slower and creates a `.jscpd/`
-  // folder. The `memory` store has issues with huge repositories though.
+  // directory. The `memory` store has issues with huge repositories though.
   storeOptions: { '*': { type: 'memory' } },
 })
 
