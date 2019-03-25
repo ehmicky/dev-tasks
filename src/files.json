@@ -4,7 +4,7 @@
   "BUILD": "build",
   "BUILD_TEST": "build/test",
   "JAVASCRIPT": ["{,{src,docs,examples,gulp,test}/{,**/}}*.js"],
-  "MARKDOWN": ["{,{src,docs,examples}/{,**/}}*.md"],
+  "MARKDOWN": ["{,{src,docs,examples,.github}/{,**/}}*.md"],
   "DEPENDENCIES": ["package-lock.json"],
   "NPMRC": ".npmrc"
 }
