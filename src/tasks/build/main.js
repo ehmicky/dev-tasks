@@ -54,7 +54,9 @@ const build = series(clean, rebuild)
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build source files'
 
-const buildw = getWatchTask([SRC, TEST], rebuild, { initial: build })
+const buildw = getWatchTask([`${SRC}/`, `${TEST}/`], rebuild, {
+  initial: build,
+})
 
 module.exports = {
   build,
