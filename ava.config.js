@@ -9,6 +9,7 @@ import { platform } from 'process'
 // if the repository has not run `gulp build` yet. So we inline the paths.
 const BUILD = 'build'
 const BUILD_TEST = 'build/test'
+const LOG_PROCESS_ERRORS = `${__dirname}/build/tasks/unit/log_process_errors.js`
 
 export default {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
@@ -25,4 +26,6 @@ export default {
   compileEnhancements: false,
   // Workaround for https://github.com/istanbuljs/istanbuljs/issues/141
   serial: platform === 'win32',
+  // Use `log-process-errors`
+  require: [LOG_PROCESS_ERRORS],
 }
