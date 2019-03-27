@@ -86,7 +86,8 @@ Run unit tests (from the `build/test` directory) with
 [Ava](https://github.com/avajs/ava).
 
 [Ava options](https://github.com/avajs/ava/blob/master/docs/05-command-line.md)
-can be specified, e.g. `gulp unit --update-snapshots`.
+can be specified, e.g. `gulp unit --update-snapshots` or
+`gulp unit --files build/test/file.js`.
 
 To debug with the Chrome DevTools use `gulp unit --inspect build/test/file.js`
 (or `--inspect-brk`). Specifying a file inside `build/test/` is required.
