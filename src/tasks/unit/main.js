@@ -10,11 +10,11 @@ const { isAvaDebug, getAvaDebug } = require('./debug')
 const { addCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
 // Run `ava` and `nyc`
-const runAva = async function(args) {
+const runAva = async function(args, opts) {
   const ava = await getAva(args)
   const avaA = await addCoverage(ava)
 
-  await exec(avaA)
+  await exec(avaA, opts)
 
   await uploadCoverage()
 }
@@ -33,13 +33,13 @@ const getAva = function(extraArgs) {
   return `ava ${args}`
 }
 
-const unit = () => runAva([])
+const unit = () => runAva([], {})
 
 // eslint-disable-next-line fp/no-mutation
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-const unitwatch = () => runAva(['-w'])
+const unitwatch = () => runAva(['-w'], { stdio: 'inherit' })
 
 // We use `getWatchTask()` only to restart `ava -w` on `package.json` changes,
 // so we don't need the first two arguments.
