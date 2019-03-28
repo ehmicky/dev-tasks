@@ -2,7 +2,6 @@
 
 const { relative } = require('path')
 
-// eslint-disable-next-line unicorn/prevent-abbreviations
 const { src, dest, series, parallel, lastRun } = require('gulp')
 const gulpBabel = require('gulp-babel')
 const del = require('del')

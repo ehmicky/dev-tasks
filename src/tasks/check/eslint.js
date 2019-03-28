@@ -1,6 +1,5 @@
 'use strict'
 
-// eslint-disable-next-line unicorn/prevent-abbreviations
 const { src, dest, lastRun } = require('gulp')
 const gulpEslint = require('gulp-eslint')
 const gulpIf = require('gulp-if')
