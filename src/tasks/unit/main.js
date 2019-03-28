@@ -10,11 +10,11 @@ const { isAvaDebug, getAvaDebug } = require('./debug')
 const { addCoverage, uploadCoverage, checkCoverage } = require('./coverage')
 
 // Run `ava` and `nyc`
-const runAva = async function(args, opts) {
+const runAva = async function(args, options) {
   const ava = await getAva(args)
   const avaA = await addCoverage(ava)
 
-  await exec(avaA, opts)
+  await exec(avaA, options)
 
   await uploadCoverage()
 }

@@ -15,31 +15,31 @@ const Nodemon = require('nodemon')
 const getWatchTask = function(
   files,
   task,
-  { initial = true, gulpfiles = [], ...watchOpts } = {},
+  { initial = true, gulpfiles = [], ...watchOptions } = {},
 ) {
-  const watchTask = getTask({ files, task, initial, gulpfiles, watchOpts })
+  const watchTask = getTask({ files, task, initial, gulpfiles, watchOptions })
   addDescription({ watchTask, task, initial })
   return watchTask
 }
 
 // We do not use `func.bind()` to make the task name `watchTask` instead
 // of `bound watchTask`
-const getTask = function({ files, task, initial, gulpfiles, watchOpts }) {
+const getTask = function({ files, task, initial, gulpfiles, watchOptions }) {
   if (GULP_WATCH !== 'no-restart') {
     return () => startNodemon({ gulpfiles })
   }
 
-  const watchTask = () => startWatch({ files, task, watchOpts })
+  const watchTask = () => startWatch({ files, task, watchOptions })
   const watchTaskA = addInitial({ watchTask, task, initial })
   return watchTaskA
 }
 
-const startWatch = async function({ files, task, watchOpts }) {
+const startWatch = async function({ files, task, watchOptions }) {
   if (files.length === 0) {
     return
   }
 
-  const watcher = watch(files, watchOpts, task)
+  const watcher = watch(files, watchOptions, task)
   await Promise.race([
     promisify(watcher.on.bind(watcher))('ready'),
     promisify(watcher.on.bind(watcher))('error'),
@@ -99,7 +99,7 @@ const addInitial = function({ watchTask, task, initial }) {
 // keeps running
 const allowInitialFailure = function(func) {
   // eslint-disable-next-line promise/prefer-await-to-callbacks
-  const funcA = cb => asyncDone(func, () => cb())
+  const funcA = callback => asyncDone(func, () => callback())
 
   // eslint-disable-next-line fp/no-mutation
   funcA.displayName = 'initial'

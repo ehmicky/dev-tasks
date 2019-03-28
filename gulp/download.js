@@ -20,9 +20,9 @@ const CODECOV_URL = 'https://codecov.io/bash'
 
 // Download a URL and save to filesystem.
 // Done in streaming mode for best performance.
-const downloadFile = async function(url, opts) {
-  const { body } = await fetch(CODECOV_URL, opts)
-  const stream = createWriteStream(CODECOV_DIST, opts)
+const downloadFile = async function(url, options) {
+  const { body } = await fetch(CODECOV_URL, options)
+  const stream = createWriteStream(CODECOV_DIST, options)
   const streamA = body.pipe(stream)
   await streamToPromise(streamA)
 }
