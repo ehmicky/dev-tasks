@@ -1,34 +1,25 @@
 'use strict'
 
 const { promisify } = require('util')
-const {
-  argv: [, script, ...args],
-  env: { GULP_WATCH },
-} = require('process')
 
 const { watch, parallel } = require('gulp')
 const asyncDone = require('async-done')
-const Nodemon = require('nodemon')
 
 // Watch files to run a task.
 // Returns the watch task.
 const getWatchTask = function(
   files,
   task,
-  { initial = true, gulpfiles = [], ...watchOptions } = {},
+  { initial = true, ...watchOptions } = {},
 ) {
-  const watchTask = getTask({ files, task, initial, gulpfiles, watchOptions })
+  const watchTask = getTask({ files, task, initial, watchOptions })
   addDescription({ watchTask, task, initial })
   return watchTask
 }
 
 // We do not use `func.bind()` to make the task name `watchTask` instead
 // of `bound watchTask`
-const getTask = function({ files, task, initial, gulpfiles, watchOptions }) {
-  if (GULP_WATCH !== 'no-restart') {
-    return () => startNodemon({ gulpfiles })
-  }
-
+const getTask = function({ files, task, initial, watchOptions }) {
   const watchTask = () => startWatch({ files, task, watchOptions })
   const watchTaskA = addInitial({ watchTask, task, initial })
   return watchTaskA
@@ -44,44 +35,6 @@ const startWatch = async function({ files, task, watchOptions }) {
     promisify(watcher.on.bind(watcher))('ready'),
     promisify(watcher.on.bind(watcher))('error'),
   ])
-}
-
-// We relaunch the same CLI command `gulp ...` but inside Nodemon.
-// I.e. watching relaunches gulp when either:
-//  - Gulp tasks changed
-//  - Modules have been installed, updated or uninstalled
-// This works with `gulp` (default task) and `gulp taskA taskB` (multiple tasks)
-// We use an environment variable `GULP_WATCH` to distinguish between these
-// modes
-const startNodemon = async function({ gulpfiles }) {
-  const nodemonConfig = getNodemonConfig({ gulpfiles })
-  const nodemon = new Nodemon(nodemonConfig)
-
-  // Otherwise Nodemon logs are silent
-  // eslint-disable-next-line no-console, no-restricted-globals
-  nodemon.on('log', ({ colour }) => console.log(colour))
-
-  await promisify(nodemon.on.bind(nodemon))('start')
-}
-
-const getNodemonConfig = function({ gulpfiles }) {
-  return {
-    script,
-    args,
-    env: { GULP_WATCH: 'no-restart' },
-    watch: [
-      'gulpfile.*',
-      'gulpfile.*.*',
-      'gulp/',
-      'package.json',
-      'package-lock.json',
-      'yarn.lock',
-      ...gulpfiles,
-    ],
-    delay: 100,
-    // Does not use `nodemon.config` if one exists
-    configFile: ' ',
-  }
 }
 
 // Run the watched task in the beginning of the watch unless `opts.initial` is
