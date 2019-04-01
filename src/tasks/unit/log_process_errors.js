@@ -11,11 +11,8 @@ const isSelf = function() {
 }
 
 // TODO: remove once https://github.com/sinonjs/lolex/issues/232 is solved
-const warning = function({ value }) {
-  if (
-    value instanceof Error &&
-    value.message.includes('queueMicrotask() is experimental')
-  ) {
+const warning = function({ message }) {
+  if (message.includes('queueMicrotask() is experimental')) {
     return 'silent'
   }
 }
