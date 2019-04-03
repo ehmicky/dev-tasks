@@ -14,11 +14,12 @@ const audit = async () => {
     return
   }
 
-  // Only print `npm audit` output if it failed
   try {
-    await exec('npm audit', { stdout: 'ignore' })
+    await exec('npm audit --color=always', { stdout: 'pipe' })
   } catch (error) {
-    await exec('npm audit', { reject: false })
+    // Only print `npm audit` output if it failed.
+    // eslint-disable-next-line no-console, no-restricted-globals
+    console.error(error.stdout)
     throw error
   }
 }
