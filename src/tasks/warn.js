@@ -14,7 +14,13 @@ const audit = async () => {
     return
   }
 
-  await exec('npm audit', { stdout: 'ignore' })
+  // Only print `npm audit` output if it failed
+  try {
+    await exec('npm audit', { stdout: 'ignore' })
+  } catch (error) {
+    await exec('npm audit', { reject: false })
+    throw error
+  }
 }
 
 const outdated = () => exec('npm outdated')
