@@ -1,6 +1,6 @@
 {
   "name": "gulp-shared-tasks",
-  "version": "0.24.3",
+  "version": "0.24.4",
   "main": "build/src/index.js",
   "files": [
     "build/src",
