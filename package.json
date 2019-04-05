@@ -6,6 +6,7 @@
     "build/src",
     "ava.config.js",
     ".eslintrc.js",
+    ".eslintrc.modules.js",
     ".prettierrc.js",
     "!~"
   ],
