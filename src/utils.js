@@ -1,6 +1,6 @@
 'use strict'
 
-const { keepFuncProps } = require('keep-func-props')
+const keepFuncProps = require('keep-func-props')
 const asyncDone = require('async-done')
 
 // Like Function.bind() but:
