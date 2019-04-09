@@ -9,12 +9,13 @@ const yamlToJson = require('gulp-yaml')
 const mapSources = require('@gulp-sourcemaps/map-sources')
 const PluginError = require('plugin-error')
 
-const { SRC, TEST, BUILD } = require('../../files')
+const { BUILD_SOURCES, BUILD } = require('../../files')
 const { getWatchTask } = require('../../watch')
 
 const babelConfig = require('./.babelrc.js')
 
-const SOURCES = `{${SRC},${TEST}}/**`
+const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
+const SOURCES_ARR = BUILD_SOURCES.map(source => `${source}/`)
 
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
 // issues with `chokidar` (file waching used by `ava --watch` and
@@ -22,19 +23,27 @@ const SOURCES = `{${SRC},${TEST}}/**`
 const clean = () => del(`${BUILD}/**`, { nodir: true })
 
 const copy = () =>
-  src([`${SOURCES}/*[^~]`, `!${SOURCES}/*.js`, `!${SOURCES}/*.y{,a}ml`], {
-    dot: true,
-    since: lastRun(copy),
-  }).pipe(dest(BUILD))
+  src(
+    [
+      `${SOURCES_GLOB}/*[^~]`,
+      `!${SOURCES_GLOB}/*.js`,
+      `!${SOURCES_GLOB}/*.y{,a}ml`,
+    ],
+    { dot: true, since: lastRun(copy) },
+  ).pipe(dest(BUILD))
 
 const babel = () =>
-  src(`${SOURCES}/*.js`, { dot: true, since: lastRun(babel), sourcemaps: true })
+  src(`${SOURCES_GLOB}/*.js`, {
+    dot: true,
+    since: lastRun(babel),
+    sourcemaps: true,
+  })
     .pipe(gulpBabel({ ...babelConfig, babelrc: false }))
     .pipe(mapSources(path => `${relative(path, '.')}/${path}`))
     .pipe(dest(BUILD, { sourcemaps: '.' }))
 
 const yaml = () =>
-  src(`${SOURCES}/*.y{,a}ml`, { dot: true, since: lastRun(yaml) })
+  src(`${SOURCES_GLOB}/*.y{,a}ml`, { dot: true, since: lastRun(yaml) })
     .pipe(yamlToJson(JS_YAML_CONFIG))
     .pipe(dest(BUILD))
 
@@ -54,9 +63,7 @@ const build = series(clean, rebuild)
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build source files'
 
-const buildw = getWatchTask([`${SRC}/`, `${TEST}/`], rebuild, {
-  initial: build,
-})
+const buildw = getWatchTask(SOURCES_ARR, rebuild, { initial: build })
 
 module.exports = {
   build,
