@@ -27,7 +27,7 @@ const addCoverage = async function(command) {
   }
 
   const commandA = command.replace(COVER_FLAG, '')
-  return `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js --exclude=**/log_process_errors.js ${commandA}`
+  return `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js ${commandA}`
 }
 
 // Upload test coverage to codecov
