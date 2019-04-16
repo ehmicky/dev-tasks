@@ -22,16 +22,10 @@ const prettier = function(mode) {
     .pipe(gulpIf(isPrettified, dest(({ base }) => base)))
 }
 
-const prettierLoose = bind(prettier, 'loose')
-const prettierStrict = bind(prettier, 'strict')
-const prettierSilent = silentAsync(bind(prettier, 'silent'))
+export const prettierLoose = bind(prettier, 'loose')
+export const prettierStrict = bind(prettier, 'strict')
+export const prettierSilent = silentAsync(bind(prettier, 'silent'))
 
 const isPrettified = function({ isPrettier }) {
   return isPrettier
-}
-
-module.exports = {
-  prettierLoose,
-  prettierStrict,
-  prettierSilent,
 }

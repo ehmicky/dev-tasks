@@ -31,7 +31,7 @@ const getAva = function(extraArgs) {
   return `ava ${args}`
 }
 
-const unit = () => runAva([], {})
+export const unit = () => runAva([], {})
 
 // eslint-disable-next-line fp/no-mutation
 unit.description = 'Run unit tests'
@@ -41,17 +41,11 @@ const unitwatch = () => runAva(['-w'], { stdio: 'inherit' })
 
 // We use `getWatchTask()` only to restart `ava -w` on `package.json` changes,
 // so we don't need the first two arguments.
-const unitw = getWatchTask([], undefined, { initial: unitwatch })
+export const unitw = getWatchTask([], undefined, { initial: unitwatch })
 
 // eslint-disable-next-line fp/no-mutation
 unitw.description = 'Run unit tests (watch mode)'
 
-const coverage = checkCoverage
+export const coverage = checkCoverage
 // eslint-disable-next-line fp/no-mutation
 coverage.description = 'Ensure source files are fully covered by tests'
-
-module.exports = {
-  unit,
-  unitw,
-  coverage,
-}

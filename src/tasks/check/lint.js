@@ -19,7 +19,7 @@ import {
 //  - `full`: run before `git push`. Autofixable errors are fixed but emit
 //    errors.
 //  - `strict`: run in CI. Autofixable errors are not fixed and emit errors.
-const lint = function() {
+export const lint = function() {
   if (argv.slice(2).some(isFullArg)) {
     return lintFull
   }
@@ -50,9 +50,4 @@ const lintFull = async function() {
 const lintStrict = series(prettierStrict, eslintStrict)
 const lintLoose = series(prettierLoose, eslintLoose)
 const lintSilent = series(prettierSilent, eslintSilent)
-const lintWatch = series(prettierLoose, eslintWatch)
-
-module.exports = {
-  lint,
-  lintWatch,
-}
+export const lintWatch = series(prettierLoose, eslintWatch)

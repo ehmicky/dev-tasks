@@ -25,11 +25,11 @@ const eslint = function(mode) {
   )
 }
 
-const eslintLoose = bind(eslint, 'loose')
-const eslintStrict = bind(eslint, 'strict')
-const eslintSilent = silentAsync(bind(eslint, 'silent'))
+export const eslintLoose = bind(eslint, 'loose')
+export const eslintStrict = bind(eslint, 'strict')
+export const eslintSilent = silentAsync(bind(eslint, 'silent'))
 
-const eslintWatch = function() {
+export const eslintWatch = function() {
   return src([...JAVASCRIPT, ...MARKDOWN], {
     dot: true,
     since: lastRun(eslintWatch),
@@ -50,11 +50,4 @@ const eslintWatch = function() {
 
 const isFixed = function({ eslint: { fixed } = {} }) {
   return fixed
-}
-
-module.exports = {
-  eslintLoose,
-  eslintStrict,
-  eslintSilent,
-  eslintWatch,
 }

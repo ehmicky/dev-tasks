@@ -24,14 +24,9 @@ const audit = async () => {
 
 const outdated = () => exec('npm outdated')
 
-const warn = parallel(audit, outdated)
+export const warn = parallel(audit, outdated)
 
 // eslint-disable-next-line fp/no-mutation
 warn.description = 'Check for outdated/vulnerable dependencies'
 
-const warnw = getWatchTask(DEPENDENCIES, warn)
-
-module.exports = {
-  warn,
-  warnw,
-}
+export const warnw = getWatchTask(DEPENDENCIES, warn)

@@ -4,11 +4,7 @@ import { check } from './check/main.js'
 import { build } from './build/main.js'
 import { unit } from './unit/main.js'
 
-const testTask = series(check, build, unit)
+export const testTask = series(check, build, unit)
 
 // eslint-disable-next-line fp/no-mutation
 testTask.description = 'Build, lint and test source files'
-
-module.exports = {
-  testTask,
-}

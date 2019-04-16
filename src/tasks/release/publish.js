@@ -35,11 +35,7 @@ const npmPublish = async function() {
 const NPMRC_CONTENT = '//registry.npmjs.org/:_authToken=${NPM_TOKEN}\n'
 
 // We do not need to run tests since they were performed in previous stages.
-const publish = series(build, npmPublish)
+export const publish = series(build, npmPublish)
 
 // eslint-disable-next-line fp/no-mutation
 publish.description = 'Publish to npm'
-
-module.exports = {
-  publish,
-}

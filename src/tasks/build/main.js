@@ -56,14 +56,9 @@ const JS_YAML_CONFIG = {
 }
 
 const rebuild = parallel(copy, babel, yaml)
-const build = series(clean, rebuild)
+export const build = series(clean, rebuild)
 
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build source files'
 
-const buildw = getWatchTask(SOURCES_ARR, rebuild, { initial: build })
-
-module.exports = {
-  build,
-  buildw,
-}
+export const buildw = getWatchTask(SOURCES_ARR, rebuild, { initial: build })

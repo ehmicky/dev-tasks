@@ -10,16 +10,16 @@ const bindFunc = function(func, ...args) {
   return func.bind(null, ...args)
 }
 
-const bind = keepFuncProps(bindFunc)
+export const bind = keepFuncProps(bindFunc)
 
 const bindContextFunc = function(func, context) {
   return func.bind(context)
 }
 
-const bindContext = keepFuncProps(bindContextFunc)
+export const bindContext = keepFuncProps(bindContextFunc)
 
 // Ignore rejection of an async function
-const silentAsync = function(func) {
+const eSilentAsync = function(func) {
   return async (...args) => {
     try {
       await func(...args)
@@ -27,19 +27,12 @@ const silentAsync = function(func) {
   }
 }
 
-const eSilentAsync = keepFuncProps(silentAsync)
+export const silentAsync = keepFuncProps(eSilentAsync)
 
 // Like `async-done` but returns a promise
-const asyncDonePromise = function(func) {
+export const asyncDonePromise = function(func) {
   // eslint-disable-next-line promise/avoid-new
   return new Promise((resolve, reject) => {
     asyncDone(func, error => (error ? reject(error) : resolve()))
   })
-}
-
-module.exports = {
-  bind,
-  bindContext,
-  silentAsync: eSilentAsync,
-  asyncDonePromise,
 }

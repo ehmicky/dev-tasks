@@ -5,7 +5,7 @@ import asyncDone from 'async-done'
 
 // Watch files to run a task.
 // Returns the watch task.
-const getWatchTask = function(
+export const getWatchTask = function(
   files,
   task,
   { initial = true, ...watchOptions } = {},
@@ -72,8 +72,4 @@ const addDescription = function({ watchTask, task, initial }) {
 
 const hasDescription = function(task) {
   return typeof task === 'function' && typeof task.description === 'string'
-}
-
-module.exports = {
-  getWatchTask,
 }

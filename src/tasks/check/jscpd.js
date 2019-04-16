@@ -6,7 +6,7 @@ import { JAVASCRIPT } from '../../files.js'
 
 // Must always run on all files even in watch mode, since code duplication
 // is cross-files.
-const jscpd = async () => {
+export const jscpd = async () => {
   const files = await fastGlob(JAVASCRIPT)
   const clones = await jscpdInstance.detectInFiles(files)
 
@@ -29,7 +29,3 @@ const jscpdInstance = new JSCPD({
   // directory. The `memory` store has issues with huge repositories though.
   storeOptions: { '*': { type: 'memory' } },
 })
-
-module.exports = {
-  jscpd,
-}

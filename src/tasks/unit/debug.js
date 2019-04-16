@@ -5,7 +5,7 @@ import moize from 'moize'
 // `node node_modules/ava/profile.js FILE`
 // See https://github.com/avajs/ava/blob/master/docs/recipes/debugging-with-chrome-devtools.md
 // `FILE` is required and cannot use `--files` flag.
-const getAvaDebug = async function({ args }) {
+export const getAvaDebug = async function({ args }) {
   const inspect = findInspect({ args })
   const argsA = args.replace(inspect, '').replace(FILES_REGEXP, '')
   const profile = await mGetAvaProfile()
@@ -20,7 +20,7 @@ const getAvaProfile = function() {
 
 const mGetAvaProfile = moize(getAvaProfile)
 
-const isAvaDebug = function({ args }) {
+export const isAvaDebug = function({ args }) {
   return findInspect({ args }) !== undefined
 }
 
@@ -30,9 +30,4 @@ const findInspect = function({ args }) {
 
 const isInspect = function(arg) {
   return arg.startsWith('--inspect')
-}
-
-module.exports = {
-  getAvaDebug,
-  isAvaDebug,
 }

@@ -17,7 +17,7 @@ const CODECOV_SCRIPT = `${__dirname}/codecov.sh`
 const COVERAGE_PATH = 'coverage/coverage-final.json'
 
 // Wrap with `nyc` if in CI or `--cover` flag is used
-const addCoverage = async function(command) {
+export const addCoverage = async function(command) {
   const shouldAddCoverage = await shouldCover(command)
 
   if (!shouldAddCoverage) {
@@ -29,7 +29,7 @@ const addCoverage = async function(command) {
 }
 
 // Upload test coverage to codecov
-const uploadCoverage = async function() {
+export const uploadCoverage = async function() {
   const shouldAddCoverage = await shouldCover()
 
   if (!shouldAddCoverage) {
@@ -75,7 +75,7 @@ const COVER_FLAG = '--cover'
 
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
-const checkCoverage = async function() {
+export const checkCoverage = async function() {
   const covInfo = await getCoverage()
 
   if (covInfo >= COVERAGE_THRESHOLD) {
@@ -109,9 +109,3 @@ const getCodecovUrl = function() {
 }
 
 const COVERAGE_THRESHOLD = 100
-
-module.exports = {
-  addCoverage,
-  uploadCoverage,
-  checkCoverage,
-}
