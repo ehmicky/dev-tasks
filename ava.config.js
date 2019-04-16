@@ -2,8 +2,8 @@
 // at the root directory.
 import { platform } from 'process'
 
-// We can't require `src/files.json` because it's not published by npm.
-// But we can't require `build/src/files.json` because `gulp check` would fail
+// We can't require `src/files.js` because it's not published by npm.
+// But we can't require `build/src/files.js` because `gulp check` would fail
 // if the repository has not run `gulp build` yet. So we inline the paths.
 const BUILD = 'build'
 const BUILD_TEST = 'build/test'
