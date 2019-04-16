@@ -1,7 +1,4 @@
-import {
-  version,
-  env: { TRAVIS_REPO_SLUG, TRAVIS_COMMIT, TRAVIS_PULL_REQUEST_SHA },
-} from 'process'
+import { version, env } from 'process'
 import { platform } from 'os'
 
 import isCi from 'is-ci'
@@ -15,6 +12,8 @@ import { SRC } from '../../files.js'
 // Run in Bash, i.e. should use slashes even on Windows
 const CODECOV_SCRIPT = `${__dirname}/codecov.sh`
 const COVERAGE_PATH = 'coverage/coverage-final.json'
+
+const { TRAVIS_REPO_SLUG, TRAVIS_COMMIT, TRAVIS_PULL_REQUEST_SHA } = env
 
 // Wrap with `nyc` if in CI or `--cover` flag is used
 export const addCoverage = async function(command) {
