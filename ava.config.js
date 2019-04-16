@@ -1,8 +1,11 @@
 import { platform } from 'process'
 
 // The current directory is the caller's `ava.config.js` directory, because it's
-// loaded with `esm`. This make it hard to load `files.js`, so we inline it
-// instead.
+// loaded with `esm`. The `esm` configuration used by Ava is also hard to work
+// with when mixed with CommonJS (from the `build/` folder), making it hard to:
+//  - load `files.js`, so we inline it instead, and use `__dirname`.
+//  - load `ava.config.js` from inside `build/src/`, so we define the whole
+//    configuration here instead.
 const BUILD = 'build'
 const BUILD_TEST = 'build/test'
 
