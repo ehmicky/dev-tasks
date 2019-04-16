@@ -1,5 +1,3 @@
-'use strict'
-
 const { appendFile } = require('fs')
 const { promisify } = require('util')
 

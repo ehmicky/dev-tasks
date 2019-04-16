@@ -1,5 +1,3 @@
-'use strict'
-
 const { testTask } = require('./tasks/test.js')
 const { build, buildw } = require('./tasks/build/main.js')
 const { check, checkw } = require('./tasks/check/main.js')

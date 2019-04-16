@@ -1,5 +1,3 @@
-'use strict'
-
 const { src, dest, lastRun } = require('gulp')
 const gulpEslint = require('gulp-eslint')
 const gulpIf = require('gulp-if')

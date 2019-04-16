@@ -1,5 +1,3 @@
-'use strict'
-
 const { series } = require('gulp')
 const releaseIt = require('release-it')
 

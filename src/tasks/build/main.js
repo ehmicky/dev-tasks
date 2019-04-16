@@ -1,5 +1,3 @@
-'use strict'
-
 const { relative } = require('path')
 
 const { src, dest, series, parallel, lastRun } = require('gulp')

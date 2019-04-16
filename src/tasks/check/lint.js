@@ -1,5 +1,3 @@
-'use strict'
-
 const { argv } = require('process')
 
 const { series } = require('gulp')

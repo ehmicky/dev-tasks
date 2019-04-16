@@ -1,5 +1,3 @@
-'use strict'
-
 const {
   version,
   env: { TRAVIS_REPO_SLUG, TRAVIS_COMMIT, TRAVIS_PULL_REQUEST_SHA },

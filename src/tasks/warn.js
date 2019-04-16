@@ -1,5 +1,3 @@
-'use strict'
-
 const { parallel } = require('gulp')
 const { exec } = require('gulp-execa')
 

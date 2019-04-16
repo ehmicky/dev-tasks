@@ -1,5 +1,3 @@
-'use strict'
-
 const findUp = require('find-up')
 const moize = require('moize').default
 

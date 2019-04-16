@@ -1,5 +1,3 @@
-'use strict'
-
 const { JSCPD } = require('jscpd')
 const fastGlob = require('fast-glob')
 const PluginError = require('plugin-error')

@@ -1,5 +1,3 @@
-'use strict'
-
 const { node, npm } = require('node-latest')
 const PluginError = require('plugin-error')
 

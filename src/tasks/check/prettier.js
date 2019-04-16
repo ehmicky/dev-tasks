@@ -1,13 +1,10 @@
-'use strict'
-
 const { src, dest, lastRun } = require('gulp')
 const gulpPrettier = require('gulp-prettier')
 const gulpIf = require('gulp-if')
+const prettierConfig = require('eslint-config-standard-prettier-fp/build/src/.prettierrc')
 
 const { JAVASCRIPT, MARKDOWN } = require('../../files')
 const { bind, silentAsync } = require('../../utils')
-
-const prettierConfig = require('./.prettierrc')
 
 const prettier = function(mode) {
   const stream = src([...JAVASCRIPT, ...MARKDOWN], {

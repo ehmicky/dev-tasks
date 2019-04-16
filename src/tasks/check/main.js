@@ -1,5 +1,3 @@
-'use strict'
-
 const { parallel } = require('gulp')
 
 const { JAVASCRIPT, MARKDOWN } = require('../../files')
