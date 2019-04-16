@@ -6,7 +6,7 @@ import { platform } from 'process'
 const BUILD = 'build'
 const BUILD_TEST = 'build/test'
 
-const LOG_PROCESS_ERRORS = './build/src/tasks/unit/log_process_errors.js'
+const LOG_PROCESS_ERRORS = `${__dirname}/build/src/tasks/unit/log_process_errors.js`
 
 export default {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
