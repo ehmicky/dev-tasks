@@ -1,9 +1,7 @@
-'use strict'
+import { createWriteStream } from 'fs'
 
-const { createWriteStream } = require('fs')
-
-const fetch = require('cross-fetch')
-const streamToPromise = require('stream-to-promise')
+import fetch from 'cross-fetch'
+import streamToPromise from 'stream-to-promise'
 
 const CODECOV_DIST = `${__dirname}/../src/tasks/codecov.sh`
 
@@ -11,7 +9,7 @@ const CODECOV_DIST = `${__dirname}/../src/tasks/codecov.sh`
 // `package.json` so we can't use `npm`.
 // Using `curl` to retrieve it is slower in CI and randomly fails so we
 // run this Gulp task instead anytime the script has a new version.
-const download = () => downloadFile(CODECOV_URL)
+export const download = () => downloadFile(CODECOV_URL)
 
 // eslint-disable-next-line fp/no-mutation
 download.description = 'Download latest codecov upload script'
@@ -25,8 +23,4 @@ const downloadFile = async function(url, options) {
   const stream = createWriteStream(CODECOV_DIST, options)
   const streamA = body.pipe(stream)
   await streamToPromise(streamA)
-}
-
-module.exports = {
-  download,
 }
