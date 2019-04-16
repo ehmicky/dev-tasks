@@ -1,29 +1,4 @@
-// We can't put this file under `src/` because `ava` only allows this file to be
-// at the root directory.
-import { platform } from 'process'
+// eslint-disable-next-line import/no-namespace
+import * as config from './build/src/tasks/unit/ava.config.js'
 
-// We can't require `src/files.js` because it's not published by npm.
-// But we can't require `build/src/files.js` because `gulp check` would fail
-// if the repository has not run `gulp build` yet. So we inline the paths.
-const BUILD = 'build'
-const BUILD_TEST = 'build/test'
-const LOG_PROCESS_ERRORS = `${__dirname}/build/src/tasks/unit/log_process_errors.js`
-
-export default {
-  // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
-  // creates issues.
-  files: [`${BUILD_TEST}/**/*.js`],
-  // Otherwise tests are triggered in watch mode on `src` changes too,
-  // i.e. triggered twice.
-  sources: [`${BUILD}/**/*.js`],
-  verbose: true,
-  // We have already compiled the tests with Babel..
-  // Letting ava compile creates too many issues.
-  babel: false,
-  // Must be used otherwise babel is still performed
-  compileEnhancements: false,
-  // Workaround for https://github.com/istanbuljs/istanbuljs/issues/141
-  serial: platform === 'win32',
-  // Use `log-process-errors`
-  require: [LOG_PROCESS_ERRORS],
-}
+export default config
