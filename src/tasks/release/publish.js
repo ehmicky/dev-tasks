@@ -9,7 +9,7 @@ const PluginError = require('plugin-error')
 const { exec } = require('gulp-execa')
 
 const { NPMRC } = require('../../files')
-const { build } = require('../build')
+const { build } = require('../build/main.js')
 
 const pAppendFile = promisify(appendFile)
 

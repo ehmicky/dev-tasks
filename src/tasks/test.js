@@ -2,9 +2,9 @@
 
 const { series } = require('gulp')
 
-const { check } = require('./check')
-const { build } = require('./build')
-const { unit } = require('./unit')
+const { check } = require('./check/main.js')
+const { build } = require('./build/main.js')
+const { unit } = require('./unit/main.js')
 
 const testTask = series(check, build, unit)
 
@@ -12,5 +12,5 @@ const testTask = series(check, build, unit)
 testTask.description = 'Build, lint and test source files'
 
 module.exports = {
-  test: testTask,
+  testTask,
 }

@@ -1,7 +1,7 @@
 {
   "name": "gulp-shared-tasks",
   "version": "0.26.0",
-  "main": "build/src/index.js",
+  "main": "build/src/main.js",
   "files": [
     "build/src",
     "ava.config.js",

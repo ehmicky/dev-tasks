@@ -3,7 +3,7 @@
 const { series } = require('gulp')
 const releaseIt = require('release-it')
 
-const { test } = require('../test')
+const { testTask } = require('../test')
 
 const { checkVersions } = require('./version')
 
@@ -23,7 +23,7 @@ const RELEASE_IT_CONFIG = {
   },
 }
 
-const prereleaseTasks = [checkVersions, test]
+const prereleaseTasks = [checkVersions, testTask]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
