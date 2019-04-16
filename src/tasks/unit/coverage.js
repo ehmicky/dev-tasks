@@ -1,16 +1,16 @@
-const {
+import {
   version,
   env: { TRAVIS_REPO_SLUG, TRAVIS_COMMIT, TRAVIS_PULL_REQUEST_SHA },
-} = require('process')
-const { platform } = require('os')
+} from 'process'
+import { platform } from 'os'
 
-const isCi = require('is-ci')
-const fastGlob = require('fast-glob')
-const fetch = require('cross-fetch')
-const PluginError = require('plugin-error')
-const { exec } = require('gulp-execa')
+import isCi from 'is-ci'
+import fastGlob from 'fast-glob'
+import fetch from 'cross-fetch'
+import PluginError from 'plugin-error'
+import { exec } from 'gulp-execa'
 
-const { SRC } = require('../../files')
+import { SRC } from '../../files.js'
 
 // Run in Bash, i.e. should use slashes even on Windows
 const CODECOV_SCRIPT = `${__dirname}/codecov.sh`

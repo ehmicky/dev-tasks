@@ -1,5 +1,5 @@
-const { node, npm } = require('node-latest')
-const PluginError = require('plugin-error')
+import { node, npm } from 'node-latest'
+import PluginError from 'plugin-error'
 
 // Make sure the latest Node and npm versions are used when releasing
 const checkVersion = async function(name, { current, latest }) {

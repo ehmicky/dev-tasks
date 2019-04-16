@@ -1,10 +1,10 @@
-const { src, dest, lastRun } = require('gulp')
-const gulpEslint = require('gulp-eslint')
-const gulpIf = require('gulp-if')
-const { exec } = require('gulp-execa')
+import { src, dest, lastRun } from 'gulp'
+import gulpEslint from 'gulp-eslint'
+import gulpIf from 'gulp-if'
+import { exec } from 'gulp-execa'
 
-const { JAVASCRIPT, MARKDOWN } = require('../../files')
-const { bind, silentAsync } = require('../../utils')
+import { JAVASCRIPT, MARKDOWN } from '../../files.js'
+import { bind, silentAsync } from '../../utils.js'
 
 // `gulp-eslint` does not support --cache
 // (https://github.com/adametry/gulp-eslint/issues/132)

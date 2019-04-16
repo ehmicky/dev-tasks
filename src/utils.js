@@ -1,5 +1,5 @@
-const keepFuncProps = require('keep-func-props')
-const asyncDone = require('async-done')
+import keepFuncProps from 'keep-func-props'
+import asyncDone from 'async-done'
 
 // Like Function.bind() but:
 //  - does not need to specify context

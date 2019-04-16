@@ -1,11 +1,11 @@
-const { argv } = require('process')
+import { argv } from 'process'
 
-const { exec } = require('gulp-execa')
+import { exec } from 'gulp-execa'
 
-const { getWatchTask } = require('../../watch')
+import { getWatchTask } from '../../watch.js'
 
-const { isAvaDebug, getAvaDebug } = require('./debug')
-const { addCoverage, uploadCoverage, checkCoverage } = require('./coverage')
+import { isAvaDebug, getAvaDebug } from './debug.js'
+import { addCoverage, uploadCoverage, checkCoverage } from './coverage.js'
 
 // Run `ava` and `nyc`
 const runAva = async function(args, options) {

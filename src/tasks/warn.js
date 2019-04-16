@@ -1,8 +1,8 @@
-const { parallel } = require('gulp')
-const { exec } = require('gulp-execa')
+import { parallel } from 'gulp'
+import { exec } from 'gulp-execa'
 
-const { DEPENDENCIES } = require('../files')
-const { getWatchTask } = require('../watch')
+import { DEPENDENCIES } from '../files.js'
+import { getWatchTask } from '../watch.js'
 
 const audit = async () => {
   // Older `npm` versions do not have this command

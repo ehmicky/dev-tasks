@@ -1,8 +1,8 @@
-const { series } = require('gulp')
+import { series } from 'gulp'
 
-const { check } = require('./check/main.js')
-const { build } = require('./build/main.js')
-const { unit } = require('./unit/main.js')
+import { check } from './check/main.js'
+import { build } from './build/main.js'
+import { unit } from './unit/main.js'
 
 const testTask = series(check, build, unit)
 

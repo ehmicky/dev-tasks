@@ -1,7 +1,7 @@
-const { promisify } = require('util')
+import { promisify } from 'util'
 
-const { watch, parallel } = require('gulp')
-const asyncDone = require('async-done')
+import { watch, parallel } from 'gulp'
+import asyncDone from 'async-done'
 
 // Watch files to run a task.
 // Returns the watch task.

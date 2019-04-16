@@ -1,17 +1,17 @@
-const { argv } = require('process')
+import { argv } from 'process'
 
-const { series } = require('gulp')
-const isCi = require('is-ci')
+import { series } from 'gulp'
+import isCi from 'is-ci'
 
-const { asyncDonePromise } = require('../../utils')
+import { asyncDonePromise } from '../../utils.js'
 
-const { prettierLoose, prettierStrict, prettierSilent } = require('./prettier')
-const {
+import { prettierLoose, prettierStrict, prettierSilent } from './prettier.js'
+import {
   eslintLoose,
   eslintStrict,
   eslintSilent,
   eslintWatch,
-} = require('./eslint')
+} from './eslint.js'
 
 // `gulp lint` is `eslint` + `prettier`. It runs in 3 different modes:
 //  - `loose`: run by `gulp check`. Autofixable errors are fixed and do not emit

@@ -1,5 +1,5 @@
-const findUp = require('find-up')
-const moize = require('moize').default
+import findUp from 'find-up'
+import moize from 'moize'
 
 // To run `ava` with the Node inspector, one must do
 // `node node_modules/ava/profile.js FILE`

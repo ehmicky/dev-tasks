@@ -1,8 +1,8 @@
-const { JSCPD } = require('jscpd')
-const fastGlob = require('fast-glob')
-const PluginError = require('plugin-error')
+import { JSCPD } from 'jscpd'
+import fastGlob from 'fast-glob'
+import PluginError from 'plugin-error'
 
-const { JAVASCRIPT } = require('../../files')
+import { JAVASCRIPT } from '../../files.js'
 
 // Must always run on all files even in watch mode, since code duplication
 // is cross-files.

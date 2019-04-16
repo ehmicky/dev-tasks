@@ -1,9 +1,9 @@
-const { series } = require('gulp')
-const releaseIt = require('release-it')
+import { series } from 'gulp'
+import releaseIt from 'release-it'
 
-const { testTask } = require('../test')
+import { testTask } from '../test.js'
 
-const { checkVersions } = require('./version')
+import { checkVersions } from './version.js'
 
 const releaseItTask = async function(increment) {
   await releaseIt({ ...RELEASE_IT_CONFIG, increment })

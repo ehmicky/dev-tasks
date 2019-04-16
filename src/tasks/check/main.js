@@ -1,10 +1,10 @@
-const { parallel } = require('gulp')
+import { parallel } from 'gulp'
 
-const { JAVASCRIPT, MARKDOWN } = require('../../files')
-const { getWatchTask } = require('../../watch')
+import { JAVASCRIPT, MARKDOWN } from '../../files.js'
+import { getWatchTask } from '../../watch.js'
 
-const { lint, lintWatch } = require('./lint')
-const { jscpd } = require('./jscpd')
+import { lint, lintWatch } from './lint.js'
+import { jscpd } from './jscpd.js'
 
 const check = parallel(lint(), jscpd)
 const checkWatch = parallel(lintWatch, jscpd)

@@ -1,13 +1,13 @@
-const { appendFile } = require('fs')
-const { promisify } = require('util')
+import { appendFile } from 'fs'
+import { promisify } from 'util'
 
-const { series } = require('gulp')
-const isCi = require('is-ci')
-const PluginError = require('plugin-error')
-const { exec } = require('gulp-execa')
+import { series } from 'gulp'
+import isCi from 'is-ci'
+import PluginError from 'plugin-error'
+import { exec } from 'gulp-execa'
 
-const { NPMRC } = require('../../files')
-const { build } = require('../build/main.js')
+import { NPMRC } from '../../files.js'
+import { build } from '../build/main.js'
 
 const pAppendFile = promisify(appendFile)
 

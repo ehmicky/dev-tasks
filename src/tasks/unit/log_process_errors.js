@@ -1,7 +1,7 @@
-const { cwd } = require('process')
-const { basename } = require('path')
+import { cwd } from 'process'
+import { basename } from 'path'
 
-const logProcessErrors = require('log-process-errors')
+import logProcessErrors from 'log-process-errors'
 
 // `log-process-errors` should not use itself
 const isSelf = function() {

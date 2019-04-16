@@ -1,14 +1,14 @@
-const { testTask } = require('./tasks/test.js')
-const { build, buildw } = require('./tasks/build/main.js')
-const { check, checkw } = require('./tasks/check/main.js')
-const { unit, unitw, coverage } = require('./tasks/unit/main.js')
-const { warn, warnw } = require('./tasks/warn.js')
-const {
+import { testTask } from './tasks/test.js'
+import { build, buildw } from './tasks/build/main.js'
+import { check, checkw } from './tasks/check/main.js'
+import { unit, unitw, coverage } from './tasks/unit/main.js'
+import { warn, warnw } from './tasks/warn.js'
+import {
   releaseMajor,
   releaseMinor,
   releasePatch,
-} = require('./tasks/release/main.js')
-const { publish } = require('./tasks/release/publish.js')
+} from './tasks/release/main.js'
+import { publish } from './tasks/release/publish.js'
 
 module.exports = {
   test: testTask,

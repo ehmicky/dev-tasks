@@ -1,10 +1,10 @@
-const { src, dest, lastRun } = require('gulp')
-const gulpPrettier = require('gulp-prettier')
-const gulpIf = require('gulp-if')
-const prettierConfig = require('eslint-config-standard-prettier-fp/build/src/.prettierrc')
+import { src, dest, lastRun } from 'gulp'
+import gulpPrettier from 'gulp-prettier'
+import gulpIf from 'gulp-if'
+import prettierConfig from 'eslint-config-standard-prettier-fp/build/src/.prettierrc'
 
-const { JAVASCRIPT, MARKDOWN } = require('../../files')
-const { bind, silentAsync } = require('../../utils')
+import { JAVASCRIPT, MARKDOWN } from '../../files.js'
+import { bind, silentAsync } from '../../utils.js'
 
 const prettier = function(mode) {
   const stream = src([...JAVASCRIPT, ...MARKDOWN], {
