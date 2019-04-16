@@ -152,7 +152,7 @@ from other repositories using this module such as
 
 Custom Gulp tasks can be specified using a `gulp` top-level directory:
 
-<!-- eslint-disable node/no-unpublished-require -->
+<!-- eslint-disable node/no-unpublished-require, global-require -->
 
 ```js
 'use strict'
