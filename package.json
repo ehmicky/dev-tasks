@@ -76,7 +76,6 @@
     "gulp-execa": "^0.2.2",
     "gulp-if": "^2.0.2",
     "gulp-prettier": "^2.1.0",
-    "gulp-yaml": "^2.0.3",
     "is-ci": "^2.0.0",
     "jscpd": "^2.0.13",
     "keep-func-props": "^1.3.1",

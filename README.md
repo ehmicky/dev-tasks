@@ -9,8 +9,7 @@ This is a set of [Gulp](https://gulpjs.com/) tasks for a Node.js workflow using
 [Babel](https://babeljs.io/), [ESLint](https://eslint.org/),
 [Prettier](https://prettier.io/), [Jscpd](https://github.com/kucherenko/jscpd),
 [Ava](https://github.com/avajs/ava), [Travis](https://travis-ci.org/),
-[nyc](https://github.com/istanbuljs/nyc), [codecov](https://codecov.io/) and
-[YAML](https://en.wikipedia.org/wiki/YAML).
+[nyc](https://github.com/istanbuljs/nyc) and [codecov](https://codecov.io/).
 
 [Gulp](https://gulpjs.com/) is a task runner automating development tasks like
 linting, testing or building. You don't need to know [Gulp](https://gulpjs.com/)
@@ -77,7 +76,6 @@ Build source files and test files:
 
 - JavaScript files are transpiled with [Babel](https://babeljs.io/) (see the
   [configuration file](.babelrc.js)).
-- [YAML](https://en.wikipedia.org/wiki/YAML) files are converted to JSON.
 - Other files are copied as is.
 
 Source files are built from the `src` directory to the `build/src` directory.
