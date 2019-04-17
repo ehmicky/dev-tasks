@@ -1,7 +1,7 @@
 import { src, dest, lastRun } from 'gulp'
 import gulpPrettier from 'gulp-prettier'
 import gulpIf from 'gulp-if'
-import prettierConfig from 'eslint-config-standard-prettier-fp/src/.prettierrc.json'
+import config from 'eslint-config-standard-prettier-fp/src/.prettierrc.js'
 
 import { JAVASCRIPT, MARKDOWN } from '../../files.js'
 import { bind, silentAsync } from '../../utils.js'
@@ -14,11 +14,11 @@ const prettier = function(mode) {
   })
 
   if (mode === 'strict') {
-    return stream.pipe(gulpPrettier.check(prettierConfig))
+    return stream.pipe(gulpPrettier.check(config))
   }
 
   return stream
-    .pipe(gulpPrettier(prettierConfig))
+    .pipe(gulpPrettier(config))
     .pipe(gulpIf(isPrettified, dest(({ base }) => base)))
 }
 
