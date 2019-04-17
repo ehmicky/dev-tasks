@@ -751,7 +751,17 @@ then
   job="${BUILD_BUILDID}"
   branch="$BUILD_SOURCEBRANCHNAME"
   build_url=$(urlencode "${SYSTEM_TEAMFOUNDATIONSERVERURI}${SYSTEM_TEAMPROJECT}/_build/results?buildId=${BUILD_BUILDID}")
-  
+elif [ "$CI" = "true" ] && [ "$BITBUCKET_BUILD_NUMBER" != "" ];
+then
+  say "$e==>$x Bitbucket detected."
+  # https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html
+  service="bitbucket"
+  commit="$BITBUCKET_COMMIT"
+  branch="$BITBUCKET_BRANCH"
+  build="$BITBUCKET_BUILD_NUMBER"
+  slug="$BITBUCKET_REPO_OWNER/$BITBUCKET_REPO_SLUG"
+  job="$BITBUCKET_BUILD_NUMBER"
+  pr="$BITBUCKET_PR_ID"
 else
   say "${r}x>${x} No CI provider detected."
   say "    Testing inside Docker? ${b}http://docs.codecov.io/docs/testing-with-docker${x}"
