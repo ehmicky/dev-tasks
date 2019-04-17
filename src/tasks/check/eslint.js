@@ -6,6 +6,10 @@ import { exec } from 'gulp-execa'
 import { JAVASCRIPT, MARKDOWN } from '../../files.js'
 import { bind, silentAsync } from '../../utils.js'
 
+const ESLINT_CONFIG = require.resolve(
+  'eslint-config-standard-prettier-fp/.eslintrc.yml',
+)
+
 // `gulp-eslint` does not support --cache
 // (https://github.com/adametry/gulp-eslint/issues/132)
 // `gulp.lastRun()` allows linting only modified files, which is 10 times faster
@@ -19,9 +23,8 @@ const eslint = function(mode) {
     mode === 'silent' ? { stdout: 'ignore', stderr: 'ignore' } : {}
 
   const files = `${JAVASCRIPT.join(' ')} ${MARKDOWN.join(' ')}`
-  // Configuration file must be present in the top-level directory
   return exec(
-    `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
+    `eslint ${files} --config=${ESLINT_CONFIG} --no-eslintrc --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
     options,
   )
 }
@@ -42,6 +45,8 @@ export const eslintWatch = function() {
         maxWarnings: 0,
         // eslint-disable-next-line id-length
         reportUnusedDisableDirectives: true,
+        configFile: ESLINT_CONFIG,
+        useEslintrc: false,
       }),
     )
     .pipe(gulpEslint.format('codeframe'))
