@@ -5,7 +5,7 @@
 // eslint-disable-next-line import/order
 const babelConfig = require('./src/tasks/build/.babelrc.js')
 
-require('@babel/register')({ presets: [babelConfig], babelrc: false })
+require('@babel/register')({ ...babelConfig, babelrc: false })
 
 const tasks = require('./src/main.js')
 const { download } = require('./gulp/download.js')
