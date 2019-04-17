@@ -1,3 +1,0 @@
-{
-  "presets": ["./build/src/tasks/build/.babelrc.js"]
-}
