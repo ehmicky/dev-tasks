@@ -6,6 +6,8 @@ import { exec } from 'gulp-execa'
 import { JAVASCRIPT, MARKDOWN } from '../../files.js'
 import { bind, silentAsync } from '../../utils.js'
 
+// That module's main export is the Prettier config, i.e. we need to use
+// `require.resolve()` to load the ESLint config.
 const ESLINT_CONFIG = require.resolve(
   'eslint-config-standard-prettier-fp/.eslintrc.yml',
 )
