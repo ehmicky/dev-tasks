@@ -3,18 +3,18 @@ import { basename } from 'path'
 
 import logProcessErrors from 'log-process-errors'
 
+const loadLogProcessErrors = function() {
+  if (isSelf()) {
+    return
+  }
+
+  logProcessErrors({ testing: 'ava' })
+}
+
 // `log-process-errors` should not use itself
 const isSelf = function() {
-  return basename(cwd()) === 'log-process-errors'
+  const repoName = basename(cwd())
+  return repoName === 'log-process-errors'
 }
 
-// TODO: remove once https://github.com/sinonjs/lolex/issues/232 is solved
-const warning = function({ message }) {
-  if (message.includes('queueMicrotask() is experimental')) {
-    return 'silent'
-  }
-}
-
-if (!isSelf()) {
-  logProcessErrors({ testing: 'ava', level: { warning } })
-}
+loadLogProcessErrors()
