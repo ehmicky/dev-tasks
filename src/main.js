@@ -9,3 +9,6 @@ export {
   releasePatch,
 } from './tasks/release/main.js'
 export { publish } from './tasks/release/publish.js'
+
+// eslint-disable-next-line import/first, import/no-unassigned-import
+import './tasks/build/register.js'
