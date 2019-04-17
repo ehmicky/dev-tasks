@@ -6,7 +6,7 @@
     "build/src",
     "ava.config.js",
     ".eslintrc.yml",
-    ".prettierrc.js",
+    ".prettierrc.yml",
     "!~"
   ],
   "scripts": {
