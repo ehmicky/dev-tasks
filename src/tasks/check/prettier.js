@@ -1,7 +1,7 @@
 import { src, dest, lastRun } from 'gulp'
 import gulpPrettier from 'gulp-prettier'
 import gulpIf from 'gulp-if'
-import config from 'eslint-config-standard-prettier-fp/src/.prettierrc.js'
+import config from 'eslint-config-standard-prettier-fp'
 
 import { JAVASCRIPT, MARKDOWN } from '../../files.js'
 import { bind, silentAsync } from '../../utils.js'
