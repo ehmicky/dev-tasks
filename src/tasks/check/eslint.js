@@ -6,12 +6,6 @@ import { exec } from 'gulp-execa'
 import { JAVASCRIPT, MARKDOWN } from '../../files.js'
 import { bind, silentAsync } from '../../utils.js'
 
-// That module's main export is the Prettier config, i.e. we need to use
-// `require.resolve()` to load the ESLint config.
-const ESLINT_CONFIG = require.resolve(
-  'eslint-config-standard-prettier-fp/.eslintrc.yml',
-)
-
 // `gulp-eslint` does not support --cache
 // (https://github.com/adametry/gulp-eslint/issues/132)
 // `gulp.lastRun()` allows linting only modified files, which is 10 times faster
@@ -25,8 +19,13 @@ const eslint = function(mode) {
     mode === 'silent' ? { stdout: 'ignore', stderr: 'ignore' } : {}
 
   const files = [...JAVASCRIPT, ...MARKDOWN].join(' ')
+  // We cannot use `--config` because:
+  //  - it seems to change the base directory of rules `overrides` `files`,
+  //    which make them not work anymore
+  // Also, that module's main export is the Prettier config, i.e. we would need
+  // to use `require.resolve()` to load the ESLint config.
   return exec(
-    `eslint ${files} --config=${ESLINT_CONFIG} --no-eslintrc --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
+    `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
     options,
   )
 }
@@ -42,8 +41,6 @@ export const eslintWatch = function() {
   })
     .pipe(
       gulpEslint({
-        configFile: ESLINT_CONFIG,
-        useEslintrc: false,
         ignorePath: '.gitignore',
         fix: true,
         maxWarnings: 0,
