@@ -3,7 +3,7 @@ import { createWriteStream } from 'fs'
 import fetch from 'cross-fetch'
 import streamToPromise from 'stream-to-promise'
 
-const CODECOV_DIST = `${__dirname}/../src/tasks/codecov.sh`
+const CODECOV_DIST = `${__dirname}/../src/tasks/unit/codecov.sh`
 
 // `codecov` upload script is in Bash and the repository does not have any
 // `package.json` so we can't use `npm`.
