@@ -3,9 +3,9 @@
 // We do not use `build` directory nor 'gulpfile.babel.js` to avoid
 // hard-to-debug problems due to recursion.
 // eslint-disable-next-line import/order
-const babelConfig = require('./src/tasks/build/.babelrc.js')
+const { buildRegister } = require('./src/tasks/build/register.js')
 
-require('@babel/register')({ ...babelConfig, babelrc: false })
+buildRegister()
 
 const tasks = require('./src/main.js')
 const { download } = require('./gulp/download.js')

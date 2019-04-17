@@ -41,11 +41,3 @@ export const build = series(clean, rebuild)
 build.description = 'Build source files'
 
 export const buildw = getWatchTask(SOURCES_ARR, rebuild, { initial: build })
-
-// Meant to be used when caller adds custom Gulp tasks that needs to be
-// compiled with Babel. This should be called directly, not as a Gulp task,
-// and before requiring the custom Gulp tasks.
-export const buildRegister = function() {
-  // eslint-disable-next-line global-require
-  require('@babel/register')({ ...babelConfig, babelrc: false })
-}
