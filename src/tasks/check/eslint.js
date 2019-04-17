@@ -24,7 +24,7 @@ const eslint = function(mode) {
   const options =
     mode === 'silent' ? { stdout: 'ignore', stderr: 'ignore' } : {}
 
-  const files = `${JAVASCRIPT.join(' ')} ${MARKDOWN.join(' ')}`
+  const files = [...JAVASCRIPT, ...MARKDOWN].join(' ')
   return exec(
     `eslint ${files} --config=${ESLINT_CONFIG} --no-eslintrc --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
     options,
