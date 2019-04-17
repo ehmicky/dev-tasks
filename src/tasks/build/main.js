@@ -5,9 +5,10 @@ import gulpBabel from 'gulp-babel'
 import del from 'del'
 import mapSources from '@gulp-sourcemaps/map-sources'
 
-import babelConfig from '../../.babelrc.js'
-import { BUILD_SOURCES, BUILD } from '../files.js'
-import { getWatchTask } from '../watch.js'
+import { BUILD_SOURCES, BUILD } from '../../files.js'
+import { getWatchTask } from '../../watch.js'
+
+import babelConfig from './.babelrc.js'
 
 const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
 const SOURCES_ARR = BUILD_SOURCES.map(source => `${source}/`)
