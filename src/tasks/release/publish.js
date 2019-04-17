@@ -7,7 +7,7 @@ import PluginError from 'plugin-error'
 import { exec } from 'gulp-execa'
 
 import { NPMRC } from '../../files.js'
-import { build } from '../build/main.js'
+import { build } from '../build.js'
 
 const pAppendFile = promisify(appendFile)
 
