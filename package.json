@@ -15,7 +15,7 @@
       "pre-push": "gulp check --full"
     }
   },
-  "description": "Gulp tasks for a modern Node.js workflow (Babel / ESLint / Prettier / Jscpd / ava / Travis / nyc / Codecov / YAML)",
+  "description": "Gulp tasks for a modern Node.js workflow (Babel / ESLint / Prettier / Jscpd / ava / Travis / nyc / Codecov)",
   "keywords": [
     "gulp",
     "gulp-tasks",
@@ -26,7 +26,6 @@
     "prettier",
     "codecov",
     "travis-ci",
-    "yaml",
     "watch",
     "jscpd",
     "npm",
