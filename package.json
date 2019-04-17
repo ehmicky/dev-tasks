@@ -5,7 +5,7 @@
   "files": [
     "build/src",
     "ava.config.js",
-    ".eslintrc.js",
+    ".eslintrc.yml",
     ".prettierrc.js",
     "!~"
   ],
