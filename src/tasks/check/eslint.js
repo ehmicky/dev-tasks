@@ -19,6 +19,7 @@ const eslint = function(mode) {
     mode === 'silent' ? { stdout: 'ignore', stderr: 'ignore' } : {}
 
   const files = `${JAVASCRIPT.join(' ')} ${MARKDOWN.join(' ')}`
+  // Configuration file must be present in the top-level directory
   return exec(
     `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
     options,
