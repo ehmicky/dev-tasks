@@ -1,5 +1,6 @@
 export { testTask as test } from './tasks/test.js'
 export { build, buildw } from './tasks/build/main.js'
+export { buildRegister } from './tasks/build/register.js'
 export { check, checkw } from './tasks/check/main.js'
 export { unit, unitw, coverage } from './tasks/unit/main.js'
 export { warn, warnw } from './tasks/warn.js'
@@ -9,6 +10,3 @@ export {
   releasePatch,
 } from './tasks/release/main.js'
 export { publish } from './tasks/release/publish.js'
-
-// eslint-disable-next-line import/first, import/no-unassigned-import
-import './tasks/build/register.js'
