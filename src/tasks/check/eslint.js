@@ -42,13 +42,13 @@ export const eslintWatch = function() {
   })
     .pipe(
       gulpEslint({
+        configFile: ESLINT_CONFIG,
+        useEslintrc: false,
         ignorePath: '.gitignore',
         fix: true,
         maxWarnings: 0,
         // eslint-disable-next-line id-length
         reportUnusedDisableDirectives: true,
-        configFile: ESLINT_CONFIG,
-        useEslintrc: false,
       }),
     )
     .pipe(gulpEslint.format('codeframe'))
