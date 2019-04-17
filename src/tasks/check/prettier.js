@@ -7,7 +7,7 @@ import { JAVASCRIPT, MARKDOWN } from '../../files.js'
 import { bind, silentAsync } from '../../utils.js'
 
 const prettier = function(mode) {
-  const stream = src([...JAVASCRIPT, ...MARKDOWN], {
+  const stream = src([JAVASCRIPT, MARKDOWN], {
     dot: true,
     // `prettierLoose()` is used in watch mode
     since: lastRun(prettierLoose),

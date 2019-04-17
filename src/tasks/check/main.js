@@ -12,6 +12,6 @@ const checkWatch = parallel(lintWatch, jscpd)
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint/check source files'
 
-export const checkw = getWatchTask([...JAVASCRIPT, ...MARKDOWN], checkWatch, {
+export const checkw = getWatchTask([JAVASCRIPT, MARKDOWN], checkWatch, {
   initial: check,
 })

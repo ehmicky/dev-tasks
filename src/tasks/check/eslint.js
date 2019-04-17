@@ -18,7 +18,7 @@ const eslint = function(mode) {
   const options =
     mode === 'silent' ? { stdout: 'ignore', stderr: 'ignore' } : {}
 
-  const files = [...JAVASCRIPT, ...MARKDOWN].join(' ')
+  const files = [JAVASCRIPT, MARKDOWN].join(' ')
   // We cannot use `--config` because:
   //  - it seems to change the base directory of rules `overrides` `files`,
   //    which make them not work anymore
@@ -35,10 +35,7 @@ export const eslintStrict = bind(eslint, 'strict')
 export const eslintSilent = silentAsync(bind(eslint, 'silent'))
 
 export const eslintWatch = function() {
-  return src([...JAVASCRIPT, ...MARKDOWN], {
-    dot: true,
-    since: lastRun(eslintWatch),
-  })
+  return src([JAVASCRIPT, MARKDOWN], { dot: true, since: lastRun(eslintWatch) })
     .pipe(
       gulpEslint({
         ignorePath: '.gitignore',
