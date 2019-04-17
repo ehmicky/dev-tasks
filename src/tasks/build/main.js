@@ -44,5 +44,5 @@ export const buildw = getWatchTask(SOURCES_ARR, rebuild, { initial: build })
 
 export const buildRegister = function() {
   // eslint-disable-next-line global-require
-  require('@babel/register')({ presets: [`${__dirname}/.babelrc.js`] })
+  require('@babel/register')({ presets: [babelConfig] })
 }
