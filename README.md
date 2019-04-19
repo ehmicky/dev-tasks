@@ -5,14 +5,13 @@
 [![Twitter](https://img.shields.io/badge/%E2%80%8B-twitter-4cc61e.svg?logo=twitter)](https://twitter.com/intent/follow?screen_name=ehmicky)
 [![Medium](https://img.shields.io/badge/%E2%80%8B-medium-4cc61e.svg?logo=medium)](https://medium.com/@ehmicky)
 
-This is a set of [Gulp](https://gulpjs.com/) tasks for a Node.js workflow using
-[Babel](https://babeljs.io/), [ESLint](https://eslint.org/),
+Automated tasks (linting, testing, building) for a Node.js development workflow
+using [Babel](https://babeljs.io/), [ESLint](https://eslint.org/),
 [Prettier](https://prettier.io/), [Jscpd](https://github.com/kucherenko/jscpd),
 [Ava](https://github.com/avajs/ava), [Travis](https://travis-ci.org/),
 [nyc](https://github.com/istanbuljs/nyc) and [codecov](https://codecov.io/).
 
-[Gulp](https://gulpjs.com/) is a task runner automating development tasks like
-linting, testing or building. You don't need to know [Gulp](https://gulpjs.com/)
+The task runner is [Gulp](https://gulpjs.com/), but you don't need to know Gulp
 to use these tasks.
 
 # Workflow
@@ -51,9 +50,10 @@ The main commands are:
 
 Use `gulp checkw`, `gulp buildw` and `gulp unitw` to run them in watch mode.
 
-[Travis CI](https://travis-ci.org/) ensures that tests pass on all supported
-environments and that all source files are covered by tests and follow the same
-coding style.
+[Travis CI](https://travis-ci.org/) ensures that:
+
+- tests pass on all supported environments.
+- all source files are covered by tests and follow the same coding style.
 
 # Available tasks
 
@@ -65,7 +65,7 @@ Lint and check source files:
 - lint and
   [autofix](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
   JavaScript files using [ESLint](https://eslint.org/) (see the
-  [configuration file](https://github.com/ehmicky/eslint-config-standard-prettier-fp)).
+  [coding style](https://github.com/ehmicky/eslint-config-standard-prettier-fp)).
 - find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
 
 This is automatically triggered before any `git push`.
@@ -74,8 +74,7 @@ This is automatically triggered before any `git push`.
 
 Build source files and test files:
 
-- JavaScript files are transpiled with [Babel](https://babeljs.io/) (see the
-  [configuration file](.babelrc.js)).
+- JavaScript files are transpiled with [Babel](https://babeljs.io/).
 - Other files are copied as is.
 
 Source files are built from the `src` directory to the `build/src` directory.
@@ -148,7 +147,8 @@ To add to a new repository copy the relevant top-level files and dependencies
 from other repositories using this module such as
 [`log-process-errors`](https://github.com/ehmicky/log-process-errors).
 
-Custom Gulp tasks can be specified using a `gulp` top-level directory:
+Custom Gulp tasks can be specified using a `gulp` top-level directory. For
+example the `gulpfile.js` can be:
 
 <!-- eslint-disable node/no-unpublished-require, global-require -->
 
