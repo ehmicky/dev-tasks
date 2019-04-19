@@ -39,6 +39,10 @@ This project is using itself to lint, test and build.
 
 # Requirements
 
+Our coding style is documented
+[here](https://github.com/ehmicky/eslint-config-standard-prettier-fp#coding-style).
+Linting and formatting should automatically handle it though.
+
 After submitting the pull request, please make sure the Continuous Integration
 checks are passing.
 
