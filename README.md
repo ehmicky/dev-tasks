@@ -141,26 +141,6 @@ Ensures that files are fully covered by tests using
 [nyc](https://github.com/istanbuljs/nyc). This is meant to be performed on CI
 ([Travis](https://travis-ci.org/)).
 
-# Add to a new repository
-
-To add to a new repository copy the relevant top-level files and dependencies
-from other repositories using this module such as
-[`log-process-errors`](https://github.com/ehmicky/log-process-errors).
-
-Custom Gulp tasks can be specified using a `gulp` top-level directory. For
-example the `gulpfile.js` can be:
-
-<!-- eslint-disable node/no-unpublished-require, global-require -->
-
-```js
-'use strict'
-
-module.exports = {
-  ...require('gulp-shared-tasks'),
-  ...require('./gulp'),
-}
-```
-
 # Support
 
 If you found a bug or would like a new feature, _don't hesitate_ to
