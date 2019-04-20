@@ -141,6 +141,11 @@ Ensures that files are fully covered by tests using
 [nyc](https://github.com/istanbuljs/nyc). This is meant to be performed on CI
 ([Travis](https://travis-ci.org/)).
 
+# Custom tasks
+
+Repositories with a `gulp` top-level directory have additional tasks. Please
+check those files to see which custom tasks are available.
+
 # Support
 
 If you found a bug or would like a new feature, _don't hesitate_ to
