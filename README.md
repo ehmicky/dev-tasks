@@ -65,7 +65,7 @@ Lint and check source files:
 - lint and
   [autofix](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
   JavaScript files using [ESLint](https://eslint.org/) (see the
-  [coding style](https://github.com/ehmicky/eslint-config-standard-prettier-fp)).
+  [coding style](https://github.com/ehmicky/eslint-config-standard-prettier-fp#coding-style)).
 - find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
 
 This is automatically triggered before any `git push`.
