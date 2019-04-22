@@ -17,6 +17,7 @@ export const getWatchTask = function(files, firstArg, secondArg) {
   return watchTask
 }
 
+// We use the same signature as `gulp.watch()`.
 // `gulp.watch()` allow both `watchOptions` and `task` to be optional.
 // We need to normalize this before adding default options.
 const parseOptions = function(firstArg, secondArg) {
