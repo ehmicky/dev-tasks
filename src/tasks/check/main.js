@@ -1,4 +1,4 @@
-import { parallel } from 'gulp'
+import { series, parallel } from 'gulp'
 
 import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
@@ -12,8 +12,12 @@ const checkWatch = parallel(lintWatch, jscpd)
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint/check source files'
 
-export const checkw = getWatchTask(
+const checkWatchTask = getWatchTask(
   [JAVASCRIPT, MARKDOWN, ...JSON_YAML],
   checkWatch,
-  { initial: check },
 )
+
+export const checkw = series(check, checkWatchTask)
+
+// eslint-disable-next-line fp/no-mutation
+checkw.description = 'Lint/check source files (watch mode)'
