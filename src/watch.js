@@ -1,27 +1,20 @@
 import { promisify } from 'util'
 
-import { watch, parallel } from 'gulp'
-import asyncDone from 'async-done'
+import { watch } from 'gulp'
 
 // Watch files to run a task.
 // Returns the watch task.
-export const getWatchTask = function(
-  files,
-  task,
-  { initial = true, ...watchOptions } = {},
-) {
-  const watchTask = getTask({ files, task, initial, watchOptions })
-  addDescription({ watchTask, task, initial })
+export const getWatchTask = function(files, task, watchOptions) {
+  const watchOptionsA = { ...DEFAULT_WATCH_OPTIONS, ...watchOptions }
+  // We do not use `func.bind()` to make the task name `watchTask` instead
+  // of `bound watchTask`
+  const watchTask = () =>
+    startWatch({ files, task, watchOptions: watchOptionsA })
+  addDescription({ watchTask, task })
   return watchTask
 }
 
-// We do not use `func.bind()` to make the task name `watchTask` instead
-// of `bound watchTask`
-const getTask = function({ files, task, initial, watchOptions }) {
-  const watchTask = () => startWatch({ files, task, watchOptions })
-  const watchTaskA = addInitial({ watchTask, task, initial })
-  return watchTaskA
-}
+const DEFAULT_WATCH_OPTIONS = { ignoreInitial: false }
 
 const startWatch = async function({ files, task, watchOptions }) {
   if (files.length === 0) {
@@ -35,41 +28,12 @@ const startWatch = async function({ files, task, watchOptions }) {
   ])
 }
 
-// Run the watched task in the beginning of the watch unless `opts.initial` is
-// `false`. `opts.initial` can either be `true` or a function.
-const addInitial = function({ watchTask, task, initial }) {
-  if (initial === false) {
-    return watchTask
-  }
-
-  const initialTask = initial === true ? task : initial
-  return parallel(allowInitialFailure(initialTask), watchTask)
-}
-
-// If the initial task fails, make initial run still succeeds so that watching
-// keeps running
-const allowInitialFailure = function(func) {
-  // eslint-disable-next-line promise/prefer-await-to-callbacks
-  const funcA = callback => asyncDone(func, () => callback())
-
-  // eslint-disable-next-line fp/no-mutation
-  funcA.displayName = 'initial'
-  return funcA
-}
-
-// Add Gulp `taks.description` by re-using the watched task's or initial task's
-// description
-const addDescription = function({ watchTask, task, initial }) {
-  const taskA = [initial, task].find(hasDescription)
-
-  if (!hasDescription(taskA)) {
+// Add Gulp `taks.description` by re-using the watched task's description
+const addDescription = function({ watchTask, task }) {
+  if (typeof task !== 'function' || typeof task.description !== 'string') {
     return
   }
 
   // eslint-disable-next-line fp/no-mutation, no-param-reassign
-  watchTask.description = `${taskA.description} (watch mode)`
-}
-
-const hasDescription = function(task) {
-  return typeof task === 'function' && typeof task.description === 'string'
+  watchTask.description = `${task.description} (watch mode)`
 }
