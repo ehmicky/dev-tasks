@@ -2,8 +2,6 @@ import { argv } from 'process'
 
 import { exec } from 'gulp-execa'
 
-import { getWatchTask } from '../../watch.js'
-
 import { isAvaDebug, getAvaDebug } from './debug.js'
 import { addCoverage, uploadCoverage, checkCoverage } from './coverage.js'
 
@@ -37,11 +35,7 @@ export const unit = () => runAva([], {})
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-const unitwatch = () => runAva(['-w'], { stdio: 'inherit' })
-
-// We use `getWatchTask()` only to restart `ava -w` on `package.json` changes,
-// so we don't need the first two arguments.
-export const unitw = getWatchTask([], undefined, { initial: unitwatch })
+export const unitw = () => runAva(['-w'], { stdin: 'inherit' })
 
 // eslint-disable-next-line fp/no-mutation
 unitw.description = 'Run unit tests (watch mode)'
