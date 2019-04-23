@@ -17,7 +17,7 @@ export default {
   // i.e. triggered twice.
   sources: [`${BUILD}/**/*.js`],
   verbose: true,
-  // We have already compiled the tests with Babel..
+  // We have already compiled the tests with Babel.
   // Letting ava compile creates too many issues.
   babel: false,
   // Must be used otherwise babel is still performed
