@@ -1,3 +1,5 @@
+import { platform } from 'process'
+
 // The current directory is the caller's `ava.config.js` directory, because it's
 // loaded with `esm`. The `esm` configuration used by Ava is also hard to work
 // with when mixed with CommonJS (from the `build/` folder), making it hard to:
@@ -22,6 +24,8 @@ export default {
   babel: false,
   // Must be used otherwise babel is still performed
   compileEnhancements: false,
+  // Workaround for https://github.com/istanbuljs/istanbuljs/issues/141
+  serial: platform === 'win32',
   // Use `log-process-errors`
   require: [LOG_PROCESS_ERRORS],
 }
