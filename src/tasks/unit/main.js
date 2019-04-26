@@ -19,7 +19,6 @@ const runAva = async function(args, options) {
 // Must use `--files=FILE` to select a single file.
 // Can also use `--inspect` or `--inspect-brk` but only if `--files` is used.
 const getAva = function(extraArgs) {
-  // eslint-disable-next-line no-magic-numbers
   const args = [...argv.slice(3), ...extraArgs].join(' ')
 
   if (isAvaDebug({ args })) {
