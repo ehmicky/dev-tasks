@@ -7,7 +7,9 @@ import { lint, lintWatch } from './lint.js'
 import { jscpd } from './jscpd.js'
 
 export const check = parallel(lint(), jscpd)
-const checkWatch = parallel(lintWatch, jscpd)
+// TODO: add `jscpd` once this bug is fixed:
+//  - https://github.com/kucherenko/jscpd/issues/207
+const checkWatch = parallel(lintWatch)
 
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint/check source files'
