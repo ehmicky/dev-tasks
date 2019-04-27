@@ -43,7 +43,7 @@
     "test": "test"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.0",
     "@gulp-sourcemaps/map-sources": "^1.0.0",
     "async-done": "^1.3.1",
