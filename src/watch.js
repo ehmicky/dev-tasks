@@ -1,5 +1,3 @@
-import { promisify } from 'util'
-
 import { watch } from 'gulp'
 
 // Same as `gulp.watch()` except:
@@ -40,14 +38,13 @@ const isObject = function(value) {
 
 const DEFAULT_WATCH_OPTIONS = { ignoreInitial: false }
 
-const startWatch = async function({ files, task, watchOptions }) {
+const startWatch = function({ files, task, watchOptions }) {
   if (files.length === 0) {
     return
   }
 
-  const watcher = watch(files, watchOptions, task)
-  const watcherOn = promisify(watcher.on.bind(watcher))
-  await Promise.race([watcherOn('ready'), watcherOn('error')])
+  // We do not wait for the `ready` event because it's not consistently emitted.
+  return watch(files, watchOptions, task)
 }
 
 // Add Gulp `taks.description` by re-using the watched task's description
