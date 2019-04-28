@@ -11,7 +11,6 @@ import { getWatchTask } from '../../watch.js'
 import babelConfig from './.babelrc.js'
 
 const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
-const SOURCES_ARR = BUILD_SOURCES.map(source => `${source}/`)
 
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
 // issues with `chokidar` (file waching used by `ava --watch` and
@@ -40,5 +39,5 @@ export const build = series(clean, rebuild)
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build source files'
 
-const buildWatchTask = getWatchTask(SOURCES_ARR, rebuild)
+const buildWatchTask = getWatchTask(BUILD_SOURCES, rebuild)
 export const buildw = series(build, buildWatchTask)
