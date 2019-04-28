@@ -40,4 +40,5 @@ export const build = series(clean, rebuild)
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build source files'
 
-export const buildw = getWatchTask(SOURCES_ARR, rebuild, { initial: build })
+const buildWatchTask = getWatchTask(SOURCES_ARR, rebuild)
+export const buildw = series(build, buildWatchTask)
