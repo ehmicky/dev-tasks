@@ -10,7 +10,7 @@ export const getWatchTask = function(files, firstArg, secondArg) {
   const { watchOptions, task } = parseOptions(firstArg, secondArg)
   // We do not use `func.bind()` to make the task name `watchTask` instead
   // of `bound watchTask`
-  const watchTask = () => startWatch({ files, task, watchOptions })
+  const watchTask = () => startWatch({ files, watchOptions, task })
   addDescription({ watchTask, task })
   return watchTask
 }
@@ -38,13 +38,15 @@ const isObject = function(value) {
 
 const DEFAULT_WATCH_OPTIONS = { ignoreInitial: false }
 
-const startWatch = function({ files, task, watchOptions }) {
-  if (files.length === 0) {
-    return
-  }
+const startWatch = function({ files, watchOptions, task }) {
+  // We do not return `watcher` because we want the task to complete once
+  // watching is setup.
+  watch(files, watchOptions, task)
 
-  // We do not wait for the `ready` event because it's not consistently emitted.
-  return watch(files, watchOptions, task)
+  // We should wait for either `ready` or `error` event (with `Promise.race()`)
+  // before completing the task, but there is a bug currently:
+  //   https://github.com/paulmillr/chokidar/issues/835
+  return Promise.resolve()
 }
 
 // Add Gulp `taks.description` by re-using the watched task's description
