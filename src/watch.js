@@ -10,6 +10,8 @@ export const getWatchTask = function(files, firstArg, secondArg) {
   const { watchOptions, task } = parseOptions(firstArg, secondArg)
   // We do not use `func.bind()` to make the task name `watchTask` instead
   // of `bound watchTask`
+  // Note that if the return value is assigned as a top-level task, the task
+  // name will be that top-level task name.
   const watchTask = () => startWatch({ files, watchOptions, task })
   addDescription({ watchTask, task })
   return watchTask
