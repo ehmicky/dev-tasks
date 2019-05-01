@@ -46,8 +46,9 @@ const startWatch = function({ files, watchOptions, task }) {
   watch(files, watchOptions, task)
 
   // We should wait for either `ready` or `error` event (with `Promise.race()`)
-  // before completing the task, but there is a bug currently:
-  //   https://github.com/paulmillr/chokidar/issues/835
+  // before completing the task, but there was a bug with Chokidar `2`.
+  // Chokidar `3` fixes it but `gulp-watcher` won't update:
+  //   https://github.com/gulpjs/glob-watcher/pull/41
   return Promise.resolve()
 }
 
