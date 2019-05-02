@@ -12,7 +12,6 @@ const releaseItTask = async function(increment) {
 const RELEASE_IT_CONFIG = {
   'non-interactive': true,
   'disable-metrics': true,
-  pkgFiles: ['package.json', 'package-lock.json'],
   github: {
     release: true,
   },
