@@ -1,5 +1,4 @@
-import { version, env } from 'process'
-import { platform } from 'os'
+import { version, env, platform } from 'process'
 
 import isCi from 'is-ci'
 import fastGlob from 'fast-glob'
@@ -52,7 +51,7 @@ export const uploadCoverage = async function() {
 
 // Tag test coverage with OS and Node.js version
 const getCoverageTags = function() {
-  const os = PLATFORMS[platform()]
+  const os = PLATFORMS[platform]
   // `codecov` only allows restricted characters
   const nodeVersion = `node_${version.replace(/\./gu, '_')}`
   return [os, nodeVersion].map(getCoverageTag).join(' ')
