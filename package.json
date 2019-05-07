@@ -70,7 +70,7 @@
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.4.0",
     "fast-glob": "^2.2.6",
     "find-up": "^3.0.0",
-    "gulp": "^4.0.1",
+    "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "ehmicky/gulp-eslint",
     "gulp-execa": "^0.2.3",
@@ -93,7 +93,7 @@
   },
   "peerDependencies": {
     "ava": "^1.4.1",
-    "gulp": "^4.0.1"
+    "gulp": "^4.0.2"
   },
   "engines": {
     "node": ">=8.10.0"
