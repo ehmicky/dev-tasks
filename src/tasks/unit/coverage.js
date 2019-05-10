@@ -23,18 +23,7 @@ export const addCoverage = async function(command) {
   }
 
   const commandA = command.replace(COVER_FLAG, '')
-  const cacheFix = getCacheFix()
-  return `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js ${cacheFix}${commandA}`
-}
-
-// `nyc` + `ava` on Windows fires EPERM errors on CI.
-// See https://github.com/istanbuljs/istanbuljs/issues/141
-const getCacheFix = function() {
-  if (platform !== 'win32') {
-    return ''
-  }
-
-  return '--no-cache '
+  return `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js ${commandA}`
 }
 
 // Upload test coverage to codecov
