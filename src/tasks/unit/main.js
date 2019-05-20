@@ -10,7 +10,7 @@ const runAva = async function(args, options) {
   const ava = await getAva(args)
   const avaA = await addCoverage(ava)
 
-  await exec(avaA, { verbose: true, ...options })
+  await exec(avaA, options)
 
   await uploadCoverage()
 }

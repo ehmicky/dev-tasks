@@ -25,7 +25,7 @@ const npmPublish = async function() {
   }
 
   await pAppendFile(NPMRC, NPMRC_CONTENT)
-  await exec('npm publish', { verbose: true })
+  await exec('npm publish')
 }
 
 // The NPM_TOKEN environment variable is sensitive, i.e. encrypted in CI.
