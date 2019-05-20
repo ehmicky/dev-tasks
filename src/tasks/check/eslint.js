@@ -15,8 +15,7 @@ import { bind, silentAsync } from '../../utils.js'
 //   - `eslintWatch` task is faster when running in watch mode
 const eslint = function(mode) {
   const fix = mode === 'strict' ? '' : '--fix '
-  const options =
-    mode === 'silent' ? { stdout: 'ignore', stderr: 'ignore' } : {}
+  const options = { verbose: mode === 'silent' }
 
   const files = [JAVASCRIPT, MARKDOWN].join(' ')
   // We cannot use `--config` because:

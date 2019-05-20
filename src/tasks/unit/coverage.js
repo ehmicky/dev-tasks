@@ -35,7 +35,7 @@ export const uploadCoverage = async function() {
   }
 
   const tags = getCoverageTags()
-  await exec(`bash ${CODECOV_SCRIPT} -f ${COVERAGE_PATH} ${tags} -Z`)
+  await exec(`bash ${CODECOV_SCRIPT} -f ${COVERAGE_PATH} ${tags} -Z`, { verbose: true })
 }
 
 // Tag test coverage with OS and Node.js version

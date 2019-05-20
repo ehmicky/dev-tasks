@@ -7,13 +7,13 @@ import { getWatchTask } from '../watch.js'
 const audit = async () => {
   // Older `npm` versions do not have this command
   try {
-    await exec('npm audit -h', { stdout: 'ignore' })
+    await exec('npm audit -h')
   } catch {
     return
   }
 
   try {
-    await exec('npm audit --color=always', { stdout: 'pipe' })
+    await exec('npm audit --color=always')
   } catch (error) {
     // Only print `npm audit` output if it failed.
     // eslint-disable-next-line no-console, no-restricted-globals
@@ -22,7 +22,7 @@ const audit = async () => {
   }
 }
 
-const outdated = () => exec('npm outdated')
+const outdated = () => exec('npm outdated', { verbose: true })
 
 export const warn = parallel(audit, outdated)
 
