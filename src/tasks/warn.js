@@ -17,7 +17,7 @@ const audit = async () => {
   } catch (error) {
     // Only print `npm audit` output if it failed.
     // eslint-disable-next-line no-console, no-restricted-globals
-    console.error(error.stdout)
+    console.error(error.all)
     throw error
   }
 }
