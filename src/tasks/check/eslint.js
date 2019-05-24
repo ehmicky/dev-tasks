@@ -25,7 +25,7 @@ const eslint = function(mode) {
   // to use `require.resolve()` to load the ESLint config.
   return exec(
     `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
-    { verbose },
+    { verbose, echo: false },
   )
 }
 
