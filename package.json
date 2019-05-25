@@ -86,7 +86,7 @@
     "nyc": "^14.1.1",
     "plugin-error": "^1.0.1",
     "prettier": "^1.17.1",
-    "release-it": "^12.2.0",
+    "release-it": "^12.2.1",
     "stream-to-promise": "^2.2.0"
   },
   "devDependencies": {
