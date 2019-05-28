@@ -1,4 +1,4 @@
-/* eslint-disable import/no-commonjs, import/unambiguous, strict */
+/* eslint-disable import/no-commonjs, import/unambiguous, strict, import/no-unused-modules */
 'use strict'
 
 const babelConfig = require('./.babelrc.js')
@@ -16,4 +16,5 @@ const buildRegister = function() {
 module.exports = {
   buildRegister,
 }
-/* eslint-enable import/no-commonjs, import/unambiguous, strict */
+// eslint-disable-next-line max-len
+/* eslint-enable import/no-commonjs, import/unambiguous, strict, import/no-unused-modules */
