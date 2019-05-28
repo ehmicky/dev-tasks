@@ -12,13 +12,6 @@ const bindFunc = function(func, ...args) {
 
 export const bind = keepFuncProps(bindFunc)
 
-// To use once we abstract `bindFunc()`
-// const bindContextFunc = function(func, context) {
-//   return func.bind(context)
-// }
-
-// export const bindContext = keepFuncProps(bindContextFunc)
-
 // Ignore rejection of an async function
 const eSilentAsync = function(func) {
   return async (...args) => {
