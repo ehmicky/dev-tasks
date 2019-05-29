@@ -1,11 +1,7 @@
 import keepFuncProps from 'keep-func-props'
 import asyncDone from 'async-done'
 
-// Like Function.bind() but:
-//  - does not need to specify context
-//  - keeps function properties (`name`, etc.)
-// We use Function.bind() to avoid creating extra stack trace frames.
-// However this means context is always bound to `null`
+// Like Function.bind() but `Function.name` because it is used by Gulp.
 const bindFunc = function(func, ...args) {
   return func.bind(null, ...args)
 }
