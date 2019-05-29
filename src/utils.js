@@ -6,14 +6,3 @@ const bindFunc = function(func, ...args) {
 }
 
 export const bind = keepFuncProps(bindFunc)
-
-// Ignore rejection of an async function
-const eSilentAsync = function(func) {
-  return async (...args) => {
-    try {
-      await func(...args)
-    } catch {}
-  }
-}
-
-export const silentAsync = keepFuncProps(eSilentAsync)

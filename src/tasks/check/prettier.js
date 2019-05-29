@@ -4,7 +4,7 @@ import gulpIf from 'gulp-if'
 import config from 'eslint-config-standard-prettier-fp'
 
 import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
-import { bind, silentAsync } from '../../utils.js'
+import { bind } from '../../utils.js'
 
 const prettier = function(mode) {
   const stream = src([JAVASCRIPT, MARKDOWN, ...JSON_YAML], {
@@ -24,7 +24,7 @@ const prettier = function(mode) {
 
 export const prettierLoose = bind(prettier, 'loose')
 export const prettierStrict = bind(prettier, 'strict')
-export const prettierSilent = silentAsync(bind(prettier, 'silent'))
+export const prettierSilent = bind(prettier, 'silent')
 
 const isPrettified = function({ isPrettier }) {
   return isPrettier

@@ -4,7 +4,7 @@ import gulpIf from 'gulp-if'
 import { exec } from 'gulp-execa'
 
 import { JAVASCRIPT, MARKDOWN } from '../../files.js'
-import { bind, silentAsync } from '../../utils.js'
+import { bind } from '../../utils.js'
 
 // `gulp-eslint` does not support --cache
 // (https://github.com/adametry/gulp-eslint/issues/132)
@@ -31,7 +31,7 @@ const eslint = async function(mode) {
 
 export const eslintLoose = bind(eslint, 'loose')
 export const eslintStrict = bind(eslint, 'strict')
-export const eslintSilent = silentAsync(bind(eslint, 'silent'))
+export const eslintSilent = bind(eslint, 'silent')
 
 export const eslintWatch = function() {
   return src([JAVASCRIPT, MARKDOWN], { dot: true, since: lastRun(eslintWatch) })

@@ -38,12 +38,19 @@ const isFullArg = function(arg) {
 const lintFull = async function() {
   try {
     await promisify(lintStrict)()
-    // If linting fails, we run it again but in `silent` mode, i.e. it will
-    // autofix what can be but silently.
   } catch (error) {
-    await promisify(lintSilent)()
-    throw error
+    await handleLintError(error)
   }
+}
+
+// If linting fails, we run it again but in `silent` mode, i.e. it will
+// autofix what can be but silently.
+const handleLintError = async function(error) {
+  try {
+    await promisify(lintSilent)()
+  } catch {}
+
+  throw error
 }
 
 const lintStrict = series(prettierStrict, eslintStrict)
