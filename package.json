@@ -73,7 +73,7 @@
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "ehmicky/gulp-eslint",
-    "gulp-execa": "^0.6.0",
+    "gulp-execa": "^0.6.1",
     "gulp-if": "^2.0.2",
     "gulp-prettier": "^2.1.0",
     "is-ci": "^2.0.0",
