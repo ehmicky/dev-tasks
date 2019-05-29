@@ -1,5 +1,4 @@
 import keepFuncProps from 'keep-func-props'
-import asyncDone from 'async-done'
 
 // Like Function.bind() but `Function.name` because it is used by Gulp.
 const bindFunc = function(func, ...args) {
@@ -18,11 +17,3 @@ const eSilentAsync = function(func) {
 }
 
 export const silentAsync = keepFuncProps(eSilentAsync)
-
-// Like `async-done` but returns a promise
-export const asyncDonePromise = function(func) {
-  // eslint-disable-next-line promise/avoid-new
-  return new Promise((resolve, reject) => {
-    asyncDone(func, error => (error ? reject(error) : resolve()))
-  })
-}

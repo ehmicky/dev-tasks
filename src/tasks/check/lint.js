@@ -1,9 +1,8 @@
 import { argv } from 'process'
+import { promisify } from 'util'
 
 import { series } from 'gulp'
 import isCi from 'is-ci'
-
-import { asyncDonePromise } from '../../utils.js'
 
 import { prettierLoose, prettierStrict, prettierSilent } from './prettier.js'
 import {
@@ -38,11 +37,11 @@ const isFullArg = function(arg) {
 
 const lintFull = async function() {
   try {
-    await asyncDonePromise(lintStrict)
+    await promisify(lintStrict)()
     // If linting fails, we run it again but in `silent` mode, i.e. it will
     // autofix what can be but silently.
   } catch (error) {
-    await asyncDonePromise(lintSilent)
+    await promisify(lintSilent)()
     throw error
   }
 }
