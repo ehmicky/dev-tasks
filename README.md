@@ -84,22 +84,18 @@ This must be done before running any code or unit tests.
 
 ## `gulp unit`
 
-Run unit tests (from the `build/test` directory) with
-[Ava](https://github.com/avajs/ava).
+Run unit tests with [Ava](https://github.com/avajs/ava).
 
-[Ava options](https://github.com/avajs/ava/blob/master/docs/05-command-line.md)
-can be specified, e.g. `gulp unit --update-snapshots` or
-`gulp unit --files build/test/file.js`.
+To specify
+[Ava options](https://github.com/avajs/ava/blob/master/docs/05-command-line.md),
+please call `ava` directly instead. For example: `ava --update-snapshots`.
 
-To debug with the Chrome DevTools use `gulp unit --inspect build/test/file.js`
-(or `--inspect-brk`). Specifying a file inside `build/test/` is required.
+To target a single test file, use `ava build/test/file.js` not
+`ava test/file.js`.
 
-Test coverage:
-
-- is performed when run in CI ([Travis](https://travis-ci.org/)) or when
-  `gulp unit --cover` is used.
-- is uploaded to [codecov](https://codecov.io/) when run in CI.
-- is not performed if the repository does not have any JavaScript source files.
+Test coverage is performed in CI ([Travis](https://travis-ci.org/)) and uploaded
+to [codecov](https://codecov.io/). It can also be performed locally using
+`nyc ava`.
 
 ## `gulp test`
 

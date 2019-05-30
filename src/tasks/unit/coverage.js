@@ -14,23 +14,19 @@ const COVERAGE_PATH = 'coverage/coverage-final.json'
 
 const { TRAVIS_REPO_SLUG, TRAVIS_COMMIT, TRAVIS_PULL_REQUEST_SHA } = env
 
-// Wrap with `nyc` if in CI or `--cover` flag is used
-export const addCoverage = async function(command) {
-  const shouldAddCoverage = await shouldCover(command)
-
-  if (!shouldAddCoverage) {
-    return command
+// Wrap with `nyc` if in CI
+// Locally, one must directly call `nyc ava`
+export const getNyc = async function() {
+  if (!await shouldCover()) {
+    return ''
   }
 
-  const commandA = command.replace(COVER_FLAG, '')
-  return `nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js ${commandA}`
+  return 'nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js '
 }
 
 // Upload test coverage to codecov
 export const uploadCoverage = async function() {
-  const shouldAddCoverage = await shouldCover()
-
-  if (!shouldAddCoverage) {
+  if (!await shouldCover()) {
     return
   }
 
@@ -57,19 +53,16 @@ const getCoverageTag = function(tag) {
 }
 
 // Only run test coverage on CI because it's slow.
-// One can also use the `--cover` flag to trigger it locally.
 // Also do not run it on repositories without source code, e.g. with only
 // configuration or text files.
-const shouldCover = function(command = '') {
-  return (isCi || command.includes(COVER_FLAG)) && hasCode()
+const shouldCover = function() {
+  return isCi && hasCode()
 }
 
 const hasCode = async function() {
   const files = await fastGlob(`${SRC}/**/*.js`)
   return files.length !== 0
 }
-
-const COVER_FLAG = '--cover'
 
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
