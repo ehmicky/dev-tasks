@@ -21,8 +21,8 @@ const runAva = async function(args, options) {
 const getAva = function(extraArgs) {
   const args = [...argv.slice(3), ...extraArgs].join(' ')
 
-  if (isAvaDebug({ args })) {
-    return getAvaDebug({ args })
+  if (isAvaDebug(args)) {
+    return getAvaDebug(args)
   }
 
   return `ava ${args}`
