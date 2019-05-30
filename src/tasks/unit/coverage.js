@@ -17,7 +17,7 @@ const { TRAVIS_REPO_SLUG, TRAVIS_COMMIT, TRAVIS_PULL_REQUEST_SHA } = env
 // Wrap with `nyc` if in CI
 // Locally, one must directly call `nyc ava`
 export const getNyc = async function() {
-  if (!await shouldCover()) {
+  if (!(await shouldCover())) {
     return ''
   }
 
@@ -26,7 +26,7 @@ export const getNyc = async function() {
 
 // Upload test coverage to codecov
 export const uploadCoverage = async function() {
-  if (!await shouldCover()) {
+  if (!(await shouldCover())) {
     return
   }
 
