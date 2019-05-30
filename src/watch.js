@@ -12,8 +12,8 @@ export const getWatchTask = function(files, firstArg, secondArg) {
   // of `bound watchTask`
   // Note that if the return value is assigned as a top-level task, the task
   // name will be that top-level task name.
-  const watchTask = () => startWatch({ files, watchOptions, task })
-  addDescription({ watchTask, task })
+  const watchTask = () => startWatch(files, watchOptions, task)
+  addDescription(watchTask, task)
   return watchTask
 }
 
@@ -40,7 +40,7 @@ const isObject = function(value) {
 
 const DEFAULT_WATCH_OPTIONS = { ignoreInitial: false }
 
-const startWatch = function({ files, watchOptions, task }) {
+const startWatch = function(files, watchOptions, task) {
   // We do not return `watcher` because we want the task to complete once
   // watching is setup.
   watch(files, watchOptions, task)
@@ -53,7 +53,7 @@ const startWatch = function({ files, watchOptions, task }) {
 }
 
 // Add Gulp `taks.description` by re-using the watched task's description
-const addDescription = function({ watchTask, task }) {
+const addDescription = function(watchTask, task) {
   if (typeof task !== 'function' || typeof task.description !== 'string') {
     return
   }
