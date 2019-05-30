@@ -7,7 +7,7 @@ import { watch } from 'gulp'
 //  - wait for watching to be initialized before resolving the task.
 //  - automatically add a task description.
 export const getWatchTask = function(files, firstArg, secondArg) {
-  const { watchOptions, task } = parseOptions(firstArg, secondArg)
+  const [watchOptions, task] = parseOptions(firstArg, secondArg)
   // We do not use `func.bind()` to make the task name `watchTask` instead
   // of `bound watchTask`
   // Note that if the return value is assigned as a top-level task, the task
@@ -21,21 +21,11 @@ export const getWatchTask = function(files, firstArg, secondArg) {
 // `gulp.watch()` allow both `watchOptions` and `task` to be optional.
 // We need to normalize this before adding default options.
 const parseOptions = function(firstArg, secondArg) {
-  const { watchOptions, task } = parseOptionals(firstArg, secondArg)
-  const watchOptionsA = { ...DEFAULT_WATCH_OPTIONS, ...watchOptions }
-  return { watchOptions: watchOptionsA, task }
-}
-
-const parseOptionals = function(firstArg, secondArg) {
-  if (typeof firstArg === 'function' || !isObject(firstArg)) {
-    return { task: firstArg }
+  if (typeof firstArg !== 'object' || firstArg === null) {
+    return [DEFAULT_WATCH_OPTIONS, firstArg]
   }
 
-  return { watchOptions: firstArg, task: secondArg }
-}
-
-const isObject = function(value) {
-  return value !== null && typeof value === 'object'
+  return [{ ...DEFAULT_WATCH_OPTIONS, ...firstArg }, secondArg]
 }
 
 const DEFAULT_WATCH_OPTIONS = { ignoreInitial: false }
