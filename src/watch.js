@@ -1,19 +1,21 @@
 import { watch } from 'gulp'
+import renameFn from 'rename-fn'
 
 // Same as `gulp.watch()` except:
 //  - return directly a Gulp task.
 //  - default `ignoreInitial` to `false`, i.e. first run the task before
 //    watching.
 //  - wait for watching to be initialized before resolving the task.
+//  - automatically add a task name.
 //  - automatically add a task description.
 export const getWatchTask = function(files, firstArg, secondArg) {
   const [watchOptions, task] = parseOptions(firstArg, secondArg)
-  // We do not use `func.bind()` to make the task name `watchTask` instead
-  // of `bound watchTask`
-  // Note that if the return value is assigned as a top-level task, the task
-  // name will be that top-level task name.
-  const watchTask = () => startWatch(files, watchOptions, task)
+
+  const watchTask = startWatch.bind(null, files, watchOptions, task)
+
+  addName(watchTask, task)
   addDescription(watchTask, task)
+
   return watchTask
 }
 
@@ -42,7 +44,25 @@ const startWatch = function(files, watchOptions, task) {
   return Promise.resolve()
 }
 
-// Add Gulp `taks.description` by re-using the watched task's description
+// Add `function.name` by re-using the watched task's name.
+// This is used by Gulp when displaying the task, except when it has been
+// assigned as a top-level task.
+const addName = function(watchTask, task) {
+  const name = getName(task)
+  renameFn(watchTask, name)
+}
+
+const getName = function(task) {
+  if (typeof task !== 'function' || INVALID_NAMES.includes(task.name)) {
+    return 'watch'
+  }
+
+  return `watch ${task.name}`
+}
+
+const INVALID_NAMES = ['', 'parallel', 'series', 'watch']
+
+// Add Gulp `task.description` by re-using the watched task's description
 const addDescription = function(watchTask, task) {
   if (typeof task !== 'function' || typeof task.description !== 'string') {
     return
