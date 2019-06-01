@@ -13,6 +13,7 @@ export default {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
   files: [`${BUILD_TEST}/**/*.js`],
+  helpers: [`${BUILD_TEST}/helpers/**/*.js`],
   // Otherwise tests are triggered in watch mode on `src` changes too,
   // i.e. triggered twice.
   sources: [`${BUILD}/**/*.js`],
