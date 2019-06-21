@@ -47,7 +47,6 @@
     "@babel/register": "^7.4.4",
     "@gulp-sourcemaps/map-sources": "^1.0.0",
     "ava": "^2.1.0",
-    "caching-transform": "github:istanbuljs/caching-transform#1689877",
     "core-js": "^3.1.4",
     "cross-fetch": "^3.0.4",
     "del": "^4.1.1",
