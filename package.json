@@ -52,7 +52,7 @@
     "cross-fetch": "^3.0.4",
     "del": "^4.1.1",
     "eslint": "6.0.0-alpha.0",
-    "eslint-config-prettier": "^5.0.0",
+    "eslint-config-prettier": "^5.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-prettier-fp": "^15.9.67",
     "eslint-import-resolver-node": "^0.3.2",
