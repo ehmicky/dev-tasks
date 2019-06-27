@@ -84,14 +84,19 @@ const getCoverage = async function() {
   const codecovUrl = getCodecovUrl()
   const response = await fetch(codecovUrl)
   const {
-    commit: {
-      // eslint-disable-next-line id-length
-      totals: { c: covInfo },
-    },
+    commit: { totals },
   } = await response.json()
 
-  const covInfoA = Number(covInfo)
-  return covInfoA
+  // This happens when codecov could not find the commit on GitHub
+  if (totals === null) {
+    throw new PluginError(
+      'gulp-codecov-check',
+      `Test coverage is missing. See ${codecovUrl}`,
+    )
+  }
+
+  const covInfo = Number(totals.c)
+  return covInfo
 }
 
 const getCodecovUrl = function() {
