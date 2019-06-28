@@ -71,7 +71,7 @@
     "fast-glob": "^3.0.2",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
-    "gulp-eslint": "ehmicky/gulp-eslint",
+    "gulp-eslint": "^git",
     "gulp-execa": "^1.0.0",
     "gulp-if": "^2.0.2",
     "gulp-prettier": "^2.1.0",
