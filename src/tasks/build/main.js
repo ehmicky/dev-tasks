@@ -15,7 +15,7 @@ const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
 // issues with `chokidar` (file waching used by `ava --watch` and
 // `gulp.watch()`)
-const clean = () => del(`${BUILD}/**`, { nodir: true })
+const clean = () => del(`${BUILD}/**`, { onlyFiles: true })
 
 const copy = () =>
   src([`${SOURCES_GLOB}/*[^~]`, `!${SOURCES_GLOB}/*.js`], {
