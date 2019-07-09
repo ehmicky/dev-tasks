@@ -1,4 +1,5 @@
 import { exec } from 'gulp-execa'
+import pkgDir from 'pkg-dir'
 
 import { getNyc, uploadCoverage, checkCoverage } from './coverage.js'
 
@@ -6,11 +7,16 @@ import { getNyc, uploadCoverage, checkCoverage } from './coverage.js'
 // To pass arguments to `ava`, one should use `ava` directly instead of the
 // Gulp task.
 const runAva = async function(args, options) {
-  const nyc = await getNyc()
+  const [nyc, config] = await Promise.all([getNyc(), getConfig()])
 
-  await exec(`${nyc}ava${args}`, options)
+  await exec(`${nyc}ava ${config}${args}`, options)
 
   await uploadCoverage()
+}
+
+const getConfig = async function() {
+  const rootDir = await pkgDir(__dirname)
+  return `--config ${rootDir}/ava.config.js`
 }
 
 export const unit = () => runAva('', {})
