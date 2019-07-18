@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.4.4",
+    "@babel/register": "^7.5.5",
     "@gulp-sourcemaps/map-sources": "^1.0.0",
     "ava": "^2.2.0",
     "caching-transform": "github:istanbuljs/caching-transform#1689877",
