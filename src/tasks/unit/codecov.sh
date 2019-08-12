@@ -756,7 +756,6 @@ then
   say "$e==>$x Bitbucket detected."
   # https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html
   service="bitbucket"
-  commit="$BITBUCKET_COMMIT"
   branch="$BITBUCKET_BRANCH"
   build="$BITBUCKET_BUILD_NUMBER"
   slug="$BITBUCKET_REPO_OWNER/$BITBUCKET_REPO_SLUG"
