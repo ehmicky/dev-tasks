@@ -104,7 +104,7 @@ const getCoverage = async function() {
 }
 
 // Codecov API fails quite often, we must timeout and retry
-const CODECOV_TIMEOUT = 6e5
+const CODECOV_TIMEOUT = 6e4
 const CODECOV_RETRY = 10
 
 const getCodecovUrl = function() {
