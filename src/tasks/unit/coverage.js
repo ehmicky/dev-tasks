@@ -2,7 +2,7 @@ import { version, env, platform } from 'process'
 
 import isCi from 'is-ci'
 import fastGlob from 'fast-glob'
-import fetch from 'cross-fetch'
+import got from 'got'
 import PluginError from 'plugin-error'
 import { exec } from 'gulp-execa'
 
@@ -82,10 +82,14 @@ export const checkCoverage = async function() {
 
 const getCoverage = async function() {
   const codecovUrl = getCodecovUrl()
-  const response = await fetch(codecovUrl)
+  // TODO: use `got().body()` instead after upgrading to `got 10`
+  const { body } = await got(codecovUrl, {
+    timeout: CODECOV_TIMEOUT,
+    retry: CODECOV_RETRY,
+  })
   const {
     commit: { totals },
-  } = await response.json()
+  } = JSON.parse(body)
 
   // This happens when codecov could not find the commit on GitHub
   if (totals === null) {
@@ -98,6 +102,10 @@ const getCoverage = async function() {
   const covInfo = Number(totals.c)
   return covInfo
 }
+
+// Codecov API fails quite often, we must timeout and retry
+const CODECOV_TIMEOUT = 6e5
+const CODECOV_RETRY = 10
 
 const getCodecovUrl = function() {
   const commit = TRAVIS_PULL_REQUEST_SHA || TRAVIS_COMMIT
