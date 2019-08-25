@@ -734,6 +734,7 @@ then
   build="${CI_BUILD_ID:-$CI_JOB_ID}"
   remote_addr="${CI_BUILD_REPO:-$CI_REPOSITORY_URL}"
   commit="${CI_BUILD_REF:-$CI_COMMIT_SHA}"
+  slug="${CI_PROJECT_PATH}"
 
 elif [ "$SYSTEM_TEAMFOUNDATIONSERVERURI" != "" ];
 then
@@ -1503,6 +1504,8 @@ else
   say "    ${e}url:${x} $url"
   say "    ${e}query:${x} $query"
 
+  # Full query without token (to display on terminal output)
+  queryNoToken=$(echo "package=bash-$VERSION&token=secret&$query" | tr -d ' ')
   # now add token to query
   query=$(echo "package=bash-$VERSION&token=$token&$query" | tr -d ' ')
 
@@ -1513,7 +1516,7 @@ else
     do
       i=$[$i+1]
       say "    ${e}->${x} Pinging Codecov"
-      say "$url/upload/v4?$query"
+      say "$url/upload/v4?$queryNoToken"
       res=$(curl $curl_s -X POST $curlargs $cacert \
             -H 'X-Reduced-Redundancy: false' \
             -H 'X-Content-Type: application/x-gzip' \
