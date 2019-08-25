@@ -24,7 +24,7 @@ const eslint = async function(mode) {
   // Also, that module's main export is the Prettier config, i.e. we would need
   // to use `require.resolve()` to load the ESLint config.
   await exec(
-    `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --report-unused-disable-directives`,
+    `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0`,
     { verbose, echo: false },
   )
 }
