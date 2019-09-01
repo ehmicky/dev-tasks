@@ -2,6 +2,9 @@
 
 🎉 Thanks for considering contributing to this project! 🎉
 
+Please note that this project is not intended to be used outside my own projects
+so new features are unlikely to be accepted.
+
 These guidelines will help you send a pull request.
 
 If you're submitting an issue instead, please skip this document.

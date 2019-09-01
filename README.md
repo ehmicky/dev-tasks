@@ -5,11 +5,10 @@
 [![Twitter](https://img.shields.io/badge/%E2%80%8B-twitter-4cc61e.svg?logo=twitter)](https://twitter.com/intent/follow?screen_name=ehmicky)
 [![Medium](https://img.shields.io/badge/%E2%80%8B-medium-4cc61e.svg?logo=medium)](https://medium.com/@ehmicky)
 
-Automated tasks (linting, testing, building) for a Node.js development workflow
-using [Babel](https://babeljs.io/), [ESLint](https://eslint.org/),
-[Prettier](https://prettier.io/), [Jscpd](https://github.com/kucherenko/jscpd),
-[Ava](https://github.com/avajs/ava), [Travis](https://travis-ci.org/),
-[nyc](https://github.com/istanbuljs/nyc) and [codecov](https://codecov.io/).
+Automated development tasks (linting, testing, building) used in my own
+projects.
+
+This is not meant to be shared and semantic versioning is not followed.
 
 The task runner is [Gulp](https://gulpjs.com/), but you don't need to know Gulp
 to use these tasks.
@@ -144,7 +143,7 @@ check those files to see which custom tasks are available.
 
 # Support
 
-If you found a bug or would like a new feature, _don't hesitate_ to
+If you found a bug, _don't hesitate_ to
 [submit an issue on GitHub](../../issues).
 
 For other questions, feel free to
@@ -162,7 +161,7 @@ sharing it online.
 If the documentation is unclear or has a typo, please click on the page's `Edit`
 button (pencil icon) and suggest a correction.
 
-If you would like to help us fix a bug or add a new feature, please check our
+If you would like to help us fix a bug, please check our
 [guidelines](CONTRIBUTING.md). Pull requests are welcome!
 
 <!-- Thanks go to our wonderful contributors: -->

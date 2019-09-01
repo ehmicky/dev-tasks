@@ -15,7 +15,7 @@
       "pre-push": "gulp check --full"
     }
   },
-  "description": "Gulp tasks for a modern Node.js workflow (Babel / ESLint / Prettier / Jscpd / ava / Travis / nyc / Codecov)",
+  "description": "Automated development tasks for my own projects",
   "keywords": [
     "gulp",
     "gulp-tasks",
