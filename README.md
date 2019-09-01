@@ -1,7 +1,7 @@
-[![Codecov](https://img.shields.io/codecov/c/github/ehmicky/gulp-shared-tasks.svg?label=tested&logo=codecov)](https://codecov.io/gh/ehmicky/gulp-shared-tasks)
-[![Travis](https://img.shields.io/badge/cross-platform-4cc61e.svg?logo=travis)](https://travis-ci.org/ehmicky/gulp-shared-tasks)
-[![Node](https://img.shields.io/node/v/gulp-shared-tasks.svg?logo=node.js)](https://www.npmjs.com/package/gulp-shared-tasks)
-[![Gitter](https://img.shields.io/gitter/room/ehmicky/gulp-shared-tasks.svg?logo=gitter)](https://gitter.im/ehmicky/gulp-shared-tasks)
+[![Codecov](https://img.shields.io/codecov/c/github/ehmicky/dev-tasks.svg?label=tested&logo=codecov)](https://codecov.io/gh/ehmicky/dev-tasks)
+[![Travis](https://img.shields.io/badge/cross-platform-4cc61e.svg?logo=travis)](https://travis-ci.org/ehmicky/dev-tasks)
+[![Node](https://img.shields.io/node/v/@ehmicky/dev-tasks.svg?logo=node.js)](https://www.npmjs.com/package/@ehmicky/dev-tasks)
+[![Gitter](https://img.shields.io/gitter/room/ehmicky/dev-tasks.svg?logo=gitter)](https://gitter.im/ehmicky/dev-tasks)
 [![Twitter](https://img.shields.io/badge/%E2%80%8B-twitter-4cc61e.svg?logo=twitter)](https://twitter.com/intent/follow?screen_name=ehmicky)
 [![Medium](https://img.shields.io/badge/%E2%80%8B-medium-4cc61e.svg?logo=medium)](https://medium.com/@ehmicky)
 
@@ -147,7 +147,7 @@ If you found a bug, _don't hesitate_ to
 [submit an issue on GitHub](../../issues).
 
 For other questions, feel free to
-[chat with us on Gitter](https://gitter.im/ehmicky/gulp-shared-tasks).
+[chat with us on Gitter](https://gitter.im/ehmicky/dev-tasks).
 
 Everyone is welcome regardless of personal background. We enforce a
 [Code of conduct](CODE_OF_CONDUCT.md) in order to promote a positive and
@@ -168,6 +168,6 @@ If you would like to help us fix a bug, please check our
 
 <!-- ALL-CONTRIBUTORS-LIST:START -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://twitter.com/ehmicky"><img src="https://avatars2.githubusercontent.com/u/8136211?v=4" width="100px;" alt="ehmicky"/><br /><sub><b>ehmicky</b></sub></a><br /><a href="https://github.com/ehmicky/gulp-shared-tasks/commits?author=ehmicky" title="Code">💻</a> <a href="#design-ehmicky" title="Design">🎨</a> <a href="#ideas-ehmicky" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/ehmicky/gulp-shared-tasks/commits?author=ehmicky" title="Documentation">📖</a></td></tr></table>
+<table><tr><td align="center"><a href="https://twitter.com/ehmicky"><img src="https://avatars2.githubusercontent.com/u/8136211?v=4" width="100px;" alt="ehmicky"/><br /><sub><b>ehmicky</b></sub></a><br /><a href="https://github.com/ehmicky/dev-tasks/commits?author=ehmicky" title="Code">💻</a> <a href="#design-ehmicky" title="Design">🎨</a> <a href="#ideas-ehmicky" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/ehmicky/dev-tasks/commits?author=ehmicky" title="Documentation">📖</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->

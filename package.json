@@ -1,5 +1,5 @@
 {
-  "name": "gulp-shared-tasks",
+  "name": "@ehmicky/dev-tasks",
   "version": "0.30.40",
   "main": "build/src/main.js",
   "files": [
@@ -33,9 +33,9 @@
   ],
   "license": "Apache-2.0",
   "homepage": "https://git.io/fh5Ad",
-  "repository": "ehmicky/gulp-shared-tasks",
+  "repository": "ehmicky/dev-tasks",
   "bugs": {
-    "url": "https://github.com/ehmicky/gulp-shared-tasks/issues"
+    "url": "https://github.com/ehmicky/dev-tasks/issues"
   },
   "author": "ehmicky <ehmicky@gmail.com> (https://github.com/ehmicky)",
   "directories": {
