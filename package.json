@@ -88,7 +88,7 @@
     "stream-to-promise": "^2.2.0"
   },
   "devDependencies": {
-    "husky": "^3.0.4"
+    "husky": "^3.0.5"
   },
   "peerDependencies": {
     "ava": "^2.3.0",
