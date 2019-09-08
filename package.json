@@ -45,7 +45,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
-    "@ehmicky/eslint-config": "^15.10.16",
+    "@ehmicky/eslint-config": "^15.10.17",
     "@gulp-sourcemaps/map-sources": "^1.0.0",
     "ava": "^2.3.0",
     "caching-transform": "github:istanbuljs/caching-transform#1689877",
