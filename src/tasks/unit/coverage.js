@@ -82,14 +82,12 @@ export const checkCoverage = async function() {
 
 const getCoverage = async function() {
   const codecovUrl = getCodecovUrl()
-  // TODO: use `got().body()` instead after upgrading to `got 10`
-  const { body } = await got(codecovUrl, {
-    timeout: CODECOV_TIMEOUT,
-    retry: CODECOV_RETRY,
-  })
   const {
     commit: { totals },
-  } = JSON.parse(body)
+  } = await got(codecovUrl, {
+    timeout: CODECOV_TIMEOUT,
+    retry: CODECOV_RETRY,
+  }).json()
 
   // This happens when codecov could not find the commit on GitHub
   if (totals === null) {
