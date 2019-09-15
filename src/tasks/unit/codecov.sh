@@ -671,7 +671,7 @@ then
   job="$APPVEYOR_ACCOUNT_NAME%2F$APPVEYOR_PROJECT_SLUG%2F$APPVEYOR_BUILD_VERSION"
   slug="$APPVEYOR_REPO_NAME"
   commit="$APPVEYOR_REPO_COMMIT"
-
+  build_url=$(urlencode "${APPVEYOR_URL}/project/${APPVEYOR_REPO_NAME}/builds/$APPVEYOR_BUILD_ID/job/${APPVEYOR_JOB_ID}")
 elif [ "$CI" = "true" ] && [ "$WERCKER_GIT_BRANCH" != "" ];
 then
   say "$e==>$x Wercker CI detected."
