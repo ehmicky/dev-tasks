@@ -19,7 +19,7 @@ const prettier = function(mode) {
 
   return stream
     .pipe(gulpPrettier(config))
-    .pipe(gulpIf(isPrettified, dest(({ base }) => base)))
+    .pipe(gulpIf(isPrettified, dest(getBase)))
 }
 
 export const prettierLoose = bind(prettier, 'loose')
@@ -28,4 +28,8 @@ export const prettierSilent = bind(prettier, 'silent')
 
 const isPrettified = function({ isPrettier }) {
   return isPrettier
+}
+
+const getBase = function({ base }) {
+  return base
 }
