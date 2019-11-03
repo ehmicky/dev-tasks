@@ -23,8 +23,9 @@ const getCurrentNode = function() {
   return version
 }
 
-const getLatestNode = function() {
-  return `v${normalizeNodeVersion('*', { cache: false })}`
+const getLatestNode = async function() {
+  const latestVersion = await normalizeNodeVersion('*', { cache: false })
+  return `v${latestVersion}`
 }
 
 const checkNodeVersion = checkVersion.bind(null, 'Node.js', {
