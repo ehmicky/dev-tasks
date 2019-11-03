@@ -1,4 +1,5 @@
-import { node, npm } from 'node-latest'
+import { npm } from 'node-latest'
+import normalizeNodeVersions from 'normalize-node-version'
 import PluginError from 'plugin-error'
 
 // Make sure the latest Node and npm versions are used when releasing
@@ -16,7 +17,11 @@ const checkVersion = async function(name, { current, latest }) {
   )
 }
 
-const checkNodeVersion = checkVersion.bind(null, 'Node.js', node)
+const getLatestNode = function() {
+  return normalizeNodeVersions('*')
+}
+
+const checkNodeVersion = checkVersion.bind(null, 'Node.js', getLatestNode)
 const checkNpmVersion = checkVersion.bind(null, 'npm', npm)
 
 export const checkVersions = async () => {
