@@ -24,7 +24,7 @@ const getCurrentNode = function() {
 }
 
 const getLatestNode = function() {
-  return normalizeNodeVersion('*', { cache: false })
+  return `v${normalizeNodeVersion('*', { cache: false })}`
 }
 
 const checkNodeVersion = checkVersion.bind(null, 'Node.js', {
