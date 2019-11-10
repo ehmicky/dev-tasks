@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="8a28df4"
+VERSION="20191111-ecb75bd"
 
 url="https://codecov.io"
 env="$CODECOV_ENV"
@@ -486,11 +486,27 @@ then
     branch="$TRAVIS_BRANCH"
   fi
 
-  language=$(printenv | grep "TRAVIS_.*_VERSION" | head -1)
+  language=$(compgen -A variable | grep "^TRAVIS_.*_VERSION$" | head -1)
   if [ "$language" != "" ];
   then
-    env="$env,${language%=*}"
+    env="$env,${!language}"
   fi
+
+elif [ "$CODEBUILD_BUILD_ARN" != "" ];
+then
+  say "$e==>$x AWS Codebuild detected."
+  # https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html
+  service="codebuild"
+  commit="$CODEBUILD_RESOLVED_SOURCE_VERSION"
+  build="$CODEBUILD_BUILD_ID"
+  branch="$(echo $CODEBUILD_WEBHOOK_HEAD_REF | sed 's/^refs\/heads\///')"
+  if [ "${CODEBUILD_SOURCE_VERSION/pr}" = "$CODEBUILD_SOURCE_VERSION" ] ; then
+    pr="false"
+  else
+    pr="$(echo $CODEBUILD_SOURCE_VERSION | sed 's/^pr\///')"
+  fi
+  job="$CODEBUILD_BUILD_ID"
+  slug="$(echo $CODEBUILD_SOURCE_REPO_URL | sed 's/^.*github.com\///' | sed 's/\.git$//')"
 
 elif [ "$DOCKER_REPO" != "" ];
 then
@@ -736,6 +752,19 @@ then
   commit="${CI_BUILD_REF:-$CI_COMMIT_SHA}"
   slug="${CI_PROJECT_PATH}"
 
+elif [ "$GITHUB_ACTION" != "" ];
+then
+  say "$e==>$x GitHub Actions detected."
+
+  # https://github.com/features/actions
+  service="github-actions"
+
+  # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
+  branch="${GITHUB_REF#refs/heads/}"
+  commit="${GITHUB_SHA}"
+  slug="${GITHUB_REPOSITORY}"
+  job="${GITHUB_ACTION}"
+
 elif [ "$SYSTEM_TEAMFOUNDATIONSERVERURI" != "" ];
 then
   say "$e==>$x Azure Pipelines detected."
@@ -743,12 +772,14 @@ then
   service="azure_pipelines"
   commit="$BUILD_SOURCEVERSION"
   build="$BUILD_BUILDNUMBER"
-  if [  -z "$PULL_REQUEST_NUMBER"];
+  if [  -z "$PULL_REQUEST_NUMBER" ];
   then
     pr="$PULL_REQUEST_ID"
   else
     pr="$PULL_REQUEST_NUMBER"
   fi
+  project="${SYSTEM_TEAMPROJECT}"
+  server_uri="${SYSTEM_TEAMFOUNDATIONSERVERURI}"
   job="${BUILD_BUILDID}"
   branch="$BUILD_SOURCEBRANCHNAME"
   build_url=$(urlencode "${SYSTEM_TEAMFOUNDATIONSERVERURI}${SYSTEM_TEAMPROJECT}/_build/results?buildId=${BUILD_BUILDID}")
@@ -902,6 +933,11 @@ query="branch=$branch\
        &flags=$flags\
        &pr=$([ "$pr_o" = "" ] && echo "${pr##\#}" || echo "${pr_o##\#}")\
        &job=$job"
+
+if [ ! -z "$project" ] && [ ! -z "$server_uri" ];
+then
+  query=$(echo "$query&project=$project&server_uri=$server_uri" | tr -d ' ')
+fi
 
 if [ "$ft_search" = "1" ];
 then
@@ -1527,12 +1563,16 @@ else
       then
         s3target=$(echo "$res" | sed -n 2p)
         say "    ${e}->${x} Uploading"
+        
+        
         s3=$(curl $curl_s -fiX PUT $curlawsargs \
-                  --data-binary @$upload_file.gz \
-                  -H 'Content-Type: application/x-gzip' \
-                  -H 'Content-Encoding: gzip' \
-                  -H 'x-amz-acl: public-read' \
-                  "$s3target" || true)
+            --data-binary @$upload_file.gz \
+            -H 'Content-Type: application/x-gzip' \
+            -H 'Content-Encoding: gzip' \
+             -H 'x-amz-acl: public-read' \
+            "$s3target" || true)
+  
+
         if [ "$s3" != "" ];
         then
           say "    ${g}->${x} View reports at ${b}$(echo "$res" | sed -n 1p)${x}"
