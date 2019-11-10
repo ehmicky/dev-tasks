@@ -46,7 +46,12 @@ export const eslintWatch = function() {
     )
     .pipe(gulpEslint.format('codeframe'))
     .pipe(gulpEslint.failAfterError())
-    .pipe(gulpIf(isFixed, dest(({ base }) => base)))
+    .pipe(
+      gulpIf(
+        isFixed,
+        dest(({ base }) => base),
+      ),
+    )
 }
 
 const isFixed = function({ eslint: { fixed } = {} }) {
