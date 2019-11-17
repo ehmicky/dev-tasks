@@ -1,4 +1,3 @@
-export const SRC = 'src'
 export const BUILD_SOURCES = ['src', 'test', 'register', 'benchmarks']
 export const BUILD = 'build'
 

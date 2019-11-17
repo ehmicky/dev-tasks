@@ -1,18 +1,20 @@
 import { version, env, platform } from 'process'
 
 import isCi from 'is-ci'
-import fastGlob from 'fast-glob'
 import got from 'got'
 import PluginError from 'plugin-error'
 import { exec } from 'gulp-execa'
-
-import { SRC } from '../../files.js'
 
 // Run in Bash, i.e. should use slashes even on Windows
 const CODECOV_SCRIPT = `${__dirname}/codecov.sh`
 const COVERAGE_PATH = 'coverage/coverage-final.json'
 
-const { TRAVIS_REPO_SLUG, TRAVIS_COMMIT, TRAVIS_PULL_REQUEST_SHA } = env
+const {
+  TRAVIS_REPO_SLUG,
+  TRAVIS_COMMIT,
+  TRAVIS_PULL_REQUEST_SHA,
+  COVERAGE,
+} = env
 
 // Wrap with `nyc` if in CI
 // Locally, one must directly call `nyc ava`
@@ -53,15 +55,12 @@ const getCoverageTag = function(tag) {
 }
 
 // Only run test coverage on CI because it's slow.
-// Also do not run it on repositories without source code, e.g. with only
-// configuration or text files.
+// Test coverage can also be opted out with the `COVERAGE=false` environment
+// variable for example when:
+//  - there is no source code (e.g. `@ehmicky/eslint-config`)
+//  - there is an issue with using nyc (e.g. `nvexeca`)
 const shouldCover = function() {
-  return isCi && hasCode()
-}
-
-const hasCode = async function() {
-  const files = await fastGlob(`${SRC}/**/*.js`)
-  return files.length !== 0
+  return isCi && COVERAGE !== 'false'
 }
 
 // In CI, once each environment has sent their test coverage maps, we check that
