@@ -18,8 +18,8 @@ const {
 
 // Wrap with `nyc` if in CI
 // Locally, one must directly call `nyc ava`
-export const getNyc = async function() {
-  if (!(await shouldCover())) {
+export const getNyc = function() {
+  if (!shouldCover()) {
     return ''
   }
 
@@ -28,7 +28,7 @@ export const getNyc = async function() {
 
 // Upload test coverage to codecov
 export const uploadCoverage = async function() {
-  if (!(await shouldCover())) {
+  if (!shouldCover()) {
     return
   }
 
@@ -66,6 +66,10 @@ const shouldCover = function() {
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
 export const checkCoverage = async function() {
+  if (!shouldCover()) {
+    return
+  }
+
   const covInfo = await getCoverage()
 
   if (covInfo >= COVERAGE_THRESHOLD) {
