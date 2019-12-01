@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20191111-ecb75bd"
+VERSION="20191203-57b854c"
 
 url="https://codecov.io"
 env="$CODECOV_ENV"
@@ -126,6 +126,11 @@ cat << EOF
                  -X network       Disable uploading the file network
                  -X gcovout       Disable gcov output
 
+    -N           The commit SHA of the parent for which you are uploading coverage. If not present,
+                 the parent will be determined using the API of your repository provider.
+                 When using the repository provider's API, the parent is determined via finding
+                 the closest ancestor to the commit.
+
     -R root dir  Used when not in git/hg project to identify project root directory
     -y conf file Used to specify the location of the .codecov.yml config file
     -F flag      Flag the upload to group coverage metrics
@@ -236,9 +241,12 @@ parse_yaml() {
 
 if [ $# != 0 ];
 then
-  while getopts "a:A:b:B:cC:dD:e:f:F:g:G:hJ:k:Kn:p:P:r:R:y:s:S:t:T:u:U:vx:X:Z" o
+  while getopts "a:A:b:B:cC:dD:e:f:F:g:G:hJ:k:Kn:p:P:r:R:y:s:S:t:T:u:U:vx:X:ZN:" o
   do
     case "$o" in
+      "N")
+        parent=$OPTARG
+        ;;
       "a")
         gcov_arg=$OPTARG
         ;;
@@ -763,7 +771,6 @@ then
   branch="${GITHUB_REF#refs/heads/}"
   commit="${GITHUB_SHA}"
   slug="${GITHUB_REPOSITORY}"
-  job="${GITHUB_ACTION}"
 
 elif [ "$SYSTEM_TEAMFOUNDATIONSERVERURI" != "" ];
 then
@@ -793,6 +800,18 @@ then
   slug="$BITBUCKET_REPO_OWNER/$BITBUCKET_REPO_SLUG"
   job="$BITBUCKET_BUILD_NUMBER"
   pr="$BITBUCKET_PR_ID"
+  commit="$BITBUCKET_COMMIT"
+elif [ "$CIRRUS_CI" != "" ];
+then
+  say "$e==>$x Cirrus CI detected."
+  # https://cirrus-ci.org/guide/writing-tasks/#environment-variables
+  service="cirrus-ci"
+  slug="$CIRRUS_REPO_FULL_NAME"
+  branch="$CIRRUS_BRANCH"
+  pr="$CIRRUS_PR"
+  commit="$CIRRUS_CHANGE_IN_REPO"
+  build="$CIRRUS_TASK_ID"
+  job="$CIRRUS_TASK_NAME"
 else
   say "${r}x>${x} No CI provider detected."
   say "    Testing inside Docker? ${b}http://docs.codecov.io/docs/testing-with-docker${x}"
@@ -937,6 +956,11 @@ query="branch=$branch\
 if [ ! -z "$project" ] && [ ! -z "$server_uri" ];
 then
   query=$(echo "$query&project=$project&server_uri=$server_uri" | tr -d ' ')
+fi
+
+if [ "$parent" != "" ];
+then
+  query=$(echo "parent=$parent&$query" | tr -d ' ')
 fi
 
 if [ "$ft_search" = "1" ];
@@ -1563,15 +1587,15 @@ else
       then
         s3target=$(echo "$res" | sed -n 2p)
         say "    ${e}->${x} Uploading"
-        
-        
+
+
         s3=$(curl $curl_s -fiX PUT $curlawsargs \
             --data-binary @$upload_file.gz \
             -H 'Content-Type: application/x-gzip' \
             -H 'Content-Encoding: gzip' \
              -H 'x-amz-acl: public-read' \
             "$s3target" || true)
-  
+
 
         if [ "$s3" != "" ];
         then
