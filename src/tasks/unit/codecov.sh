@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20191203-57b854c"
+VERSION="20191211-b8db533"
 
 url="https://codecov.io"
 env="$CODECOV_ENV"
@@ -801,6 +801,11 @@ then
   job="$BITBUCKET_BUILD_NUMBER"
   pr="$BITBUCKET_PR_ID"
   commit="$BITBUCKET_COMMIT"
+  # See https://jira.atlassian.com/browse/BCLOUD-19393
+  if [ "${#commit}" = 12 ];
+  then
+    commit=$(git rev-parse "$BITBUCKET_COMMIT")
+  fi
 elif [ "$CIRRUS_CI" != "" ];
 then
   say "$e==>$x Cirrus CI detected."
