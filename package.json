@@ -48,7 +48,6 @@
     "@ehmicky/eslint-config": "^15.10.35",
     "@gulp-sourcemaps/map-sources": "^1.0.0",
     "ava": "^2.4.0",
-    "caching-transform": "github:istanbuljs/caching-transform#1689877",
     "core-js": "^3.6.0",
     "del": "^5.1.0",
     "eslint": "^6.8.0",
