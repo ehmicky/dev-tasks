@@ -24,7 +24,7 @@ const eslint = async function(mode) {
   // Also, that module's main export is the Prettier config, i.e. we would need
   // to use `require.resolve()` to load the ESLint config.
   await exec(
-    `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0`,
+    `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
     { verbose, echo: false },
   )
 }
@@ -42,6 +42,7 @@ export const eslintWatch = function() {
         maxWarnings: 0,
         // eslint-disable-next-line id-length
         reportUnusedDisableDirectives: true,
+        errorOnUnmatchedPattern: false,
       }),
     )
     .pipe(gulpEslint.format('codeframe'))
