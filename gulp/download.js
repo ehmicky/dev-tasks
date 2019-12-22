@@ -1,7 +1,10 @@
 import { createWriteStream } from 'fs'
+import { pipeline } from 'stream'
+import { promisify } from 'util'
 
 import got from 'got'
-import streamToPromise from 'stream-to-promise'
+
+const pPipeline = promisify(pipeline)
 
 const CODECOV_DIST = `${__dirname}/../src/tasks/unit/codecov.sh`
 const CODECOV_URL = 'https://codecov.io/bash'
@@ -15,8 +18,7 @@ const CODECOV_URL = 'https://codecov.io/bash'
 export const download = async function() {
   const response = await got(CODECOV_URL, { stream: true })
   const stream = createWriteStream(CODECOV_DIST)
-  const streamA = response.pipe(stream)
-  await streamToPromise(streamA)
+  await pPipeline(response, stream)
 }
 
 // eslint-disable-next-line fp/no-mutation
