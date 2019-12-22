@@ -56,9 +56,8 @@ const getCoverageTag = function(tag) {
 
 // Only run test coverage on CI because it's slow.
 // Test coverage can also be opted out with the `COVERAGE=false` environment
-// variable for example when:
-//  - there is no source code (e.g. `@ehmicky/eslint-config`)
-//  - there is an issue with using nyc (e.g. `nvexeca`)
+// variable for example when there is no source code
+// (e.g. `@ehmicky/eslint-config`).
 const shouldCover = function() {
   return isCi && COVERAGE !== 'false'
 }
