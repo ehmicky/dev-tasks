@@ -1,5 +1,4 @@
-import { appendFile } from 'fs'
-import { promisify } from 'util'
+import { promises } from 'fs'
 
 import { series } from 'gulp'
 import isCi from 'is-ci'
@@ -8,8 +7,6 @@ import { exec } from 'gulp-execa'
 
 import { NPMRC } from '../../files.js'
 import { build } from '../build/main.js'
-
-const pAppendFile = promisify(appendFile)
 
 // The release process has two steps:
 //   - `gulp release` is performed locally. It tags the commit and creates a
@@ -24,7 +21,7 @@ const npmPublish = async function() {
     )
   }
 
-  await pAppendFile(NPMRC, NPMRC_CONTENT)
+  await promises.appendFile(NPMRC, NPMRC_CONTENT)
   await exec('npm publish')
 }
 
