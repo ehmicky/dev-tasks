@@ -16,7 +16,7 @@ const CODECOV_URL = 'https://codecov.io/bash'
 // Done in streaming mode for best performance.
 
 export const download = async function() {
-  const response = await got(CODECOV_URL, { stream: true })
+  const response = await got.stream(CODECOV_URL)
   const stream = createWriteStream(CODECOV_DIST)
   await pPipeline(response, stream)
 }
