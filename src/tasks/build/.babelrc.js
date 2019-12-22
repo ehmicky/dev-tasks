@@ -13,7 +13,10 @@ const presetEnvOptions =
 // Babel compilation, so it cannot use ES modules.
 module.exports = {
   presets: [
-    ['@babel/preset-env', { targets: { node: '10.17.0' }, ...presetEnvOptions }],
+    [
+      '@babel/preset-env',
+      { targets: { node: '10.17.0' }, ...presetEnvOptions },
+    ],
   ],
   comments: false,
   shouldPrintComment: comment => comment.includes('istanbul ignore'),
