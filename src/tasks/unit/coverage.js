@@ -5,6 +5,7 @@ import got from 'got'
 import PluginError from 'plugin-error'
 import { exec } from 'gulp-execa'
 
+const NYCRC_CONFIG = `${__dirname}/.nycrc.json`
 // Run in Bash, i.e. should use slashes even on Windows
 const CODECOV_SCRIPT = `${__dirname}/codecov.sh`
 const COVERAGE_PATH = 'coverage/coverage-final.json'
@@ -23,7 +24,7 @@ export const getNyc = function() {
     return ''
   }
 
-  return 'nyc --reporter=lcov --reporter=text --reporter=html --reporter=json --exclude=build/test --exclude=ava.config.js '
+  return `nyc --nycrc-path=${NYCRC_CONFIG} `
 }
 
 // Upload test coverage to codecov
