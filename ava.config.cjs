@@ -1,8 +1,8 @@
-// The current directory is the caller's `ava.config.js` directory, because it's
+// The current directory is the caller's `ava.config.cjs` directory, because it's
 // loaded with `esm`. The `esm` configuration used by Ava is also hard to work
 // with when mixed with CommonJS (from the `build/` folder), making it hard to:
 //  - load `files.js`, so we inline it instead, and use `__dirname`.
-//  - load `ava.config.js` from inside `build/src/`, so we define the whole
+//  - load `ava.config.cjs` from inside `build/src/`, so we define the whole
 //    configuration here instead.
 // eslint-disable-next-line import/unambiguous
 const SRC = 'src'
