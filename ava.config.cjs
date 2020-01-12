@@ -4,15 +4,17 @@
 //  - load `files.js`, so we inline it instead, and use `__dirname`.
 //  - load `ava.config.js` from inside `build/src/`, so we define the whole
 //    configuration here instead.
+// eslint-disable-next-line import/unambiguous
 const BUILD = 'build'
 const BUILD_TEST = 'build/test'
 
 const LOG_PROCESS_ERRORS = `${__dirname}/build/src/tasks/unit/log_process_errors.js`
 
-export default {
+// eslint-disable-next-line import/no-commonjs
+module.exports = {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
-  files: [`${BUILD_TEST}/**/*.js`],
+  files: [`${BUILD_TEST}/**/*.js`, `!${BUILD_TEST}/helpers`],
   ignoredByWatcher: [`!${BUILD}/**/*.js`],
   verbose: true,
   // Use `log-process-errors`
