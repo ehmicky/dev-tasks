@@ -5,7 +5,7 @@
 //  - load `ava.config.js` from inside `build/src/`, so we define the whole
 //    configuration here instead.
 // eslint-disable-next-line import/unambiguous
-const BUILD = 'build'
+const SRC = 'src'
 const BUILD_TEST = 'build/test'
 
 const LOG_PROCESS_ERRORS = `${__dirname}/build/src/tasks/unit/log_process_errors.js`
@@ -15,9 +15,11 @@ module.exports = {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
   files: [`${BUILD_TEST}/**/*.js`, `!${BUILD_TEST}/helpers`],
-  ignoredByWatcher: [`!${BUILD}/**/*.js`],
+  // Otherwise, if build watch is run as well, modifying source files trigger
+  // tests twice
+  ignoredByWatcher: [SRC],
   verbose: true,
   // Use `log-process-errors`
   require: [LOG_PROCESS_ERRORS],
-  timeout: 0,
+  timeout: `3600s`,
 }
