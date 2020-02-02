@@ -87,7 +87,7 @@
     "rename-fn": "^1.0.0"
   },
   "devDependencies": {
-    "husky": "^4.2.0"
+    "husky": "^4.2.1"
   },
   "peerDependencies": {
     "ava": "^3.0.0",
