@@ -50,7 +50,7 @@
     "ava": "^3.3.0",
     "core-js": "^3.6.4",
     "del": "^5.1.0",
-    "eslint": "^7.0.0-alpha.1",
+    "eslint": "^7.0.0-alpha.2",
     "eslint-config-prettier": "^6.10.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-import-resolver-node": "^0.3.3",
