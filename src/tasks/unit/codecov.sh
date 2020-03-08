@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20191211-b8db533"
+VERSION="20200303-bc4d7e6"
 
 url="https://codecov.io"
 env="$CODECOV_ENV"
@@ -500,7 +500,7 @@ then
     env="$env,${!language}"
   fi
 
-elif [ "$CODEBUILD_BUILD_ARN" != "" ];
+elif [ "$CODEBUILD_CI" = "true" ];
 then
   say "$e==>$x AWS Codebuild detected."
   # https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html
@@ -684,7 +684,7 @@ then
   branch="$HEROKU_TEST_RUN_BRANCH"
   build="$HEROKU_TEST_RUN_ID"
 
-elif [ "$CI" = "True" ] && [ "$APPVEYOR" = "True" ];
+elif [[ "$CI" = "true" || "$CI" = "True" ]] && [[ "$APPVEYOR" = "true" || "$APPVEYOR" = "True" ]];
 then
   say "$e==>$x Appveyor CI detected."
   # http://www.appveyor.com/docs/environment-variables
@@ -769,21 +769,31 @@ then
 
   # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
   branch="${GITHUB_REF#refs/heads/}"
+  if [  "$GITHUB_HEAD_REF" != "" ];
+  then
+    # PR refs are in the format: refs/pull/7/merge
+    pr="${GITHUB_REF#refs/pull/}"
+    pr="${pr%/merge}"
+    branch="${GITHUB_HEAD_REF}"
+  fi
   commit="${GITHUB_SHA}"
   slug="${GITHUB_REPOSITORY}"
+  build="${GITHUB_RUN_ID}"
+  build_url=$(urlencode "http://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")
 
 elif [ "$SYSTEM_TEAMFOUNDATIONSERVERURI" != "" ];
 then
   say "$e==>$x Azure Pipelines detected."
   # https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=vsts
+  # https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&viewFallbackFrom=vsts&tabs=yaml
   service="azure_pipelines"
   commit="$BUILD_SOURCEVERSION"
   build="$BUILD_BUILDNUMBER"
-  if [  -z "$PULL_REQUEST_NUMBER" ];
+  if [  -z "$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER" ];
   then
-    pr="$PULL_REQUEST_ID"
+    pr="$SYSTEM_PULLREQUEST_PULLREQUESTID"
   else
-    pr="$PULL_REQUEST_NUMBER"
+    pr="$SYSTEM_PULLREQUEST_PULLREQUESTNUMBER"
   fi
   project="${SYSTEM_TEAMPROJECT}"
   server_uri="${SYSTEM_TEAMFOUNDATIONSERVERURI}"
@@ -1044,7 +1054,7 @@ then
   if [ "$ft_gcov" = "1" ];
   then
     say "${e}==>${x} Running gcov in $proj_root ${e}(disable via -X gcov)${x}"
-    bash -c "find $proj_root -type f -name '*.gcno' $gcov_include $gcov_ignore -execdir $gcov_exe -pb $gcov_arg {} +" || true
+    bash -c "find $proj_root -type f -name '*.gcno' $gcov_include $gcov_ignore -execdir $gcov_exe -pb $gcov_arg {} \;" || true
   else
     say "${e}==>${x} gcov disabled"
   fi
