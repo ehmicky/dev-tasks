@@ -25,7 +25,7 @@
     "eslint",
     "prettier",
     "codecov",
-    "travis-ci",
+    "github-actions",
     "watch",
     "jscpd",
     "npm",
