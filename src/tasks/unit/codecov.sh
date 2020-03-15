@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20200303-bc4d7e6"
+VERSION="tbd"
 
 url="https://codecov.io"
 env="$CODECOV_ENV"
@@ -514,7 +514,7 @@ then
     pr="$(echo $CODEBUILD_SOURCE_VERSION | sed 's/^pr\///')"
   fi
   job="$CODEBUILD_BUILD_ID"
-  slug="$(echo $CODEBUILD_SOURCE_REPO_URL | sed 's/^.*github.com\///' | sed 's/\.git$//')"
+  slug="$(echo $CODEBUILD_SOURCE_REPO_URL | sed 's/^.*github.com\///' | sed 's/^.*bitbucket.org\///' | sed 's/\.git$//')"
 
 elif [ "$DOCKER_REPO" != "" ];
 then
@@ -923,7 +923,11 @@ yaml=$(echo "$yaml" | head -1)
 if [ "$yaml" != "" ];
 then
   say "    ${e}Yaml found at:${x} $yaml"
-  config=$(parse_yaml "$git_root/$yaml" || echo '')
+  if [[ "$yaml" != /* ]]; then
+    # relative path for yaml file given, assume relative to the repo root
+    yaml="$git_root/$yaml"
+  fi
+  config=$(parse_yaml "$yaml" || echo '')
 
   # TODO validate the yaml here
 
@@ -1023,10 +1027,10 @@ then
     if [ "$ft_gcov" = "1" ];
     then
       say "    ${e}->${x} Running $gcov_exe for Obj-C"
-      if [ "$ft_gcovout" = "1" ];
+      if [ "$ft_gcovout" = "0" ];
       then
         # suppress gcov output
-        bash -c "find $ddp -type f -name '*.gcda' $gcov_include $gcov_ignore -exec $gcov_exe -p $gcov_arg {} +" || true 2>/dev/null
+        bash -c "find $ddp -type f -name '*.gcda' $gcov_include $gcov_ignore -exec $gcov_exe -p $gcov_arg {} +" >/dev/null 2>&1 || true
       else
         bash -c "find $ddp -type f -name '*.gcda' $gcov_include $gcov_ignore -exec $gcov_exe -p $gcov_arg {} +" || true
       fi
@@ -1054,7 +1058,13 @@ then
   if [ "$ft_gcov" = "1" ];
   then
     say "${e}==>${x} Running gcov in $proj_root ${e}(disable via -X gcov)${x}"
-    bash -c "find $proj_root -type f -name '*.gcno' $gcov_include $gcov_ignore -execdir $gcov_exe -pb $gcov_arg {} \;" || true
+    if [ "$ft_gcovout" = "0" ];
+    then
+      # suppress gcov output
+      bash -c "find $proj_root -type f -name '*.gcno' $gcov_include $gcov_ignore -execdir $gcov_exe -pb $gcov_arg {} \;" >/dev/null 2>&1 || true
+    else
+      bash -c "find $proj_root -type f -name '*.gcno' $gcov_include $gcov_ignore -execdir $gcov_exe -pb $gcov_arg {} \;" || true
+    fi
   else
     say "${e}==>${x} gcov disabled"
   fi
@@ -1504,7 +1514,7 @@ then
       || echo ''
   fi
 
-  if echo "$network" | grep -m1 '\(.cpp\|.h\|.cxx\|.c\|.hpp\|.m\)$' 1>/dev/null;
+  if echo "$network" | grep -m1 '\(.cpp\|.h\|.cxx\|.c\|.hpp\|.m\|.swift\)$' 1>/dev/null;
   then
     # skip brackets
     find "$git_root" -type f \
@@ -1516,6 +1526,7 @@ then
            -or -name '*.m' \
            -or -name '*.c' \
            -or -name '*.hpp' \
+           -or -name '*.swift' \
          \) -exec \
       grep -nIHE \
            -e $empty_line \
@@ -1536,6 +1547,7 @@ then
            -or -name '*.m' \
            -or -name '*.c' \
            -or -name '*.hpp' \
+           -or -name '*.swift' \
          \) -exec \
       grep -nIH '// LCOV_EXCL' \
            {} \; \
