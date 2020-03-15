@@ -1,5 +1,5 @@
 [![Codecov](https://img.shields.io/codecov/c/github/ehmicky/dev-tasks.svg?label=tested&logo=codecov)](https://codecov.io/gh/ehmicky/dev-tasks)
-[![Travis](https://img.shields.io/badge/cross-platform-4cc61e.svg?logo=travis)](https://travis-ci.org/ehmicky/dev-tasks)
+[![Build](https://github.com/ehmicky/dev-tasks/workflows/Build/badge.svg)](https://github.com/ehmicky/dev-tasks/actions)
 [![Node](https://img.shields.io/node/v/@ehmicky/dev-tasks.svg?logo=node.js)](https://www.npmjs.com/package/@ehmicky/dev-tasks)
 [![Gitter](https://img.shields.io/gitter/room/ehmicky/dev-tasks.svg?logo=gitter)](https://gitter.im/ehmicky/dev-tasks)
 [![Twitter](https://img.shields.io/badge/%E2%80%8B-twitter-4cc61e.svg?logo=twitter)](https://twitter.com/intent/follow?screen_name=ehmicky)
@@ -49,7 +49,7 @@ The main commands are:
 
 Use `gulp checkw`, `gulp buildw` and `gulp unitw` to run them in watch mode.
 
-[Travis CI](https://travis-ci.org/) ensures that:
+[GitHub actions](https://github.com/features/actions) ensures that:
 
 - tests pass on all supported environments.
 - all source files are covered by tests and follow the same coding style.
@@ -92,17 +92,13 @@ please call `ava` directly instead. For example: `ava --update-snapshots`.
 To target a single test file, use `ava build/test/file.js` not
 `ava test/file.js`.
 
-Test coverage is performed in CI ([Travis](https://travis-ci.org/)) and uploaded
-to [codecov](https://codecov.io/). It can also be performed locally using
-`nyc ava`.
-
 ## `gulp test`
 
 Runs [`gulp check`](#gulp-check) then [`gulp build`](#gulp-build) then
 [`gulp unit`](#gulp-unit).
 
-This is performed on CI ([Travis](https://travis-ci.org/)) for each OS (Windows,
-Mac, Linux) and supported Node.js version.
+This is performed on CI ([GitHub acitons](https://github.com/features/actions))
+for each OS (Windows, Mac, Linux) and supported Node.js version.
 
 ## `gulp checkw`, `gulp buildw`, `gulp unitw`, `gulp warnw`
 
@@ -130,11 +126,16 @@ The new version will only be published to npm after CI tests have passed.
 
 Only the repository owner can perform these tasks.
 
-## `gulp coverage`
+## `gulp uploadCoverage`
+
+In CI ([GitHub actions](https://github.com/features/actions)), upload test
+coverage (produced by `nyc ava`) to [codecov](https://codecov.io/).
+
+## `gulp checkCoverage`
 
 Ensures that files are fully covered by tests using
 [nyc](https://github.com/istanbuljs/nyc). This is meant to be performed on CI
-([Travis](https://travis-ci.org/)).
+([GitHub actions](https://github.com/features/actions)).
 
 # Custom tasks
 

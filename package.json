@@ -1,6 +1,6 @@
 {
   "name": "@ehmicky/dev-tasks",
-  "version": "0.31.16",
+  "version": "0.31.19",
   "main": "build/src/main.js",
   "files": [
     "build/src",
@@ -25,7 +25,7 @@
     "eslint",
     "prettier",
     "codecov",
-    "travis-ci",
+    "github-actions",
     "watch",
     "jscpd",
     "npm",
