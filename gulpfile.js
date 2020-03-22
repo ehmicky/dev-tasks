@@ -8,7 +8,9 @@ const { buildRegister } = require('./src/tasks/build/register.js')
 
 buildRegister()
 
+// eslint-disable-next-line import/order
 const tasks = require('./src/main.js')
+// eslint-disable-next-line import/order
 const { download } = require('./gulp/download.js')
 
 module.exports = {
