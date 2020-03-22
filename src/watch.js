@@ -53,14 +53,14 @@ const addName = function (watchTask, task) {
 }
 
 const getName = function (task) {
-  if (typeof task !== 'function' || INVALID_NAMES.includes(task.name)) {
+  if (typeof task !== 'function' || INVALID_NAMES.has(task.name)) {
     return 'watch'
   }
 
   return `watch ${task.name}`
 }
 
-const INVALID_NAMES = ['', 'parallel', 'series', 'watch']
+const INVALID_NAMES = new Set(['', 'parallel', 'series', 'watch'])
 
 // Add Gulp `task.description` by re-using the watched task's description
 const addDescription = function (watchTask, task) {
