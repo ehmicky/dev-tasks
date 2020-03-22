@@ -82,7 +82,7 @@
     "normalize-node-version": "^7.0.1",
     "nyc": "^15.0.0",
     "plugin-error": "^1.0.1",
-    "prettier": "^2.0.1",
+    "prettier": "^2.0.2",
     "release-it": "^13.1.2",
     "rename-fn": "^1.0.0"
   },
