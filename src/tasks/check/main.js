@@ -3,8 +3,8 @@ import { series, parallel } from 'gulp'
 import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
-import { lint, lintWatch } from './lint.js'
 import { jscpd } from './jscpd.js'
+import { lint, lintWatch } from './lint.js'
 
 export const check = parallel(lint(), jscpd)
 // TODO: add `jscpd` once this bug is fixed:

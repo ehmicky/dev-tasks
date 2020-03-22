@@ -1,9 +1,9 @@
 import { relative } from 'path'
 
+import mapSources from '@gulp-sourcemaps/map-sources'
+import del from 'del'
 import { src, dest, series, parallel, lastRun } from 'gulp'
 import gulpBabel from 'gulp-babel'
-import del from 'del'
-import mapSources from '@gulp-sourcemaps/map-sources'
 
 import { BUILD_SOURCES, BUILD } from '../../files.js'
 import { getWatchTask } from '../../watch.js'

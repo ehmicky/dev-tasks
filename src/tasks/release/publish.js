@@ -1,8 +1,8 @@
 import { promises } from 'fs'
 
+import { exec } from 'gulp-execa'
 import isCi from 'is-ci'
 import PluginError from 'plugin-error'
-import { exec } from 'gulp-execa'
 
 import { NPMRC } from '../../files.js'
 

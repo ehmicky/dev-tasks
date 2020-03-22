@@ -1,5 +1,5 @@
-import { version, platform } from 'process'
 import { join } from 'path'
+import { version, platform } from 'process'
 
 import { exec } from 'gulp-execa'
 

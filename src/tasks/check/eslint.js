@@ -1,7 +1,7 @@
 import { src, dest, lastRun } from 'gulp'
 import gulpEslint from 'gulp-eslint'
-import gulpIf from 'gulp-if'
 import { exec } from 'gulp-execa'
+import gulpIf from 'gulp-if'
 
 import { JAVASCRIPT, MARKDOWN } from '../../files.js'
 import { bind } from '../../utils.js'

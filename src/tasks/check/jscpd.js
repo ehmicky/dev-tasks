@@ -1,5 +1,5 @@
-import { JSCPD } from 'jscpd'
 import fastGlob from 'fast-glob'
+import { JSCPD } from 'jscpd'
 import PluginError from 'plugin-error'
 
 import { JAVASCRIPT } from '../../files.js'

@@ -1,5 +1,5 @@
-import { uploadCoverage } from './upload.js'
 import { checkCoverage } from './check.js'
+import { uploadCoverage } from './upload.js'
 
 // eslint-disable-next-line fp/no-mutation
 uploadCoverage.description = 'Upload test coverage to CI'

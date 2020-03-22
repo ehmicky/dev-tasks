@@ -1,7 +1,7 @@
-import { src, dest, lastRun } from 'gulp'
-import gulpPrettier from 'gulp-prettier'
-import gulpIf from 'gulp-if'
 import config from '@ehmicky/eslint-config'
+import { src, dest, lastRun } from 'gulp'
+import gulpIf from 'gulp-if'
+import gulpPrettier from 'gulp-prettier'
 
 import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
 import { bind } from '../../utils.js'
