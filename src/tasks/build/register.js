@@ -8,7 +8,7 @@ const babelConfig = require('./.babelrc.js')
 // and before requiring the custom Gulp tasks.
 // This is used by this module itself (in the `gulpfile`), i.e. must use
 // CommonJS.
-const buildRegister = function() {
+const buildRegister = function () {
   // eslint-disable-next-line global-require
   require('@babel/register')({ ...babelConfig, babelrc: false })
 }

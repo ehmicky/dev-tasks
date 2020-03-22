@@ -19,7 +19,7 @@ const {
 
 // Wrap with `nyc` if in CI
 // Locally, one must directly call `nyc ava`
-export const getNyc = function() {
+export const getNyc = function () {
   if (!shouldCover()) {
     return ''
   }
@@ -28,7 +28,7 @@ export const getNyc = function() {
 }
 
 // Upload test coverage to codecov
-export const uploadCoverage = async function() {
+export const uploadCoverage = async function () {
   if (!shouldCover()) {
     return
   }
@@ -38,7 +38,7 @@ export const uploadCoverage = async function() {
 }
 
 // Tag test coverage with OS and Node.js version
-const getCoverageTags = function() {
+const getCoverageTags = function () {
   const os = PLATFORMS[platform]
   // `codecov` only allows restricted characters
   const nodeVersion = `node_${version.replace(/\./gu, '_')}`
@@ -51,7 +51,7 @@ const PLATFORMS = {
   win32: 'windows',
 }
 
-const getCoverageTag = function(tag) {
+const getCoverageTag = function (tag) {
   return `-F ${tag}`
 }
 
@@ -59,13 +59,13 @@ const getCoverageTag = function(tag) {
 // Test coverage can also be opted out with the `COVERAGE=false` environment
 // variable for example when there is no source code
 // (e.g. `@ehmicky/eslint-config`).
-const shouldCover = function() {
+const shouldCover = function () {
   return isCi && COVERAGE !== 'false'
 }
 
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
-export const checkCoverage = async function() {
+export const checkCoverage = async function () {
   if (!shouldCover()) {
     return
   }
@@ -83,7 +83,7 @@ export const checkCoverage = async function() {
   )
 }
 
-const getCoverage = async function() {
+const getCoverage = async function () {
   const codecovUrl = getCodecovUrl()
   const {
     commit: { totals },
@@ -108,7 +108,7 @@ const getCoverage = async function() {
 const CODECOV_TIMEOUT = 6e4
 const CODECOV_RETRY = 10
 
-const getCodecovUrl = function() {
+const getCodecovUrl = function () {
   const commit = TRAVIS_PULL_REQUEST_SHA || TRAVIS_COMMIT
   return `https://codecov.io/api/gh/${TRAVIS_REPO_SLUG}/commit/${commit}`
 }

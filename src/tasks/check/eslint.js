@@ -13,7 +13,7 @@ import { bind } from '../../utils.js'
 // This leads us to two use cases:
 //   - `eslint` task is faster when not running in watch mode
 //   - `eslintWatch` task is faster when running in watch mode
-const eslint = async function(mode) {
+const eslint = async function (mode) {
   const fix = mode === 'strict' ? '' : '--fix '
   const verbose = mode !== 'silent'
 
@@ -33,7 +33,7 @@ export const eslintLoose = bind(eslint, 'loose')
 export const eslintStrict = bind(eslint, 'strict')
 export const eslintSilent = bind(eslint, 'silent')
 
-export const eslintWatch = function() {
+export const eslintWatch = function () {
   return src([JAVASCRIPT, MARKDOWN], { dot: true, since: lastRun(eslintWatch) })
     .pipe(
       gulpEslint({
@@ -55,6 +55,6 @@ export const eslintWatch = function() {
     )
 }
 
-const isFixed = function({ eslint: { fixed } = {} }) {
+const isFixed = function ({ eslint: { fixed } = {} }) {
   return fixed
 }

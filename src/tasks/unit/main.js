@@ -5,7 +5,7 @@ import { getNyc, uploadCoverage, checkCoverage } from './coverage.js'
 // Run `ava` and `nyc`
 // To pass arguments to `ava`, one should use `ava` directly instead of the
 // Gulp task.
-const runAva = async function(args, options) {
+const runAva = async function (args, options) {
   const nyc = getNyc()
 
   await exec(`${nyc}ava${args}`, options)

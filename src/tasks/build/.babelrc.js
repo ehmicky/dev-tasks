@@ -19,7 +19,7 @@ module.exports = {
     ],
   ],
   comments: false,
-  shouldPrintComment: comment => comment.includes('istanbul ignore'),
+  shouldPrintComment: (comment) => comment.includes('istanbul ignore'),
   minified: true,
   retainLines: true,
 }

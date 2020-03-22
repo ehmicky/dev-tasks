@@ -5,7 +5,7 @@ import { testTask } from '../test.js'
 
 import { checkVersions } from './version.js'
 
-const releaseItTask = async function(increment) {
+const releaseItTask = async function (increment) {
   await releaseIt({ ...RELEASE_IT_CONFIG, increment })
 }
 

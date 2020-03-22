@@ -13,7 +13,7 @@ import { build } from '../build/main.js'
 //     GitHub release.
 //   - `gulp publish` is performed on CI if `gulp release` was used, and after
 //     all tests have passed. It publishes to npm.
-const npmPublish = async function() {
+const npmPublish = async function () {
   if (!isCi) {
     throw new PluginError(
       'gulp-publish',

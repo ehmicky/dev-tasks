@@ -6,7 +6,7 @@ import config from '@ehmicky/eslint-config'
 import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
 import { bind } from '../../utils.js'
 
-const prettier = function(mode) {
+const prettier = function (mode) {
   const stream = src([JAVASCRIPT, MARKDOWN, ...JSON_YAML], {
     dot: true,
     // `prettierLoose()` is used in watch mode
@@ -26,10 +26,10 @@ export const prettierLoose = bind(prettier, 'loose')
 export const prettierStrict = bind(prettier, 'strict')
 export const prettierSilent = bind(prettier, 'silent')
 
-const isPrettified = function({ isPrettier }) {
+const isPrettified = function ({ isPrettier }) {
   return isPrettier
 }
 
-const getBase = function({ base }) {
+const getBase = function ({ base }) {
   return base
 }

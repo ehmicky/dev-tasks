@@ -3,7 +3,7 @@ import { basename } from 'path'
 
 import logProcessErrors from 'log-process-errors'
 
-const loadLogProcessErrors = function() {
+const loadLogProcessErrors = function () {
   if (isSelf()) {
     return
   }
@@ -12,7 +12,7 @@ const loadLogProcessErrors = function() {
 }
 
 // `log-process-errors` should not use itself
-const isSelf = function() {
+const isSelf = function () {
   const repoName = basename(cwd())
   return repoName === 'log-process-errors'
 }

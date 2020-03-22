@@ -5,7 +5,7 @@ import normalizeNodeVersion from 'normalize-node-version'
 import PluginError from 'plugin-error'
 
 // Make sure the latest Node and npm versions are used when releasing
-const checkVersion = async function(name, { current, latest }) {
+const checkVersion = async function (name, { current, latest }) {
   const currentVersion = current()
   const latestVersion = await latest()
 
@@ -19,11 +19,11 @@ const checkVersion = async function(name, { current, latest }) {
   )
 }
 
-const getCurrentNode = function() {
+const getCurrentNode = function () {
   return version
 }
 
-const getLatestNode = async function() {
+const getLatestNode = async function () {
   const latestVersion = await normalizeNodeVersion('*', { cache: false })
   return `v${latestVersion}`
 }

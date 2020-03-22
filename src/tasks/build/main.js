@@ -32,7 +32,7 @@ const babel = () =>
     sourcemaps: true,
   })
     .pipe(gulpBabel({ ...babelConfig, babelrc: false }))
-    .pipe(mapSources(path => `${relative(path, '.')}/${path}`))
+    .pipe(mapSources((path) => `${relative(path, '.')}/${path}`))
     .pipe(dest(BUILD, { sourcemaps: '.' }))
 
 const rebuild = parallel(copy, babel)
