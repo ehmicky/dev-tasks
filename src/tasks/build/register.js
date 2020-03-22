@@ -9,7 +9,7 @@ const babelConfig = require('./.babelrc.js')
 // This is used by this module itself (in the `gulpfile`), i.e. must use
 // CommonJS.
 const buildRegister = function () {
-  // eslint-disable-next-line global-require
+  // eslint-disable-next-line node/global-require
   require('@babel/register')({ ...babelConfig, babelrc: false })
 }
 
