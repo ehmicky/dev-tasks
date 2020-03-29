@@ -20,7 +20,21 @@ export const publish = async function () {
   }
 
   await fs.appendFile(NPMRC, NPMRC_CONTENT)
-  await exec('npm publish')
+
+  try {
+    const { all } = await exec('npm publish', { stdio: 'pipe', all: true })
+    // eslint-disable-next-line no-console, no-restricted-globals
+    console.log(all)
+  } catch (error) {
+    // eslint-disable-next-line max-depth
+    if (error.all.includes(ALREADY_PUBLISH_MESSAGE)) {
+      // eslint-disable-next-line no-console, no-restricted-globals
+      console.error(error.all)
+      return
+    }
+
+    throw error
+  }
 }
 
 // The NPM_TOKEN environment variable is sensitive, i.e. encrypted in CI.
@@ -28,6 +42,12 @@ export const publish = async function () {
 // does not get leaked in CI logs.
 // eslint-disable-next-line no-template-curly-in-string
 const NPMRC_CONTENT = '//registry.npmjs.org/:_authToken=${NPM_TOKEN}\n'
+
+// It is possible to run `npm publish` locally before CI has completed to
+// speed up the release process. In that case, the following error message will
+// be shown, but we want to ignore it.
+const ALREADY_PUBLISH_MESSAGE =
+  'You cannot publish over the previously published versions'
 
 // eslint-disable-next-line fp/no-mutation
 publish.description = 'Publish to npm'
