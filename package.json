@@ -83,7 +83,7 @@
     "nyc": "^15.0.1",
     "plugin-error": "^1.0.1",
     "prettier": "^2.0.2",
-    "release-it": "^13.5.0",
+    "release-it": "^13.5.1",
     "rename-fn": "^1.0.0"
   },
   "devDependencies": {
