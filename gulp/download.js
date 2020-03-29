@@ -6,7 +6,7 @@ import got from 'got'
 
 const pPipeline = promisify(pipeline)
 
-const CODECOV_DIST = `${__dirname}/../src/tasks/unit/codecov.sh`
+const CODECOV_DIST = `${__dirname}/../src/tasks/cover/codecov.sh`
 const CODECOV_URL = 'https://codecov.io/bash'
 
 // `codecov` upload script is in Bash and the repository does not have any
