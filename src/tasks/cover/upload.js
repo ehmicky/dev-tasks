@@ -15,8 +15,6 @@ export const uploadCoverage = async function () {
     return
   }
 
-  // eslint-disable-next-line no-console, no-restricted-globals, node/no-process-env, node/prefer-global/process
-  console.log(process.env.CODECOV_TOKEN.length)
   const tags = getCoverageTags()
   await exec(`bash ${CODECOV_SCRIPT} -f ${COVERAGE_PATH} ${tags} -Z`)
 }
