@@ -77,7 +77,7 @@
     "is-ci": "^2.0.0",
     "jscpd": "^3.1.0",
     "keep-func-props": "^3.0.0",
-    "log-process-errors": "^6.0.1",
+    "log-process-errors": "^6.1.0",
     "node-latest": "^3.1.0",
     "normalize-node-version": "^7.0.1",
     "nyc": "^15.0.1",
