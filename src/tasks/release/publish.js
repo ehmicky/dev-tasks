@@ -1,4 +1,4 @@
-import { promises } from 'fs'
+import { promises as fs } from 'fs'
 
 import { exec } from 'gulp-execa'
 import isCi from 'is-ci'
@@ -19,7 +19,7 @@ export const publish = async function () {
     )
   }
 
-  await promises.appendFile(NPMRC, NPMRC_CONTENT)
+  await fs.appendFile(NPMRC, NPMRC_CONTENT)
   await exec('npm publish')
 }
 
