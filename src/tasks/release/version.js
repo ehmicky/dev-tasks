@@ -24,7 +24,7 @@ const getCurrentNode = function () {
 }
 
 const getLatestNode = async function () {
-  const latestVersion = await normalizeNodeVersion('*', { cache: false })
+  const latestVersion = await normalizeNodeVersion('latest', { fetch: true })
   return `v${latestVersion}`
 }
 
