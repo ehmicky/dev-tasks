@@ -5,7 +5,7 @@
   "files": [
     "build/src",
     "ava.config.cjs",
-    "!~"
+    "!*~"
   ],
   "scripts": {
     "test": "gulp test"
