@@ -11,7 +11,7 @@ import renameFn from 'rename-fn'
 export const getWatchTask = function (files, firstArg, secondArg) {
   const [watchOptions, task] = parseOptions(firstArg, secondArg)
 
-  const watchTask = startWatch.bind(null, files, watchOptions, task)
+  const watchTask = startWatch.bind(undefined, files, watchOptions, task)
 
   addName(watchTask, task)
   addDescription(watchTask, task)

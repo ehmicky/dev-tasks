@@ -28,11 +28,11 @@ const getLatestNode = async function () {
   return `v${latestVersion}`
 }
 
-const checkNodeVersion = checkVersion.bind(null, 'Node.js', {
+const checkNodeVersion = checkVersion.bind(undefined, 'Node.js', {
   current: getCurrentNode,
   latest: getLatestNode,
 })
-const checkNpmVersion = checkVersion.bind(null, 'npm', npm)
+const checkNpmVersion = checkVersion.bind(undefined, 'npm', npm)
 
 export const checkVersions = async () => {
   await Promise.all([checkNodeVersion(), checkNpmVersion()])
