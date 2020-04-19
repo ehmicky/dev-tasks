@@ -3,8 +3,6 @@ import releaseIt from 'release-it'
 
 import { testTask } from '../test.js'
 
-import { checkVersions } from './version.js'
-
 const releaseItTask = async function (increment) {
   await releaseIt({ ...RELEASE_IT_CONFIG, increment })
 }
@@ -20,7 +18,7 @@ const RELEASE_IT_CONFIG = {
   },
 }
 
-const prereleaseTasks = [checkVersions, testTask]
+const prereleaseTasks = [testTask]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
