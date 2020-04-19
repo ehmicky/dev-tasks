@@ -1,7 +1,7 @@
 import { version } from 'process'
 
 import { npm } from 'node-latest'
-import normalizeNodeVersion from 'normalize-node-version'
+import nodeVersionAlias from 'node-version-alias'
 import PluginError from 'plugin-error'
 
 // Make sure the latest Node and npm versions are used when releasing
@@ -24,7 +24,7 @@ const getCurrentNode = function () {
 }
 
 const getLatestNode = async function () {
-  const latestVersion = await normalizeNodeVersion('latest', { fetch: true })
+  const latestVersion = await nodeVersionAlias('latest', { fetch: true })
   return `v${latestVersion}`
 }
 
