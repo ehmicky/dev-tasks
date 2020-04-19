@@ -47,7 +47,7 @@
     "@babel/register": "^7.9.0",
     "@ehmicky/eslint-config": "^15.10.65",
     "@gulp-sourcemaps/map-sources": "^1.0.0",
-    "ava": "^3.7.1",
+    "ava": "^3.8.0",
     "core-js": "^3.6.5",
     "del": "^5.1.0",
     "eslint": "^7.0.0-rc.0",
@@ -90,7 +90,7 @@
     "husky": "^4.2.5"
   },
   "peerDependencies": {
-    "ava": "^3.7.1",
+    "ava": "^3.8.0",
     "gulp": "^4.0.2"
   },
   "engines": {
