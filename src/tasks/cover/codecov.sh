@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="tbd"
+VERSION="20200430-d757c17"
 
 url="https://codecov.io"
 env="$CODECOV_ENV"
@@ -930,7 +930,7 @@ yaml=$(test -n "$codecov_yml" && echo "$codecov_yml" \
        || cd "$git_root" && \
           git ls-files "*codecov.yml" "*codecov.yaml" 2>/dev/null \
        || hg locate "*codecov.yml" "*codecov.yaml" 2>/dev/null \
-       || cd $proj_root && find . -type f -name '*codecov.y*ml' -depth 1 2>/dev/null \
+       || cd $proj_root && find . -maxdepth 1 -type f -name '*codecov.y*ml' 2>/dev/null \
        || echo '')
 yaml=$(echo "$yaml" | head -1)
 
@@ -1433,7 +1433,7 @@ fi
 if [ "$ft_fix" = "1" ];
 then
   say "${e}==>${x} Appending adjustments"
-  say "    ${b}http://docs.codecov.io/docs/fixing-reports${x}"
+  say "    ${b}https://docs.codecov.io/docs/fixing-reports${x}"
 
   empty_line='^[[:space:]]*$'
   # //
@@ -1634,8 +1634,8 @@ else
             --data-binary @$upload_file.gz \
             -H 'Content-Type: application/x-gzip' \
             -H 'Content-Encoding: gzip' \
-             -H 'x-amz-acl: public-read' \
-            "$s3target" || true)
+             "$s3target" || true)
+            
 
 
         if [ "$s3" != "" ];
