@@ -1,6 +1,6 @@
 {
   "name": "@ehmicky/dev-tasks",
-  "version": "0.31.47",
+  "version": "0.31.48",
   "main": "build/src/main.js",
   "files": [
     "build/src",
