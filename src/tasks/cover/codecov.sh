@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20200622-40cebbd"
+VERSION="20200629-ffaf297"
 
 url="https://codecov.io"
 env="$CODECOV_ENV"
@@ -217,7 +217,7 @@ swiftcov() {
         say "    $g+$x Building reports for $_proj $_type"
         dest=$([ -f "$f/$_proj" ] && echo "$f/$_proj" || echo "$f/Contents/MacOS/$_proj")
         _proj_name="${_proj//[[:space:]]//g}"
-        xcrun llvm-cov show "$beta_xcode_partials" -instr-profile "$1" "$dest" > "$_proj_name.$_type.coverage.txt" \
+        xcrun llvm-cov show $beta_xcode_partials -instr-profile "$1" "$dest" > "$_proj_name.$_type.coverage.txt" \
          || say "    ${r}x>${x} llvm-cov failed to produce results for $dest"
       fi
     done
@@ -1682,11 +1682,20 @@ else
         say "${e}->${x}  Uploading to"
         say "${s3target}"
 
-        s3=$(curl -fiX PUT "$curlawsargs" \
-            --data-binary @"$upload_file.gz" \
-            -H 'Content-Type: application/x-gzip' \
-            -H 'Content-Encoding: gzip' \
-            "$s3target" || true)
+        if [ "$curlawsargs" != "" ];
+        then
+          s3=$(curl -fiX PUT "$curlawsargs" \
+              --data-binary @"$upload_file.gz" \
+              -H 'Content-Type: application/x-gzip' \
+              -H 'Content-Encoding: gzip' \
+              "$s3target" || true)
+        else
+          s3=$(curl -fiX PUT \
+              --data-binary @"$upload_file.gz" \
+              -H 'Content-Type: application/x-gzip' \
+              -H 'Content-Encoding: gzip' \
+              "$s3target" || true)
+        fi
 
 
         if [ "$s3" != "" ];
@@ -1707,13 +1716,13 @@ else
     done
   fi
 
-  say "    ${e}->${x} Uploading to Codecov"
+  say "${e}==>${x} Uploading to Codecov"
   i="0"
   while [ $i -lt 4 ]
   do
     i=$i+1
 
-    res=$(curl "$curl_s" -X POST "$curlargs" "$cacert" \
+    res=$(curl -X POST "$curlargs" "$cacert" \
           --data-binary @"$upload_file.gz" \
           -H 'Content-Type: text/plain' \
           -H 'Content-Encoding: gzip' \
@@ -1723,7 +1732,7 @@ else
     # HTTP 200
     # http://....
     status=$(echo "$res" | head -1 | cut -d' ' -f2)
-    if [ "$status" = "" ];
+    if [ "$status" = "" ] || [ "$status" = "200" ];
     then
       say "    View reports at ${b}$(echo "$res" | head -2 | tail -1)${x}"
       exit 0
