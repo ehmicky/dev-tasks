@@ -6,8 +6,9 @@
 
 set -e +o pipefail
 
-VERSION="20200629-ffaf297"
+VERSION="20200707-353aa93"
 
+codecov_flags=( )
 url="https://codecov.io"
 env="$CODECOV_ENV"
 service=""
@@ -217,6 +218,7 @@ swiftcov() {
         say "    $g+$x Building reports for $_proj $_type"
         dest=$([ -f "$f/$_proj" ] && echo "$f/$_proj" || echo "$f/Contents/MacOS/$_proj")
         _proj_name="${_proj//[[:space:]]//g}"
+        # shellcheck disable=SC2086
         xcrun llvm-cov show $beta_xcode_partials -instr-profile "$1" "$dest" > "$_proj_name.$_type.coverage.txt" \
          || say "    ${r}x>${x} llvm-cov failed to produce results for $dest"
       fi
@@ -247,8 +249,9 @@ parse_yaml() {
 
 if [ $# != 0 ];
 then
-  while getopts "a:A:b:B:cC:dD:e:f:F:g:G:hJ:k:Kn:p:P:q:r:R:y:s:S:t:T:u:U:vx:X:ZN:" o
+  while getopts "a:A:b:B:cC:dD:e:f:F:g:G:hJ:k:Kn:p:P:q:r:R:s:S:t:T:u:U:vx:X:ZN:" o
   do
+    codecov_flags+=( "$o" )
     case "$o" in
       "N")
         parent=$OPTARG
@@ -365,6 +368,7 @@ $OPTARG"
         fi
         ;;
       "S")
+        # shellcheck disable=SC2089
         cacert="--cacert \"$OPTARG\""
         ;;
       "t")
@@ -428,10 +432,6 @@ $OPTARG"
         then
           ft_html="1"
         fi
-        ;;
-      "y")
-        echo -e "${r}DeprecationWarning${x}: The -y flag is no longer supported by Codecov."`
-               `"\n  codecov.yml must be located underneath the root, dev/, or .github/ directories"
         ;;
       "Z")
         exit_with=1
@@ -720,6 +720,7 @@ then
   slug="$APPVEYOR_REPO_NAME"
   commit="$APPVEYOR_REPO_COMMIT"
   build_url=$(urlencode "${APPVEYOR_URL}/project/${APPVEYOR_REPO_NAME}/builds/$APPVEYOR_BUILD_ID/job/${APPVEYOR_JOB_ID}")
+
 elif [ "$CI" = "true" ] && [ "$WERCKER_GIT_BRANCH" != "" ];
 then
   say "$e==>$x Wercker CI detected."
@@ -1015,7 +1016,8 @@ query="branch=$branch\
        &service=$service\
        &flags=$flags\
        &pr=$([ "$pr_o" = "" ] && echo "${pr##\#}" || echo "${pr_o##\#}")\
-       &job=$job"
+       &job=$job\
+       &cmd_args=$(IFS=,; echo "${codecov_flags[*]}")"
 
 if [ -n "$project" ] && [ -n "$server_uri" ];
 then
@@ -1664,13 +1666,14 @@ else
 
   if [ "$ft_s3" = "1" ];
   then
-    i="0"
+    i=0
     while [ $i -lt 4 ]
     do
-      i=$i+1
+      ((i+=1))
       say "${e}->${x}  Pinging Codecov"
       say "$url/upload/v4?$queryNoToken"
-      res=$(curl "$curl_s" -X POST "$curlargs" "$cacert" \
+      # shellcheck disable=SC2086,2090
+      res=$(curl $curl_s -X POST $curlargs $cacert \
             -H 'X-Reduced-Redundancy: false' \
             -H 'X-Content-Type: application/x-gzip' \
             "$url/upload/v4?$query" || true)
@@ -1682,21 +1685,12 @@ else
         say "${e}->${x}  Uploading to"
         say "${s3target}"
 
-        if [ "$curlawsargs" != "" ];
-        then
-          s3=$(curl -fiX PUT "$curlawsargs" \
-              --data-binary @"$upload_file.gz" \
-              -H 'Content-Type: application/x-gzip' \
-              -H 'Content-Encoding: gzip' \
-              "$s3target" || true)
-        else
-          s3=$(curl -fiX PUT \
-              --data-binary @"$upload_file.gz" \
-              -H 'Content-Type: application/x-gzip' \
-              -H 'Content-Encoding: gzip' \
-              "$s3target" || true)
-        fi
-
+        # shellcheck disable=SC2086
+        s3=$(curl -fiX PUT $curlawsargs \
+            --data-binary @"$upload_file.gz" \
+            -H 'Content-Type: application/x-gzip' \
+            -H 'Content-Encoding: gzip' \
+            "$s3target" || true)
 
         if [ "$s3" != "" ];
         then
@@ -1717,12 +1711,13 @@ else
   fi
 
   say "${e}==>${x} Uploading to Codecov"
-  i="0"
+  i=0
   while [ $i -lt 4 ]
   do
-    i=$i+1
+    ((i+=1))
 
-    res=$(curl -X POST "$curlargs" "$cacert" \
+    # shellcheck disable=SC2086,2090
+    res=$(curl -X POST $curlargs $cacert \
           --data-binary @"$upload_file.gz" \
           -H 'Content-Type: text/plain' \
           -H 'Content-Encoding: gzip' \
