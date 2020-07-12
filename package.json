@@ -67,7 +67,7 @@
     "eslint-plugin-unicorn": "^20.1.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.10.0",
     "fast-glob": "^3.2.4",
-    "got": "^11.5.0",
+    "got": "^11.5.1",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
