@@ -1,4 +1,5 @@
 {
+  "format": "javascript",
   "reporters": ["consoleFull"],
   "minLines": 1,
   "maxLines": 5e3,
