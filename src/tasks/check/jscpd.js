@@ -1,31 +1,33 @@
+import execa from 'execa'
 import fastGlob from 'fast-glob'
-import { JSCPD } from 'jscpd'
 import PluginError from 'plugin-error'
 
 import { JAVASCRIPT } from '../../files.js'
 
+const JSCPD_CONFIG = `${__dirname}/.jscpd.json`
+
 // Must always run on all files even in watch mode, since code duplication
 // is cross-files.
+// jscpd does not support globbing:
+//   https://github.com/kucherenko/jscpd/issues/388
+// so we need to use `fast-glob`
+// jscpd does not provide with exit codes:
+//   https://github.com/kucherenko/jscpd/issues/387
+// so we need to parse its stdout instead
+// The programmatic usage is too complex:
+//   https://github.com/kucherenko/jscpd/issues/389
 export const jscpd = async () => {
   const files = await fastGlob(JAVASCRIPT)
-  const clones = await jscpdInstance.detectInFiles(files)
+  const { stdout } = await execa('jscpd', ['--config', JSCPD_CONFIG, ...files])
 
-  if (clones.length === 0) {
+  if (stdout.trim().includes(NO_CLONES_MESSAGE)) {
     return
   }
 
   throw new PluginError(
     'gulp-jscpd',
-    `Found ${clones.length} instances of code duplication`,
+    `Found some code duplication\n\n${stdout}`,
   )
 }
 
-const jscpdInstance = new JSCPD({
-  reporters: ['consoleFull'],
-  minLines: 1,
-  maxLines: 5e3,
-  minTokens: 35,
-  // The default store uses LevelDB which is slower and creates a `.jscpd/`
-  // directory. The `memory` store has issues with huge repositories though.
-  storeOptions: { '*': { type: 'memory' } },
-})
+const NO_CLONES_MESSAGE = 'Found 0 clones'

@@ -7,8 +7,7 @@ import { jscpd } from './jscpd.js'
 import { lint, lintWatch } from './lint.js'
 
 export const check = parallel(lint(), jscpd)
-// TODO: add `jscpd` once this bug is fixed:
-//  - https://github.com/kucherenko/jscpd/issues/207
+// TODO: add `jscpd` and `prettier` in watch mode
 const checkWatch = parallel(lintWatch)
 
 // eslint-disable-next-line fp/no-mutation
