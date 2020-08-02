@@ -1,5 +1,5 @@
 {
-  "format": "javascript",
+  "ignore": ["**/*.md"],
   "reporters": ["consoleFull"],
   "minLines": 1,
   "maxLines": 5e3,
