@@ -3,5 +3,6 @@
   "reporters": ["consoleFull"],
   "minLines": 1,
   "maxLines": 5e3,
-  "minTokens": 35
+  "minTokens": 35,
+  "threshold": 0
 }
