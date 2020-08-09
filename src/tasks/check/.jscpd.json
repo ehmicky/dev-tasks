@@ -3,6 +3,7 @@
   "reporters": ["consoleFull"],
   "minLines": 1,
   "maxLines": 5e3,
+  "maxSize": "30kb",
   "minTokens": 35,
   "threshold": 0
 }
