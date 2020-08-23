@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20200728-9fb7d93"
+VERSION="20200825-997b141"
 
 codecov_flags=( )
 url="https://codecov.io"
@@ -216,7 +216,8 @@ swiftcov() {
       then
         say "    $g+$x Building reports for $_proj $_type"
         dest=$([ -f "$f/$_proj" ] && echo "$f/$_proj" || echo "$f/Contents/MacOS/$_proj")
-        _proj_name="${_proj//[[:space:]]//g}"
+        # shellcheck disable=SC2001
+        _proj_name=$(echo "$_proj" | sed -e 's/[[:space:]]//g')
         # shellcheck disable=SC2086
         xcrun llvm-cov show $beta_xcode_partials -instr-profile "$1" "$dest" > "$_proj_name.$_type.coverage.txt" \
          || say "    ${r}x>${x} llvm-cov failed to produce results for $dest"
@@ -787,7 +788,7 @@ then
   commit="${CI_BUILD_REF:-$CI_COMMIT_SHA}"
   slug="${CI_PROJECT_PATH}"
 
-elif [ "$GITHUB_ACTION" != "" ];
+elif [ "$GITHUB_ACTIONS" != "" ];
 then
   say "$e==>$x GitHub Actions detected."
 
