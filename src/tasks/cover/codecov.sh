@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20200825-997b141"
+VERSION="20200910-5a68dc2"
 
 codecov_flags=( )
 url="https://codecov.io"
@@ -662,11 +662,11 @@ then
 elif [ "$CI" = "true" ] && [ "$SEMAPHORE" = "true" ];
 then
   say "$e==>$x Semaphore CI detected."
-  # https://semaphoreapp.com/docs/available-environment-variables.html
+# https://docs.semaphoreci.com/ci-cd-environment/environment-variables/#semaphore-related
   service="semaphore"
-  branch="$BRANCH_NAME"
-  build="$SEMAPHORE_BUILD_NUMBER"
-  job="$SEMAPHORE_CURRENT_THREAD"
+  branch="$SEMAPHORE_GIT_BRANCH"
+  build="$SEMAPHORE_WORKFLOW_NUMBER"
+  job="$SEMAPHORE_JOB_ID"
   pr="$PULL_REQUEST_NUMBER"
   slug="$SEMAPHORE_REPO_SLUG"
   commit="$REVISION"
