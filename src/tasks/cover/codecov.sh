@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20200917-4e8f14b"
+VERSION="20201009-048fee3"
 
 codecov_flags=( )
 url="https://codecov.io"
@@ -61,6 +61,7 @@ tag_o=""
 branch_o=""
 slug_o=""
 prefix_o=""
+git_ls_files_recurse_submodules_o=""
 
 commit="$VCS_COMMIT_ID"
 branch="$VCS_BRANCH_NAME"
@@ -129,6 +130,7 @@ cat << EOF
                  -X network       Disable uploading the file network
                  -X gcovout       Disable gcov output
                  -X html          Enable coverage for HTML files
+                 -X recursesubs   Enable recurse submodules in git projects when searching for source files
 
     -N           The commit SHA of the parent for which you are uploading coverage. If not present,
                  the parent will be determined using the API of your repository provider.
@@ -374,7 +376,7 @@ $OPTARG"
       "t")
         if [ "${OPTARG::1}" = "@" ];
         then
-          token=$(> "${OPTARG:1}" tr -d ' \n')
+          token=$(< "${OPTARG:1}" tr -d ' \n')
         else
           token="$OPTARG"
         fi
@@ -431,6 +433,9 @@ $OPTARG"
         elif [ "$OPTARG" = "html" ];
         then
           ft_html="1"
+        elif [ "$OPTARG" = "recursesubs" ];
+        then
+          git_ls_files_recurse_submodules_o="--recurse-submodules"
         fi
         ;;
       "Z")
@@ -701,13 +706,14 @@ then
   job="$DRONE_JOB_NUMBER"
   tag="$DRONE_TAG"
 
-elif [ "$HEROKU_TEST_RUN_BRANCH" != "" ];
+elif [ "$CI" = "true" ] && [ "$HEROKU_TEST_RUN_BRANCH" != "" ];
 then
   say "$e==>$x Heroku CI detected."
   # https://devcenter.heroku.com/articles/heroku-ci#environment-variables
   service="heroku"
   branch="$HEROKU_TEST_RUN_BRANCH"
   build="$HEROKU_TEST_RUN_ID"
+  commit="$HEROKU_TEST_RUN_COMMIT_VERSION"
 
 elif [[ "$CI" = "true" || "$CI" = "True" ]] && [[ "$APPVEYOR" = "true" || "$APPVEYOR" = "True" ]];
 then
@@ -1207,6 +1213,7 @@ $PWD/coverage.xml"
                      -or -name 'excoveralls.json' \
                      -or -name 'gcov.info' \
                      -or -name 'jacoco*.xml' \
+                     -or -name '*Jacoco*.xml' \
                      -or -name 'lcov.dat' \
                      -or -name 'lcov.info' \
                      -or -name 'luacov.report.out' \
@@ -1328,7 +1335,7 @@ fi
 if [ "$ft_network" == "1" ];
 then
   say "${e}==>${x} Detecting git/mercurial file structure"
-  network=$(cd "$git_root" && git ls-files 2>/dev/null || hg locate 2>/dev/null || echo "")
+  network=$(cd "$git_root" && git ls-files $git_ls_files_recurse_submodules_o 2>/dev/null || hg locate 2>/dev/null || echo "")
   if [ "$network" = "" ];
   then
     network=$(find "$git_root" \( \
@@ -1507,9 +1514,10 @@ then
   if echo "$network" | grep -m1 '.kt$' 1>/dev/null;
   then
     # skip brackets and comments
-    find "$git_root" -type f \
-                     -name '*.kt' \
-                     -exec \
+    cd "$git_root" && \
+      find . -type f \
+             -name '*.kt' \
+             -exec \
       grep -nIHE -e "$syntax_bracket" \
                  -e "$syntax_comment_block" {} \; \
       | cut_and_join \
@@ -1517,8 +1525,9 @@ then
       || echo ''
 
     # last line in file
-    find "$git_root" -type f \
-                     -name '*.kt' -exec \
+    cd "$git_root" && \
+      find . -type f \
+             -name '*.kt' -exec \
       wc -l {} \; \
       | while read -r l; do echo "EOF: $l"; done \
       2>/dev/null \
@@ -1529,10 +1538,12 @@ then
   if echo "$network" | grep -m1 '.go$' 1>/dev/null;
   then
     # skip empty lines, comments, and brackets
-    find "$git_root" -not -path '*/vendor/*' \
-                     -type f \
-                     -name '*.go' \
-                     -exec \
+    cd "$git_root" && \
+      find . -type f \
+             -not -path '*/vendor/*' \
+             -not -path '*/caches/*' \
+             -name '*.go' \
+             -exec \
       grep -nIHE \
            -e "$empty_line" \
            -e "$syntax_comment" \
@@ -1548,9 +1559,10 @@ then
   if echo "$network" | grep -m1 '.dart$' 1>/dev/null;
   then
     # skip brackets
-    find "$git_root" -type f \
-                     -name '*.dart' \
-                     -exec \
+    cd "$git_root" && \
+      find . -type f \
+             -name '*.dart' \
+             -exec \
       grep -nIHE \
            -e "$syntax_bracket" \
            {} \; \
@@ -1562,10 +1574,11 @@ then
   if echo "$network" | grep -m1 '.php$' 1>/dev/null;
   then
     # skip empty lines, comments, and brackets
-    find "$git_root" -not -path "*/vendor/*" \
-                     -type f \
-                     -name '*.php' \
-                     -exec \
+    cd "$git_root" && \
+      find . -type f \
+             -not -path "*/vendor/*" \
+             -name '*.php' \
+             -exec \
       grep -nIHE \
            -e "$syntax_list" \
            -e "$syntax_bracket" \
@@ -1580,8 +1593,9 @@ then
   then
     # skip brackets
     # shellcheck disable=SC2086,SC2090
-    find "$git_root" -type f \
-                     $skip_dirs \
+    cd "$git_root" && \
+      find . -type f \
+             $skip_dirs \
          \( \
            -name '*.h' \
            -or -name '*.cpp' \
@@ -1602,8 +1616,9 @@ then
 
     # skip brackets
     # shellcheck disable=SC2086,SC2090
-    find "$git_root" -type f \
-                     $skip_dirs \
+    cd "$git_root" && \
+      find . -type f \
+             $skip_dirs \
          \( \
            -name '*.h' \
            -or -name '*.cpp' \
