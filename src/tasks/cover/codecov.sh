@@ -6,7 +6,7 @@
 
 set -e +o pipefail
 
-VERSION="20201009-048fee3"
+VERSION="20201130-cc6d3fe"
 
 codecov_flags=( )
 url="https://codecov.io"
@@ -62,6 +62,7 @@ branch_o=""
 slug_o=""
 prefix_o=""
 git_ls_files_recurse_submodules_o=""
+package="bash"
 
 commit="$VCS_COMMIT_ID"
 branch="$VCS_BRANCH_NAME"
@@ -251,10 +252,16 @@ parse_yaml() {
 
 if [ $# != 0 ];
 then
-  while getopts "a:A:b:B:cC:dD:e:f:F:g:G:hJ:k:Kn:p:P:q:r:R:s:S:t:T:u:U:vx:X:ZN:" o
+  while getopts "a:A:b:B:cC:dD:e:f:F:g:G:hJ:k:Kn:p:P:Q:q:r:R:s:S:t:T:u:U:vx:X:ZN:-" o
   do
     codecov_flags+=( "$o" )
     case "$o" in
+      "-")
+        echo -e "${r}Long options are not supported${x}"
+        exit 2
+        ;;
+      "?")
+        ;;
       "N")
         parent=$OPTARG
         ;;
@@ -351,6 +358,10 @@ $OPTARG"
         ;;
       "P")
         pr_o="$OPTARG"
+        ;;
+      "Q")
+        # this is only meant for Codecov packages to overwrite
+        package="$OPTARG"
         ;;
       "q")
         save_to="$OPTARG"
@@ -517,7 +528,7 @@ then
   tag="$TRAVIS_TAG"
   if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ];
   then
-    branch="$TRAVIS_BRANCH"
+    branch="${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}"
   fi
 
   language=$(compgen -A variable | grep "^TRAVIS_.*_VERSION$" | head -1)
@@ -617,7 +628,7 @@ then
     # owner/repo.git
     slug="${slug%%.git}"
   fi
-  pr="$CIRCLE_PR_NUMBER"
+  pr="${CIRCLE_PULL_REQUEST##*/}"
   commit="$CIRCLE_SHA1"
   search_in="$search_in $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS"
 
@@ -815,6 +826,18 @@ then
   build="${GITHUB_RUN_ID}"
   build_url=$(urlencode "http://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")
 
+  # actions/checkout runs in detached HEAD
+  mc=
+  if [ -n "$pr" ] && [ "$pr" != false ];
+  then
+    mc=$(git show --no-patch --format="%P" 2>/dev/null || echo "")
+  fi
+  if [[ "$mc" =~ ^[a-z0-9]{40}[[:space:]][a-z0-9]{40}$ ]];
+  then
+    say "    Fixing merge commit SHA"
+    commit=$(echo "$mc" | cut -d' ' -f2)
+  fi
+
 elif [ "$SYSTEM_TEAMFOUNDATIONSERVERURI" != "" ];
 then
   say "$e==>$x Azure Pipelines detected."
@@ -900,17 +923,7 @@ fi
 
 if [ "$commit_o" = "" ];
 then
-  # merge commit -> actual commit
-  mc=
-  if [ -n "$pr" ] && [ "$pr" != false ];
-  then
-    mc=$(git show --no-patch --format="%P" 2>/dev/null || echo "")
-  fi
-  if [[ "$mc" =~ ^[a-z0-9]{40}[[:space:]][a-z0-9]{40}$ ]];
-  then
-    say "    Fixing merge commit SHA"
-    commit=$(echo "$mc" | cut -d' ' -f2)
-  elif [ "$GIT_COMMIT" != "" ];
+  if [ "$GIT_COMMIT" != "" ];
   then
     commit="$GIT_COMMIT"
   elif [ "$commit" = "" ];
@@ -1589,7 +1602,7 @@ then
       || echo ''
   fi
 
-  if echo "$network" | grep -m1 '\(.cpp\|.h\|.cxx\|.c\|.hpp\|.m\|.swift\)$' 1>/dev/null;
+  if echo "$network" | grep -m1 '\(.c\.cpp\|.cxx\|.h\|.hpp\|.m\|.swift\|.vala\)$' 1>/dev/null;
   then
     # skip brackets
     # shellcheck disable=SC2086,SC2090
@@ -1597,13 +1610,14 @@ then
       find . -type f \
              $skip_dirs \
          \( \
-           -name '*.h' \
+           -name '*.c' \
            -or -name '*.cpp' \
            -or -name '*.cxx' \
-           -or -name '*.m' \
-           -or -name '*.c' \
+           -or -name '*.h' \
            -or -name '*.hpp' \
+           -or -name '*.m' \
            -or -name '*.swift' \
+           -or -name '*.vala' \
          \) -exec \
       grep -nIHE \
            -e "$empty_line" \
@@ -1620,13 +1634,14 @@ then
       find . -type f \
              $skip_dirs \
          \( \
-           -name '*.h' \
+           -name '*.c' \
            -or -name '*.cpp' \
            -or -name '*.cxx' \
-           -or -name '*.m' \
-           -or -name '*.c' \
+           -or -name '*.h' \
            -or -name '*.hpp' \
+           -or -name '*.m' \
            -or -name '*.swift' \
+           -or -name '*.vala' \
          \) -exec \
       grep -nIH '// LCOV_EXCL' \
            {} \; \
@@ -1660,7 +1675,7 @@ if [ "$dump" != "0" ];
 then
   # trim whitespace from query
   say "    ${e}->${x} Dumping upload file (no upload)"
-  echo "$url/upload/v4?$(echo "package=bash-$VERSION&token=$token&$query" | tr -d ' ')"
+  echo "$url/upload/v4?$(echo "package=$package-$VERSION&token=$token&$query" | tr -d ' ')"
   cat "$upload_file"
 else
   if [ "$save_to" != "" ];
@@ -1671,6 +1686,7 @@ else
 
   say "${e}==>${x} Gzipping contents"
   gzip -nf9 "$upload_file"
+  say "        $(du -h "$upload_file.gz")"
 
   query=$(echo "${query}" | tr -d ' ')
   say "${e}==>${x} Uploading reports"
@@ -1678,33 +1694,38 @@ else
   say "    ${e}query:${x} $query"
 
   # Full query without token (to display on terminal output)
-  queryNoToken=$(echo "package=bash-$VERSION&token=secret&$query" | tr -d ' ')
+  queryNoToken=$(echo "package=$package-$VERSION&token=secret&$query" | tr -d ' ')
   # now add token to query
-  query=$(echo "package=bash-$VERSION&token=$token&$query" | tr -d ' ')
+  query=$(echo "package=$package-$VERSION&token=$token&$query" | tr -d ' ')
 
   if [ "$ft_s3" = "1" ];
   then
     say "${e}->${x}  Pinging Codecov"
     say "$url/upload/v4?$queryNoToken"
     # shellcheck disable=SC2086,2090
-    res=$(curl $curl_s -X POST $curlargs $cacert \
+    res=$(curl $curl_s -X POST $cacert \
           --retry 5 --retry-delay 2 --connect-timeout 2 \
           -H 'X-Reduced-Redundancy: false' \
           -H 'X-Content-Type: application/x-gzip' \
+          -H 'Content-Length: 0' \
+          --write-out "\n%{response_code}\n" \
+          $curlargs \
           "$url/upload/v4?$query" || true)
     # a good reply is "https://codecov.io" + "\n" + "https://storage.googleapis.com/codecov/..."
-    status=$(echo "$res" | head -1 | grep 'HTTP ' | cut -d' ' -f2)
-    if [ "$status" = "" ] && [ "$res" != "" ];
+    s3target=$(echo "$res" | sed -n 2p)
+    status=$(tail -n1 <<< "$res")
+
+    if [ "$status" = "200" ] && [ "$s3target" != "" ];
     then
-      s3target=$(echo "$res" | sed -n 2p)
       say "${e}->${x}  Uploading to"
       say "${s3target}"
 
       # shellcheck disable=SC2086
-      s3=$(curl -fiX PUT $curlawsargs \
+      s3=$(curl -fiX PUT \
           --data-binary @"$upload_file.gz" \
           -H 'Content-Type: application/x-gzip' \
           -H 'Content-Encoding: gzip' \
+          $curlawsargs \
           "$s3target" || true)
 
       if [ "$s3" != "" ];
@@ -1717,21 +1738,24 @@ else
     elif [ "$status" = "400" ];
     then
         # 400 Error
-        say "${g}${res}${x}"
+        say "${r}${res}${x}"
         exit ${exit_with}
+    else
+        say "${r}${res}${x}"
     fi
   fi
 
   say "${e}==>${x} Uploading to Codecov"
 
   # shellcheck disable=SC2086,2090
-  res=$(curl -X POST $curlargs $cacert \
+  res=$(curl -X POST $cacert \
         --data-binary @"$upload_file.gz" \
         --retry 5 --retry-delay 2 --connect-timeout 2 \
         -H 'Content-Type: text/plain' \
         -H 'Content-Encoding: gzip' \
         -H 'X-Content-Encoding: gzip' \
         -H 'Accept: text/plain' \
+        $curlargs \
         "$url/upload/v2?$query&attempt=$i" || echo 'HTTP 500')
   # HTTP 200
   # http://....
