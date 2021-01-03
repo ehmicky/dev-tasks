@@ -3,10 +3,9 @@
 # Apache License Version 2.0, January 2004
 # https://github.com/codecov/codecov-bash/blob/master/LICENSE
 
-
 set -e +o pipefail
 
-VERSION="20201130-cc6d3fe"
+VERSION="20201231-23d4836"
 
 codecov_flags=( )
 url="https://codecov.io"
@@ -83,6 +82,7 @@ b="\033[0;36m"
 g="\033[0;32m"
 r="\033[0;31m"
 e="\033[0;90m"
+y="\033[0;33m"
 x="\033[0m"
 
 show_help() {
@@ -470,6 +470,29 @@ say "
 
 "
 
+# check for installed tools
+# git/hg
+if [ -x "$(command -v git)" ];
+then
+  say "$b==>$x $(git --version) found"
+else
+  say "$y==>$x git not installed, testing for mercurial"
+  if [ -x "$(command -v hg)" ];
+  then
+    say "$b==>$x $(hg --version) found"
+  else
+    say "$r==>$x git nor mercurial are installed. Uploader may fail or have unintended consequences"
+  fi
+fi
+# curl
+if [ -x "$(command -v curl)" ];
+then
+  say "$b==>$x $(curl --version)"
+else
+  say "$r==>$x curl not installed. Exiting."
+  exit ${exit_with};
+fi
+
 search_in="$proj_root"
 
 #shellcheck disable=SC2154
@@ -552,17 +575,6 @@ then
   fi
   job="$CODEBUILD_BUILD_ID"
   slug="$(echo "$CODEBUILD_SOURCE_REPO_URL" | sed 's/^.*:\/\/[^\/]*\///' | sed 's/\.git$//')"
-
-elif [ "$DOCKER_REPO" != "" ];
-then
-  say "$e==>$x Docker detected."
-  # https://docs.docker.com/docker-cloud/builds/advanced/
-  service="docker"
-  branch="$SOURCE_BRANCH"
-  commit="$SOURCE_COMMIT"
-  slug="$DOCKER_REPO"
-  tag="$CACHE_TAG"
-  env="$env,IMAGE_NAME"
 
 elif [ "$CI" = "true" ] && [ "$CI_NAME" = "codeship" ];
 then
@@ -825,17 +837,23 @@ then
   slug="${GITHUB_REPOSITORY}"
   build="${GITHUB_RUN_ID}"
   build_url=$(urlencode "http://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")
+  job="${GITHUB_WORKFLOW}"
 
   # actions/checkout runs in detached HEAD
   mc=
   if [ -n "$pr" ] && [ "$pr" != false ];
   then
     mc=$(git show --no-patch --format="%P" 2>/dev/null || echo "")
-  fi
-  if [[ "$mc" =~ ^[a-z0-9]{40}[[:space:]][a-z0-9]{40}$ ]];
-  then
-    say "    Fixing merge commit SHA"
-    commit=$(echo "$mc" | cut -d' ' -f2)
+
+    if [[ "$mc" =~ ^[a-z0-9]{40}[[:space:]][a-z0-9]{40}$ ]];
+    then
+      mc=$(echo "$mc" | cut -d' ' -f2)
+      say "    Fixing merge commit SHA $commit -> $mc"
+      commit=$mc
+    elif [[ "$mc" = "" ]];
+    then
+      say "$r->  Issue detecting commit SHA. Please run actions/checkout with fetch-depth > 1 or set to 0$x"
+    fi
   fi
 
 elif [ "$SYSTEM_TEAMFOUNDATIONSERVERURI" != "" ];
@@ -855,8 +873,23 @@ then
   project="${SYSTEM_TEAMPROJECT}"
   server_uri="${SYSTEM_TEAMFOUNDATIONSERVERURI}"
   job="${BUILD_BUILDID}"
-  branch="$BUILD_SOURCEBRANCHNAME"
+  branch="${BUILD_SOURCEBRANCH#"refs/heads/"}"
   build_url=$(urlencode "${SYSTEM_TEAMFOUNDATIONSERVERURI}${SYSTEM_TEAMPROJECT}/_build/results?buildId=${BUILD_BUILDID}")
+
+  # azure/pipelines runs in detached HEAD
+  mc=
+  if [ -n "$pr" ] && [ "$pr" != false ];
+  then
+    mc=$(git show --no-patch --format="%P" 2>/dev/null || echo "")
+
+    if [[ "$mc" =~ ^[a-z0-9]{40}[[:space:]][a-z0-9]{40}$ ]];
+    then
+      mc=$(echo "$mc" | cut -d' ' -f2)
+      say "    Fixing merge commit SHA $commit -> $mc"
+      commit=$mc
+    fi
+  fi
+
 elif [ "$CI" = "true" ] && [ "$BITBUCKET_BUILD_NUMBER" != "" ];
 then
   say "$e==>$x Bitbucket detected."
@@ -873,6 +906,7 @@ then
   then
     commit=$(git rev-parse "$BITBUCKET_COMMIT")
   fi
+
 elif [ "$CI" = "true" ] && [ "$BUDDY" = "true" ];
 then
   say "$e==>$x Buddy CI detected."
@@ -897,6 +931,17 @@ then
   commit="$CIRRUS_CHANGE_IN_REPO"
   build="$CIRRUS_TASK_ID"
   job="$CIRRUS_TASK_NAME"
+
+elif [ "$DOCKER_REPO" != "" ];
+then
+  say "$e==>$x Docker detected."
+  # https://docs.docker.com/docker-cloud/builds/advanced/
+  service="docker"
+  branch="$SOURCE_BRANCH"
+  commit="$SOURCE_COMMIT"
+  slug="$DOCKER_REPO"
+  tag="$CACHE_TAG"
+  env="$env,IMAGE_NAME"
 
 else
   say "${r}x>${x} No CI provider detected."
