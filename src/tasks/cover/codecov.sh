@@ -5,7 +5,7 @@
 
 set -e +o pipefail
 
-VERSION="20201231-23d4836"
+VERSION="20210115-cec3c92"
 
 codecov_flags=( )
 url="https://codecov.io"
@@ -205,7 +205,6 @@ say() {
 urlencode() {
   echo "$1" | curl -Gso /dev/null -w "%{url_effective}" --data-urlencode @- "" | cut -c 3- | sed -e 's/%0A//'
 }
-
 
 swiftcov() {
   _dir=$(dirname "$1" | sed 's/\(Build\).*/\1/g')
@@ -837,7 +836,7 @@ then
   slug="${GITHUB_REPOSITORY}"
   build="${GITHUB_RUN_ID}"
   build_url=$(urlencode "http://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")
-  job="${GITHUB_WORKFLOW}"
+  job="$(urlencode "${GITHUB_WORKFLOW}")"
 
   # actions/checkout runs in detached HEAD
   mc=
