@@ -1,7 +1,7 @@
 'use strict'
 
 const { cwd } = require('process')
-const { dependencies } = require(`${cwd()}/package.json`)
+const { dependencies = {} } = require(`${cwd()}/package.json`)
 
 // Using `core-js` as a dependency is optional
 const presetEnvOptions =
