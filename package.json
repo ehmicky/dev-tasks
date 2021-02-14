@@ -58,6 +58,7 @@
     "gulp-execa": "^2.0.0",
     "gulp-if": "^3.0.0",
     "gulp-prettier": "^3.0.0",
+    "husky": "^4.3.8",
     "is-ci": "^2.0.0",
     "jscpd": "^3.3.23",
     "keep-func-props": "^3.0.1",
@@ -68,9 +69,7 @@
     "release-it": "^14.2.2",
     "rename-fn": "^1.0.0"
   },
-  "devDependencies": {
-    "husky": "^4.3.8"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=10.17.0"
   }
