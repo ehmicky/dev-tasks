@@ -3,9 +3,8 @@
   "version": "0.31.84",
   "main": "build/src/main.js",
   "files": [
-    "build/src",
-    "ava.config.cjs",
-    "!*~"
+    "build/src/**/*.{js,map,json,sh}",
+    "ava.config.cjs"
   ],
   "scripts": {
     "test": "gulp test"
