@@ -3,7 +3,8 @@
   "version": "0.31.84",
   "main": "build/src/main.js",
   "files": [
-    "build/src/**/*.{js,map,json,sh}",
+    "build/src/**/*.{js,ts,map,json,sh,md}",
+    "examples/**/*.{js,ts,map,json,sh,md}",
     "ava.config.cjs"
   ],
   "scripts": {
