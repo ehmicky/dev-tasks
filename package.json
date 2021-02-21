@@ -59,7 +59,7 @@
     "is-ci": "^3.0.0",
     "jscpd": "^3.3.23",
     "keep-func-props": "^3.0.1",
-    "log-process-errors": "^6.2.0",
+    "log-process-errors": "^6.3.0",
     "node-version-alias": "^1.0.1",
     "nyc": "^15.1.0",
     "plugin-error": "^1.0.1",
