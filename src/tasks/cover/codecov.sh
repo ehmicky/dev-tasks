@@ -5,7 +5,7 @@
 
 set -e +o pipefail
 
-VERSION="20210129-7c25fce"
+VERSION="20210309-2b87ace"
 
 codecov_flags=( )
 url="https://codecov.io"
@@ -43,6 +43,7 @@ ft_xcodellvm="1"
 ft_xcodeplist="0"
 ft_gcovout="1"
 ft_html="0"
+ft_yaml="0"
 
 _git_root=$(git rev-parse --show-toplevel 2>/dev/null || hg root 2>/dev/null || echo "$PWD")
 git_root="$_git_root"
@@ -52,15 +53,16 @@ then
   git_root="."
 fi
 
-url_o=""
-pr_o=""
+branch_o=""
 build_o=""
 commit_o=""
-search_in_o=""
-tag_o=""
-branch_o=""
-slug_o=""
+pr_o=""
 prefix_o=""
+network_filter_o=""
+search_in_o=""
+slug_o=""
+tag_o=""
+url_o=""
 git_ls_files_recurse_submodules_o=""
 package="bash"
 
@@ -122,6 +124,10 @@ cat << EOF
 
                  -e VAR,VAR2
 
+    -k prefix    Prefix filepaths to help resolve path fixing: https://github.com/codecov/support/issues/472
+
+    -i prefix    Only include files in the network with a certain prefix. Useful for upload-specific path fixing
+
     -X feature   Toggle functionalities
 
                  -X gcov          Disable gcov
@@ -133,6 +139,7 @@ cat << EOF
                  -X gcovout       Disable gcov output
                  -X html          Enable coverage for HTML files
                  -X recursesubs   Enable recurse submodules in git projects when searching for source files
+                 -X yaml          Enable coverage for YAML files
 
     -N           The commit SHA of the parent for which you are uploading coverage. If not present,
                  the parent will be determined using the API of your repository provider.
@@ -166,7 +173,6 @@ cat << EOF
     -G GLOB      Paths to include during gcov gathering
     -p dir       Project root directory
                  Also used when preparing gcov
-    -k prefix    Prefix filepaths to help resolve path fixing: https://github.com/codecov/support/issues/472
     -x gcovexe   gcov executable to run. Defaults to 'gcov'
     -a gcovargs  extra arguments to pass to gcov
 
@@ -254,7 +260,7 @@ parse_yaml() {
 
 if [ $# != 0 ];
 then
-  while getopts "a:A:b:B:cC:dD:e:f:F:g:G:hJ:k:Kn:p:P:Q:q:r:R:s:S:t:T:u:U:vx:X:Zz:N:-" o
+  while getopts "a:A:b:B:cC:dD:e:f:F:g:G:hi:J:k:Kn:p:P:Q:q:r:R:s:S:t:T:u:U:vx:X:Zz:N:-" o
   do
     codecov_flags+=( "$o" )
     case "$o" in
@@ -331,6 +337,9 @@ $OPTARG"
       "h")
         show_help
         exit 0;
+        ;;
+      "i")
+        network_filter_o="$OPTARG"
         ;;
       "J")
         ft_xcodellvm="1"
@@ -449,6 +458,9 @@ $OPTARG"
         elif [ "$OPTARG" = "recursesubs" ];
         then
           git_ls_files_recurse_submodules_o="--recurse-submodules"
+        elif [ "$OPTARG" = "yaml" ];
+        then
+          ft_yaml="1"
         fi
         ;;
       "Z")
@@ -836,6 +848,14 @@ then
 elif [ "$GITHUB_ACTIONS" != "" ];
 then
   say "$e==>$x GitHub Actions detected."
+  say "    Env vars used:"
+  say "      -> GITHUB_ACTIONS:    ${GITHUB_ACTIONS}"
+  say "      -> GITHUB_HEAD_REF:   ${GITHUB_HEAD_REF}"
+  say "      -> GITHUB_REF:        ${GITHUB_REF}"
+  say "      -> GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
+  say "      -> GITHUB_RUN_ID:     ${GITHUB_RUN_ID}"
+  say "      -> GITHUB_SHA:        ${GITHUB_SHA}"
+  say "      -> GITHUB_WORKFLOW:   ${GITHUB_WORKFLOW}"
 
   # https://github.com/features/actions
   service="github-actions"
@@ -857,7 +877,7 @@ then
 
   # actions/checkout runs in detached HEAD
   mc=
-  if [ -n "$pr" ] && [ "$pr" != false ];
+  if [ -n "$pr" ] && [ "$pr" != false ] && [ "$commit_o" == "" ];
   then
     mc=$(git show --no-patch --format="%P" 2>/dev/null || echo "")
 
@@ -1448,6 +1468,10 @@ then
                     -type f -print 2>/dev/null || echo '')
   fi
 
+  if [ "$network_filter_o" != "" ];
+  then
+      network=$(echo "$network" | grep -e "$network_filter_o/*")
+  fi
   if [ "$prefix_o" != "" ];
   then
       network=$(echo "$network" | awk "{print \"$prefix_o/\"\$0}")
@@ -1492,12 +1516,18 @@ then
   i="woff|eot|otf"  # fonts
   i="$i|gif|png|jpg|jpeg|psd"  # images
   i="$i|ptt|pptx|numbers|pages|md|txt|xlsx|docx|doc|pdf|csv"  # docs
-  i="$i|yml|yaml|.gitignore"  # supporting docs
+  i="$i|.gitignore"  # supporting docs
 
   if [ "$ft_html" != "1" ];
   then
     i="$i|html"
   fi
+
+  if [ "$ft_yaml" != "1" ];
+  then
+    i="$i|yml|yaml"
+  fi
+
   echo "$network" | grep -vwE "($i)$" >> "$upload_file"
 fi
 echo "<<<<<< network" >> "$upload_file"
@@ -1808,7 +1838,7 @@ else
 
       if [ "$s3" != "" ];
       then
-        say "    ${g}->${x} View reports at ${b}$(echo "$res" | sed -n 1p)${x}"
+        say "    ${g}->${x} Reports have been successfully queued for processing at ${b}$(echo "$res" | sed -n 1p)${x}"
         exit 0
       else
         say "    ${r}X>${x} Failed to upload"
@@ -1840,7 +1870,7 @@ else
   status=$(echo "$res" | head -1 | cut -d' ' -f2)
   if [ "$status" = "" ] || [ "$status" = "200" ];
   then
-    say "    View reports at ${b}$(echo "$res" | head -2 | tail -1)${x}"
+    say "    Reports have been successfully queued for processing at ${b}$(echo "$res" | head -2 | tail -1)${x}"
     exit 0
   else
     say "    ${g}${res}${x}"
