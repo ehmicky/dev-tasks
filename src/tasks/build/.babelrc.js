@@ -15,7 +15,7 @@ module.exports = {
   presets: [
     [
       '@babel/preset-env',
-      { targets: { node: '10.17.0' }, ...presetEnvOptions },
+      { targets: { node: '12.20.0' }, ...presetEnvOptions },
     ],
   ],
   comments: false,
