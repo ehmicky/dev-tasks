@@ -49,7 +49,7 @@
     "@gulp-sourcemaps/map-sources": "^1.0.0",
     "core-js": "^3.10.0",
     "del": "^6.0.0",
-    "execa": "^5.0.0",
+    "execa": "^5.0.1",
     "got": "^11.8.1",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
