@@ -1,4 +1,1 @@
 extends: '@ehmicky/eslint-config/.eslintrc.yml'
-# TODO: move to @ehmicky/eslint-config
-parserOptions:
-  sourceType: module
