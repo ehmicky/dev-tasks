@@ -1,8 +1,10 @@
+import { fileURLToPath } from 'url'
+
 import { task } from 'gulp-execa'
 
 import { JAVASCRIPT } from '../../files.js'
 
-const JSCPD_CONFIG = new URL('.jscpd.json', import.meta.url).pathname
+const JSCPD_CONFIG = fileURLToPath(new URL('.jscpd.json', import.meta.url))
 
 // Must always run on all files even in watch mode, since code duplication
 // is cross-files.
