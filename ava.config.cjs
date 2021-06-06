@@ -4,10 +4,11 @@
 const SRC = 'src'
 const BUILD_TEST = 'build/test'
 
+// eslint-disable-next-line unicorn/prefer-module
 const LOG_PROCESS_ERRORS = `${__dirname}/build/src/tasks/unit/log_process_errors.js`
 
 // Ava configuration file does not fully support ES modules yet
-// eslint-disable-next-line import/no-commonjs
+// eslint-disable-next-line import/no-commonjs, unicorn/prefer-module
 module.exports = {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
