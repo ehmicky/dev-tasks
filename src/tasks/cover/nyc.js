@@ -1,6 +1,6 @@
 import { shouldCover } from './utils.js'
 
-const NYCRC_CONFIG = `${__dirname}/.nycrc.json`
+const NYCRC_CONFIG = new URL('.nycrc.json', import.meta.url).pathname
 
 // Wrap with `nyc` if in CI
 // Locally, one must directly call `nyc ava`

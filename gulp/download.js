@@ -7,7 +7,7 @@ import got from 'got'
 // TODO: use `stream/promises` instead once dropping support for Node <15.0.0
 const pPipeline = promisify(pipeline)
 
-const CODECOV_DIST = `${__dirname}/../src/tasks/cover/codecov.sh`
+const CODECOV_DIST = new URL('../src/tasks/cover/codecov.sh', import.meta.url)
 const CODECOV_URL = 'https://codecov.io/bash'
 
 // `codecov` upload script is in Bash and the repository does not have any

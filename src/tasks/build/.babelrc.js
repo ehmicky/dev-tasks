@@ -1,21 +1,18 @@
-'use strict'
+import { readFileSync } from 'fs'
 
-const { cwd } = require('process')
-const { dependencies = {} } = require(`${cwd()}/package.json`)
+// TODO: replace with JSON imports once supported
+const { dependencies = {} } = JSON.parse(readFileSync('./package.json'))
 
-// Using `core-js` as a dependency is optional
-const presetEnvOptions =
-  dependencies['core-js'] === undefined
-    ? {}
-    : { useBuiltIns: 'usage', corejs: '3' }
-
-// This file is loaded before `gulp build` by `@babel/register`, i.e. before any
-// Babel compilation, so it cannot use ES modules.
-module.exports = {
+export default {
   presets: [
     [
       '@babel/preset-env',
-      { targets: { node: '12.20.0' }, ...presetEnvOptions },
+      {
+        targets: { node: '12.20.0' },
+        modules: false,
+        // Using `core-js` as a dependency is optional
+        ...(dependencies['core-js'] && { useBuiltIns: 'usage', corejs: '3' }),
+      },
     ],
   ],
   comments: false,

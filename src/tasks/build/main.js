@@ -2,7 +2,7 @@ import { relative } from 'path'
 
 import mapSources from '@gulp-sourcemaps/map-sources'
 import del from 'del'
-import { src, dest, series, parallel, lastRun } from 'gulp'
+import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
 
 import { BUILD_SOURCES, BUILD } from '../../files.js'
@@ -15,31 +15,34 @@ const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
 // issues with `chokidar` (file waching used by `ava --watch` and
 // `gulp.watch()`)
-// TODO: replace with `fs.promises.rmdir(..., {recursive: true})` after
-// dropping support for Node <12
+// TODO: replace with `fs.promises.rm(..., {recursive: true})` after
+// dropping support for Node <14.14.0
 const clean = () => del(`${BUILD}/**`, { onlyFiles: true })
 
 const copy = () =>
-  src([`${SOURCES_GLOB}/*[^~]`, `!${SOURCES_GLOB}/*.js`], {
-    dot: true,
-    since: lastRun(copy),
-  }).pipe(dest(BUILD))
+  gulp
+    .src([`${SOURCES_GLOB}/*[^~]`, `!${SOURCES_GLOB}/*.js`], {
+      dot: true,
+      since: gulp.lastRun(copy),
+    })
+    .pipe(gulp.dest(BUILD))
 
 const babel = () =>
-  src(`${SOURCES_GLOB}/*.js`, {
-    dot: true,
-    since: lastRun(babel),
-    sourcemaps: true,
-  })
+  gulp
+    .src(`${SOURCES_GLOB}/*.js`, {
+      dot: true,
+      since: gulp.lastRun(babel),
+      sourcemaps: true,
+    })
     .pipe(gulpBabel({ ...babelConfig, babelrc: false }))
     .pipe(mapSources((path) => `${relative(path, '.')}/${path}`))
-    .pipe(dest(BUILD, { sourcemaps: '.' }))
+    .pipe(gulp.dest(BUILD, { sourcemaps: '.' }))
 
-const rebuild = parallel(copy, babel)
-export const build = series(clean, rebuild)
+const rebuild = gulp.parallel(copy, babel)
+export const build = gulp.series(clean, rebuild)
 
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build source files'
 
 const buildWatchTask = getWatchTask(BUILD_SOURCES, rebuild)
-export const buildw = series(build, buildWatchTask)
+export const buildw = gulp.series(build, buildWatchTask)

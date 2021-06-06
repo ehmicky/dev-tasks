@@ -1,11 +1,10 @@
-import { join } from 'path'
 import { version, platform } from 'process'
 
 import { exec } from 'gulp-execa'
 
 import { shouldCover } from './utils.js'
 
-const CODECOV_SCRIPT = join(__dirname, 'codecov.sh')
+const CODECOV_SCRIPT = new URL('codecov.sh', import.meta.url).pathname
 // Run in Bash, i.e. should use slashes even on Windows
 const COVERAGE_PATH = 'coverage/coverage-final.json'
 

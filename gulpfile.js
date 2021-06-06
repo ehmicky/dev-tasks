@@ -1,19 +1,8 @@
-'use strict'
-
 // We do not use `build` directory nor 'gulpfile.babel.js` to avoid
 // hard-to-debug problems due to recursion.
-// Instead we call `@babel/register` and require the `src` directory.
-// eslint-disable-next-line import/order
-const { buildRegister } = require('./src/tasks/build/register.js')
+// Instead we call `@babel/register` and import the `src` directory.
+// eslint-disable-next-line import/no-unassigned-import
+import './src/tasks/build/register.js'
 
-buildRegister()
-
-// eslint-disable-next-line import/order
-const tasks = require('./src/main.js')
-// eslint-disable-next-line import/order
-const { download } = require('./gulp/download.js')
-
-module.exports = {
-  ...tasks,
-  download,
-}
+export * from './src/main.js'
+export { download } from './gulp/download.js'

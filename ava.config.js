@@ -1,12 +1,15 @@
 // Ava requires configuration file to be a the repository's top-level
-// eslint-disable-next-line import/unambiguous
+
 const SRC = 'src'
 const BUILD_TEST = 'build/test'
 
-const LOG_PROCESS_ERRORS = `${__dirname}/build/src/tasks/unit/log_process_errors.js`
+// TODO: fix
+// const LOG_PROCESS_ERRORS = new URL(
+//   './build/src/tasks/unit/log_process_errors.js',
+//   import.meta.url,
+// ).pathname
 
-// eslint-disable-next-line import/no-commonjs
-module.exports = {
+export default {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
   files: [`${BUILD_TEST}/**/*.js`, `!${BUILD_TEST}/helpers`],
@@ -15,6 +18,7 @@ module.exports = {
   ignoredByWatcher: [SRC],
   verbose: true,
   // Use `log-process-errors`
-  require: [LOG_PROCESS_ERRORS],
+  // TODO: fix
+  // require: [LOG_PROCESS_ERRORS],
   timeout: `3600s`,
 }

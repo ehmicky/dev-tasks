@@ -5,7 +5,7 @@
 
 set -e +o pipefail
 
-VERSION="20210309-2b87ace"
+VERSION="1.0.3"
 
 codecov_flags=( )
 url="https://codecov.io"
@@ -124,7 +124,7 @@ cat << EOF
 
                  -e VAR,VAR2
 
-    -k prefix    Prefix filepaths to help resolve path fixing: https://github.com/codecov/support/issues/472
+    -k prefix    Prefix filepaths to help resolve path fixing
 
     -i prefix    Only include files in the network with a certain prefix. Useful for upload-specific path fixing
 
@@ -965,7 +965,8 @@ then
   branch="$CIRRUS_BRANCH"
   pr="$CIRRUS_PR"
   commit="$CIRRUS_CHANGE_IN_REPO"
-  build="$CIRRUS_TASK_ID"
+  build="$CIRRUS_BUILD_ID"
+  build_url=$(urlencode "https://cirrus-ci.com/task/$CIRRUS_TASK_ID")
   job="$CIRRUS_TASK_NAME"
 
 elif [ "$DOCKER_REPO" != "" ];
@@ -1865,10 +1866,9 @@ else
         -H 'Accept: text/plain' \
         $curlargs \
         "$url/upload/v2?$query&attempt=$i" || echo 'HTTP 500')
-  # HTTP 200
-  # http://....
-  status=$(echo "$res" | head -1 | cut -d' ' -f2)
-  if [ "$status" = "" ] || [ "$status" = "200" ];
+  # {"message": "Coverage reports upload successfully", "uploaded": true, "queued": true, "id": "...", "url": "https://codecov.io/..."\}
+  uploaded=$(grep -o '\"uploaded\": [a-z]*' <<< "$res" | head -1 | cut -d' ' -f2)
+  if [ "$uploaded" = "true" ]
   then
     say "    Reports have been successfully queued for processing at ${b}$(echo "$res" | head -2 | tail -1)${x}"
     exit 0

@@ -1,7 +1,7 @@
 import { argv } from 'process'
 import { promisify } from 'util'
 
-import { series } from 'gulp'
+import gulp from 'gulp'
 import isCi from 'is-ci'
 
 import {
@@ -53,7 +53,7 @@ const handleLintError = async function (error) {
   throw error
 }
 
-const lintStrict = series(prettierStrict, eslintStrict)
-const lintLoose = series(prettierLoose, eslintLoose)
-const lintSilent = series(prettierSilent, eslintSilent)
-export const lintWatch = series(prettierLoose, eslintWatch)
+const lintStrict = gulp.series(prettierStrict, eslintStrict)
+const lintLoose = gulp.series(prettierLoose, eslintLoose)
+const lintSilent = gulp.series(prettierSilent, eslintSilent)
+export const lintWatch = gulp.series(prettierLoose, eslintWatch)

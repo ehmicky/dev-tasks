@@ -1,4 +1,4 @@
-import { src, dest, lastRun } from 'gulp'
+import gulp from 'gulp'
 import gulpEslint from 'gulp-eslint'
 import { exec } from 'gulp-execa'
 import gulpIf from 'gulp-if'
@@ -34,7 +34,11 @@ export const eslintStrict = bind(eslint, 'strict')
 export const eslintSilent = bind(eslint, 'silent')
 
 export const eslintWatch = function () {
-  return src([JAVASCRIPT, MARKDOWN], { dot: true, since: lastRun(eslintWatch) })
+  return gulp
+    .src([JAVASCRIPT, MARKDOWN], {
+      dot: true,
+      since: gulp.lastRun(eslintWatch),
+    })
     .pipe(
       gulpEslint({
         ignorePath: '.gitignore',
@@ -50,7 +54,7 @@ export const eslintWatch = function () {
     .pipe(
       gulpIf(
         isFixed,
-        dest(({ base }) => base),
+        gulp.dest(({ base }) => base),
       ),
     )
 }
