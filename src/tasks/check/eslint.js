@@ -22,7 +22,7 @@ const eslint = async function (mode) {
   //  - it seems to change the base directory of rules `overrides` `files`,
   //    which make them not work anymore
   // Also, that module's main export is the Prettier config, i.e. we would need
-  // to use `require.resolve()` to load the ESLint config.
+  // to use `import.meta.resolve()` to load the ESLint config.
   await exec(
     `eslint ${files} --ignore-path=.gitignore ${fix}--cache --format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
     { verbose, echo: false },
