@@ -128,12 +128,12 @@ Only the repository owner can perform these tasks.
 ## `gulp uploadCoverage`
 
 In CI ([GitHub actions](https://github.com/features/actions)), upload test
-coverage (produced by `nyc ava`) to [codecov](https://codecov.io/).
+coverage (produced by `c8 ava`) to [codecov](https://codecov.io/).
 
 ## `gulp checkCoverage`
 
 Ensures that files are fully covered by tests using
-[nyc](https://github.com/istanbuljs/nyc). This is meant to be performed on CI
+[c8](https://github.com/bcoe/c8). This is meant to be performed on CI
 ([GitHub actions](https://github.com/features/actions)).
 
 # Custom tasks

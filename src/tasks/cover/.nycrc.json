@@ -1,4 +1,0 @@
-{
-  "reporter": ["lcov", "text", "html", "json"],
-  "exclude": ["build/test", "ava.config.cjs"]
-}

@@ -1,13 +1,13 @@
 import { exec } from 'gulp-execa'
 
-import { getNyc } from '../cover/nyc.js'
+import { getC8 } from '../cover/c8.js'
 
-// Run `ava` and `nyc`
+// Run `ava` and `c8`
 // To pass arguments to `ava`, one should use `ava` directly instead of the
 // Gulp task.
 const runAva = async function (args, options) {
-  const nyc = getNyc()
-  await exec(`${nyc}ava${args}`, options)
+  const c8 = getC8()
+  await exec(`${c8}ava${args}`, options)
 }
 
 export const unit = () => runAva('', {})
