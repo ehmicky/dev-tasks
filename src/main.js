@@ -9,4 +9,3 @@ export {
   releaseMinor,
   releasePatch,
 } from './tasks/release/main.js'
-export { publish } from './tasks/release/publish.js'

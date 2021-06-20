@@ -119,7 +119,7 @@ Check for security vulnerabilities (using
 Release a new patch/minor/major version on npm and GitHub using
 [`release-it`](https://github.com/webpro/release-it).
 
-The new version will only be published to npm after CI tests have passed.
+`npm publish` must also be performed locally.
 
 Only the repository owner can perform these tasks.
 
