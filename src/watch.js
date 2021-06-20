@@ -35,7 +35,6 @@ const DEFAULT_WATCH_OPTIONS = { ignoreInitial: false }
 const startWatch = function (files, watchOptions, task) {
   // We do not return `watcher` because we want the task to complete once
   // watching is setup.
-  // eslint-disable-next-line fp/no-mutating-methods
   gulp.watch(files, watchOptions, task)
 
   // We should wait for either `ready` or `error` event (with `Promise.race()`)
