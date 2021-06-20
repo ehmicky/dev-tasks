@@ -1,6 +1,6 @@
-import { createWriteStream } from 'fs'
-import { pipeline } from 'stream'
-import { promisify } from 'util'
+import { createWriteStream } from 'node:fs'
+import { pipeline } from 'node:stream'
+import { promisify } from 'node:util'
 
 import got from 'got'
 

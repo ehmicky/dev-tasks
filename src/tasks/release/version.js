@@ -1,4 +1,4 @@
-import { version } from 'process'
+import { version } from 'node:process'
 
 import execa from 'execa'
 import got from 'got'

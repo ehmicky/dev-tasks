@@ -1,4 +1,4 @@
-import { env } from 'process'
+import { env } from 'node:process'
 
 import got from 'got'
 import PluginError from 'plugin-error'

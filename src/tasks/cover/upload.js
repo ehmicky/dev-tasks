@@ -1,5 +1,5 @@
-import { version, platform } from 'process'
-import { fileURLToPath } from 'url'
+import { version, platform } from 'node:process'
+import { fileURLToPath } from 'node:url'
 
 import { exec } from 'gulp-execa'
 
