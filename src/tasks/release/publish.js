@@ -11,7 +11,6 @@ import { NPMRC } from '../../files.js'
 //     GitHub release.
 //   - `gulp publish` is performed on CI if `gulp release` was used, and after
 //     all tests have passed. It publishes to npm.
-// eslint-disable-next-line max-statements
 export const publish = async function () {
   if (!isCi) {
     throw new PluginError(
@@ -27,9 +26,6 @@ export const publish = async function () {
     // eslint-disable-next-line no-console, no-restricted-globals
     console.log(all)
   } catch (error) {
-    // eslint-disable-next-line no-console, no-restricted-globals
-    console.error(error)
-
     // eslint-disable-next-line max-depth
     if (error.all.includes(ALREADY_PUBLISH_MESSAGE)) {
       // eslint-disable-next-line no-console, no-restricted-globals
