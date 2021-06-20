@@ -22,5 +22,4 @@ export const download = async function () {
   await pPipeline(response, stream)
 }
 
-// eslint-disable-next-line fp/no-mutation
 download.description = 'Download latest codecov upload script'
