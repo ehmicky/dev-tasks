@@ -66,8 +66,6 @@ Lint and check source files:
   [coding style](https://github.com/ehmicky/eslint-config#coding-style)).
 - find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
 
-This is automatically triggered before any `git push`.
-
 ## `gulp build`
 
 Build source files and test files:

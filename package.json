@@ -15,11 +15,6 @@
   "scripts": {
     "test": "gulp test"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "gulp -LL check --full"
-    }
-  },
   "description": "Automated development tasks for my own projects",
   "keywords": [
     "gulp",
@@ -72,8 +67,7 @@
   },
   "peerDependencies": {
     "ava": "^3.15.0",
-    "gulp": "^4.0.2",
-    "husky": "^4.3.8"
+    "gulp": "^4.0.2"
   },
   "engines": {
     "node": ">=12.20.0"
