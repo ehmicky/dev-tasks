@@ -16,7 +16,7 @@ export default {
     ],
   ],
   comments: false,
-  shouldPrintComment: (comment) => comment.includes('istanbul ignore'),
+  shouldPrintComment: (comment) => comment.includes('c8 ignore'),
   minified: true,
   retainLines: true,
 }
