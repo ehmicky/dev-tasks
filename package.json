@@ -54,7 +54,7 @@
     "got": "^11.8.1",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
-    "gulp-execa": "^3.0.1",
+    "gulp-execa": "^3.0.2",
     "gulp-if": "^3.0.0",
     "gulp-prettier": "^3.0.0",
     "is-ci": "^3.0.0",
