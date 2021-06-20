@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved, node/no-missing-import
 import config from '@ehmicky/eslint-config'
 import gulp from 'gulp'
 import gulpIf from 'gulp-if'
