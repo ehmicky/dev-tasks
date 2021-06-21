@@ -1,4 +1,4 @@
-import { relative } from 'node:path'
+import { relative } from 'path'
 
 import mapSources from '@gulp-sourcemaps/map-sources'
 import del from 'del'
