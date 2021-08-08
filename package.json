@@ -64,7 +64,7 @@
     "node-version-alias": "^2.0.0",
     "plugin-error": "^1.0.1",
     "release-it": "^14.11.5",
-    "rename-fn": "^1.0.0"
+    "rename-fn": "^2.0.0"
   },
   "peerDependencies": {
     "ava": "^3.15.0",
