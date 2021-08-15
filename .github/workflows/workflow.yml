@@ -30,6 +30,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: npm
+          cache: npm
       # TODO: remove after dropping support for Node <15.0.0, i.e. ensuring
       # npm v7 is used. We need npm v7 due to peerDependencies automatic
       # installation
