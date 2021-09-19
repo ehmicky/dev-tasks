@@ -63,7 +63,7 @@
     "log-process-errors": "^7.0.1",
     "node-version-alias": "^2.0.0",
     "plugin-error": "^1.0.1",
-    "release-it": "^14.11.5",
+    "release-it": "^14.11.6",
     "rename-fn": "^2.0.0"
   },
   "peerDependencies": {
