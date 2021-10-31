@@ -7,4 +7,7 @@ uploadCoverage.description = 'Upload test coverage to CI'
 // eslint-disable-next-line fp/no-mutation
 checkCoverage.description = 'Ensure source files are fully covered by tests'
 
-export { uploadCoverage, checkCoverage }
+// eslint-disable-next-line no-duplicate-imports
+export { uploadCoverage } from './upload.js'
+// eslint-disable-next-line no-duplicate-imports
+export { checkCoverage } from './check.js'
