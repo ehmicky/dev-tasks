@@ -58,7 +58,7 @@
     "gulp-if": "^3.0.0",
     "gulp-prettier": "^4.0.0",
     "is-ci": "^3.0.1",
-    "jscpd": "^3.3.25",
+    "jscpd": "^3.4.2",
     "keep-func-props": "^4.0.1",
     "log-process-errors": "^7.0.1",
     "node-version-alias": "^2.0.0",
