@@ -1,6 +1,6 @@
 import { version } from 'process'
 
-import execa from 'execa'
+import { execaCommand } from 'execa'
 import got from 'got'
 import nodeVersionAlias from 'node-version-alias'
 import PluginError from 'plugin-error'
@@ -37,7 +37,7 @@ const checkNodeVersion = checkVersion.bind(undefined, 'Node.js', {
 })
 
 const getCurrentNpm = async function () {
-  const { stdout } = await execa.command('npm --version')
+  const { stdout } = await execaCommand('npm --version')
   return stdout
 }
 
