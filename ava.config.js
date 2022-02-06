@@ -9,6 +9,9 @@ const LOG_PROCESS_ERRORS = fileURLToPath(
 )
 
 export default {
+  // Worker threads make it harder to test `cwd` options since `process.chdir()`
+  // is not available
+  workerThreads: false,
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
   files: [`${BUILD_TEST}/**/*.js`, `!${BUILD_TEST}/helpers`],
