@@ -8,7 +8,7 @@ const LOG_PROCESS_ERRORS = fileURLToPath(
   new URL('build/src/tasks/unit/log_process_errors.js', import.meta.url),
 )
 
-// eslint-disable-next-line import/no-anonymous-default-export, import/no-default-export
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
