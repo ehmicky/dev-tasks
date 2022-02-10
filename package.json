@@ -5,13 +5,13 @@
   "exports": {
     ".": "./build/src/main.js",
     "./register.js": "./build/src/tasks/build/register.js",
-    "./ava.config.js": "./ava.config.js"
+    "./ava.config.cjs": "./ava.config.cjs"
   },
   "main": "./build/src/main.js",
   "files": [
     "build/src/**/*.{js,ts,map,json,sh,md}",
     "examples/**/*.{js,ts,map,json,sh,md}",
-    "ava.config.js"
+    "ava.config.cjs"
   ],
   "scripts": {
     "test": "gulp test"
@@ -67,7 +67,7 @@
     "rename-fn": "^2.0.0"
   },
   "peerDependencies": {
-    "ava": "^4.0.1",
+    "ava": "^3.15.0",
     "gulp": "^4.0.2"
   },
   "engines": {
