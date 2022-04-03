@@ -67,7 +67,7 @@
     "rename-fn": "^2.0.0"
   },
   "peerDependencies": {
-    "ava": "^4.0.1",
+    "ava": "^4.1.0",
     "gulp": "^4.0.2"
   },
   "engines": {
