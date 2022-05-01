@@ -13,7 +13,7 @@ import babelConfig from './.babelrc.js'
 const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
 
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
-// issues with `chokidar` (file waching used by `ava --watch` and
+// issues with `chokidar` (file watching used by `ava --watch` and
 // `gulp.watch()`)
 // TODO: replace with `fs.promises.rm(..., {recursive: true})` after
 // dropping support for Node <14.14.0
