@@ -32,8 +32,8 @@ const getCoverage = async function () {
   const {
     commit: { totals },
   } = await got(codecovUrl, {
-    timeout: CODECOV_TIMEOUT,
-    retry: CODECOV_RETRY,
+    timeout: { request: CODECOV_TIMEOUT },
+    retry: { limit: CODECOV_RETRY },
   }).json()
 
   // This happens when codecov could not find the commit on GitHub
