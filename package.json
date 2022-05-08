@@ -61,7 +61,7 @@
     "jscpd": "^3.4.2",
     "keep-func-props": "^4.0.1",
     "log-process-errors": "^8.0.0",
-    "node-version-alias": "^2.0.0",
+    "node-version-alias": "^3.0.0",
     "plugin-error": "^1.0.1",
     "release-it": "^14.14.0",
     "rename-fn": "^2.0.0"
