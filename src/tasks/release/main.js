@@ -11,7 +11,6 @@ const releaseItTask = async function (increment) {
 
 const RELEASE_IT_CONFIG = {
   ci: true,
-  'disable-metrics': true,
   github: {
     release: true,
   },
