@@ -44,7 +44,7 @@
     "test": "test"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-env": "^7.17.12",
     "@babel/register": "^7.17.7",
     "@ehmicky/eslint-config": "^17.0.20",
     "@gulp-sourcemaps/map-sources": "^1.0.0",
