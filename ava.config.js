@@ -21,4 +21,8 @@ export default {
   // Use `log-process-errors`
   require: [LOG_PROCESS_ERRORS],
   timeout: `3600s`,
+  // Ensure reproducible tests.
+  // For example, `--enable-source-maps` results in different `error.stack`
+  // per environment.
+  environmentVariables: { NODE_OPTIONS: '' },
 }
