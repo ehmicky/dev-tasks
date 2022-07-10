@@ -6,7 +6,7 @@ import gulpPrettier from 'gulp-prettier'
 import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
 import { bind } from '../../utils.js'
 
-// TODO: use `--cache`
+// TODO: use `--cache`. It does not work programmatically.
 const prettier = function (mode) {
   const stream = gulp.src([JAVASCRIPT, MARKDOWN, ...JSON_YAML], {
     dot: true,
