@@ -11,7 +11,8 @@
   "files": [
     "build/src/**/*.{js,ts,map,json,sh,md}",
     "examples/**/*.{js,ts,map,json,sh,md}",
-    "ava.config.js"
+    "ava.config.js",
+    "tsconfig.json"
   ],
   "scripts": {
     "test": "gulp test"
