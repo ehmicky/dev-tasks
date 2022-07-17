@@ -1,7 +1,7 @@
 import { relative } from 'path'
 
 import mapSources from '@gulp-sourcemaps/map-sources'
-import del from 'del'
+import { deleteAsync } from 'del'
 import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
 
@@ -15,7 +15,7 @@ const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
 // issues with `chokidar` (file watching used by `ava --watch` and
 // `gulp.watch()`)
-const clean = () => del(`${BUILD}/**`, { onlyFiles: true })
+const clean = () => deleteAsync(`${BUILD}/**`, { onlyFiles: true })
 
 const copy = () =>
   gulp
