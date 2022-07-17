@@ -13,3 +13,4 @@ export const JSON_YAML = [
 ]
 
 export const DEPENDENCIES = ['package-lock.json']
+export const TYPES = ['src/**/*.ts']
