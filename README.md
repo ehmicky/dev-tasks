@@ -25,6 +25,9 @@ is performed as you code.
 We use [Ava](https://github.com/avajs/ava) to run tests. Each line of code must
 be tested.
 
+We use [tsd](https://github.com/SamVerschueren/tsd) to test TypeScript types.
+Each export must be fully typed.
+
 # Usage
 
 Any task can be run using `gulp` for example:
@@ -42,6 +45,7 @@ The main commands are:
 - [`gulp check`](#gulp-check): lint/format the JavaScript files.
 - [`gulp build`](#gulp-build): build source files and test files. Must be run
   before running any code or unit tests.
+- [`gulp type`](#gulp-type): run TypeScript type tests.
 - [`gulp unit`](#gulp-unit): run unit tests.
 - [`gulp test`](#gulp-test): perform the three tasks above.
 
@@ -76,6 +80,10 @@ Source files are built from the `src` directory to the `build/src` directory.
 Test files are built from the `test` directory to the `build/test` directory.
 
 This must be done before running any code or unit tests.
+
+## `gulp type`
+
+Run TypeScript type tests with [tsd](https://github.com/SamVerschueren/tsd).
 
 ## `gulp unit`
 
