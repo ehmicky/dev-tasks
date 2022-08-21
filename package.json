@@ -69,7 +69,7 @@
     "tsd": "^0.22.0"
   },
   "peerDependencies": {
-    "ava": "^4.3.1",
+    "ava": "^4.3.3",
     "gulp": "^4.0.2"
   },
   "engines": {
