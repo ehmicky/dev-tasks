@@ -17,8 +17,13 @@ const loadLogProcessErrors = function () {
 
 // `log-process-errors` should not use itself
 const isSelf = function () {
-  const repoName = basename(cwd())
-  return repoName === 'log-process-errors'
+  return LOG_PROCESS_ERRORS_REPOS.has(basename(cwd()))
 }
+
+const LOG_PROCESS_ERRORS_REPOS = new Set([
+  'log-process-errors',
+  'modern-errors-process',
+  'modern-errors',
+])
 
 loadLogProcessErrors()
