@@ -8,7 +8,11 @@ const loadLogProcessErrors = function () {
     return
   }
 
-  logProcessErrors({ testing: 'ava' })
+  logProcessErrors({
+    onError(error) {
+      throw error
+    },
+  })
 }
 
 // `log-process-errors` should not use itself
