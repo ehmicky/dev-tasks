@@ -9,7 +9,7 @@
   },
   "main": "./build/src/main.js",
   "files": [
-    "build/src/**/*.{js,d.ts,json,sh}",
+    "build/src/**/*.{js,json,sh}",
     "ava.config.js",
     "tsconfig.json"
   ],
