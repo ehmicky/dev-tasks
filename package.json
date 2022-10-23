@@ -1,6 +1,6 @@
 {
   "name": "@ehmicky/dev-tasks",
-  "version": "1.0.94",
+  "version": "1.0.95",
   "type": "module",
   "exports": {
     ".": "./build/src/main.js",
