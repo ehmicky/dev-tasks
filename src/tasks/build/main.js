@@ -1,4 +1,4 @@
-import { relative } from 'path'
+import { relative } from 'node:path'
 
 import mapSources from '@gulp-sourcemaps/map-sources'
 import { deleteAsync } from 'del'

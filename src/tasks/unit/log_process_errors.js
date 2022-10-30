@@ -1,5 +1,5 @@
-import { basename } from 'path'
-import { cwd } from 'process'
+import { basename } from 'node:path'
+import { cwd } from 'node:process'
 
 import logProcessErrors from 'log-process-errors'
 

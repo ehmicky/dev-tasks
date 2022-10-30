@@ -1,4 +1,4 @@
-import { cwd } from 'process'
+import { cwd } from 'node:process'
 
 import { exec } from 'gulp-execa'
 import { pathExists } from 'path-exists'

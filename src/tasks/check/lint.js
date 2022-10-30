@@ -1,5 +1,5 @@
-import { argv } from 'process'
-import { promisify } from 'util'
+import { argv } from 'node:process'
+import { promisify } from 'node:util'
 
 import gulp from 'gulp'
 import isCi from 'is-ci'

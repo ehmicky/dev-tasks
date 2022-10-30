@@ -1,5 +1,5 @@
 // Ava requires configuration file to be a the repository's top-level
-import { fileURLToPath } from 'url'
+import { fileURLToPath } from 'node:url'
 
 const SRC = 'src'
 const BUILD_TEST = 'build/test'
