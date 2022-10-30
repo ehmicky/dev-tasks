@@ -11,7 +11,7 @@ export const type = async function () {
     return
   }
 
-  await exec('tsd')
+  await exec('tsd', { echo: false })
 }
 
 const isSelf = function () {
