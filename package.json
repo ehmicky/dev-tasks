@@ -59,7 +59,7 @@
     "gulp-prettier": "^4.0.0",
     "is-ci": "^3.0.1",
     "jscpd": "^3.4.2",
-    "keep-func-props": "^5.3.1",
+    "keep-func-props": "^5.4.0",
     "log-process-errors": "^10.1.1",
     "node-version-alias": "^3.3.0",
     "path-exists": "^5.0.0",
