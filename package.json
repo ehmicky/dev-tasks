@@ -10,6 +10,7 @@
   "main": "./build/src/main.js",
   "files": [
     "build/src/**/*.{js,json,sh}",
+    "build/src/tasks/build/browserslist",
     "ava.config.js",
     "tsconfig.json"
   ],
