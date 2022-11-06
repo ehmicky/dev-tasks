@@ -1,10 +1,15 @@
-# We support:
-# - All browsers excluding IE and Opera Mini
-# - For evergreen browsers: only recent versions
-# - For Safari: the oldest version still being used
-# - Oldest Node.js version still officially supported
+# We support the following platforms.
+
+# Node.js: the oldest version still officially supported
 node 14.18.0
+
+# Safari: the oldest version still used by enough users
 safari 15.6
+
+# All other browsers: the two most recent versions
+# (since they automatically update)
 last 2 versions
+
+# Excluding Opera Mini and Internet Explorer
 not op_mini all
 not dead
