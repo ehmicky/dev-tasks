@@ -8,7 +8,7 @@ export default {
     [
       '@babel/preset-env',
       {
-        targets: { node: '12.20.0' },
+        targets: { node: '14.18.0' },
         modules: false,
         // Using `core-js` as a dependency is optional
         ...(dependencies['core-js'] && { useBuiltIns: 'usage', corejs: '3' }),
