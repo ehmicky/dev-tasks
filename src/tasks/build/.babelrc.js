@@ -10,6 +10,7 @@ export default {
       '@babel/preset-env',
       {
         modules: false,
+        bugfixes: true,
         // Using `core-js` as a dependency is optional
         ...(dependencies['core-js'] && { useBuiltIns: 'usage', corejs: '3' }),
       },
