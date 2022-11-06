@@ -62,7 +62,7 @@
     "jscpd": "^3.4.2",
     "keep-func-props": "^5.4.0",
     "log-process-errors": "^10.1.1",
-    "node-version-alias": "^3.3.0",
+    "node-version-alias": "^3.4.0",
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.0",
     "release-it": "^15.4.2",
