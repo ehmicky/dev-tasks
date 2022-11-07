@@ -1,7 +1,7 @@
-[![Codecov](https://img.shields.io/codecov/c/github/ehmicky/dev-tasks.svg?label=tested&logo=codecov)](https://codecov.io/gh/ehmicky/dev-tasks)
-[![Node](https://img.shields.io/node/v/@ehmicky/dev-tasks.svg?logo=node.js&logoColor=66cc33)](https://www.npmjs.com/package/@ehmicky/dev-tasks)
-[![Twitter](https://img.shields.io/badge/%E2%80%8B-twitter-brightgreen.svg?logo=twitter)](https://twitter.com/intent/follow?screen_name=ehmicky)
-[![Medium](https://img.shields.io/badge/%E2%80%8B-medium-brightgreen.svg?logo=medium)](https://medium.com/@ehmicky)
+[![Node](https://img.shields.io/badge/-Node.js-808080?logo=node.js&colorA=404040&logoColor=66cc33)](https://www.npmjs.com/package/@ehmicky/dev-tasks)
+[![Browsers](https://img.shields.io/badge/-Browsers-808080?logo=firefox&colorA=404040)](https://www.npmjs.com/package/@ehmicky/dev-tasks)
+[![Twitter](https://img.shields.io/badge/-Twitter-808080.svg?logo=twitter&colorA=404040)](https://twitter.com/intent/follow?screen_name=ehmicky)
+[![Medium](https://img.shields.io/badge/-Medium-808080.svg?logo=medium&colorA=404040)](https://medium.com/@ehmicky)
 
 Automated development tasks (linting, testing, building) used in my own
 projects.
