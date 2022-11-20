@@ -65,7 +65,7 @@
     "node-version-alias": "^3.4.0",
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.0",
-    "release-it": "^15.4.2",
+    "release-it": "^15.5.0",
     "rename-fn": "^2.0.0",
     "tsd": "^0.22.0"
   },
