@@ -5,4 +5,4 @@ env:
   COVERAGE: 'false'
 jobs:
   combinations:
-    uses: ehmicky/dev-tasks/.github/workflow/build.yml@main
+    uses: ehmicky/dev-tasks/.github/workflows/build.yml@main
