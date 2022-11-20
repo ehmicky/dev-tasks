@@ -3,7 +3,7 @@ import { cwd } from 'node:process'
 import { exec } from 'gulp-execa'
 import { pathExists } from 'path-exists'
 
-import { TYPES } from '../files.js'
+import { TYPES, TYPE_TESTS } from '../files.js'
 import { getWatchTask } from '../watch.js'
 
 export const type = async function () {
@@ -11,7 +11,7 @@ export const type = async function () {
     return
   }
 
-  await exec('tsd', { echo: false })
+  await exec('tsd', ['--files', TYPE_TESTS], { echo: false })
 }
 
 const isSelf = function () {
