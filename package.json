@@ -67,7 +67,7 @@
     "plugin-error": "^2.0.0",
     "release-it": "^15.5.0",
     "rename-fn": "^2.0.0",
-    "tsd": "^0.22.0"
+    "tsd": "^0.24.1"
   },
   "peerDependencies": {
     "ava": "^5.1.0",
