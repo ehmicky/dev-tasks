@@ -11,7 +11,7 @@ const COVERAGE_PATH = 'coverage/coverage-final.json'
 
 // Upload test coverage to codecov
 export const uploadCoverage = async function () {
-  if (!shouldCover()) {
+  if (!(await shouldCover())) {
     return
   }
 

@@ -10,7 +10,7 @@ const { GITHUB_REPOSITORY, GITHUB_SHA } = env
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
 export const checkCoverage = async function () {
-  if (!shouldCover()) {
+  if (!(await shouldCover())) {
     return
   }
 
