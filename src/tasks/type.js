@@ -11,7 +11,7 @@ export const type = async function () {
     return
   }
 
-  await exec('tsd', ['--files', TYPE_TESTS], { echo: false })
+  await exec(`tsd --files ${TYPE_TESTS}`, { echo: false })
 }
 
 const isSelf = function () {
