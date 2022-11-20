@@ -2,6 +2,7 @@ name: Build
 on: workflow_call
 jobs:
   combinations:
+    name: ${{ matrix.os }}, Node.js ${{matrix.node}}
     # git push --tags does not create any commits so should not trigger a new
     # workflow. There are no ways to skip workflows, so we skip jobs instead
     if: toJson(github.event.commits) != '[]'
