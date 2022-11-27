@@ -10,6 +10,7 @@ import { pathExists } from 'path-exists'
 
 import {
   NOT_BUILT_SOURCES,
+  SOURCES_GLOB,
   BUILD,
   BUILT_MAIN_SOURCE,
   GENERATED_SOURCES_DIR,
@@ -26,7 +27,6 @@ import { getWatchTask } from '../../watch.js'
 // eslint-disable-next-line import/max-dependencies
 import babelConfig from './.babelrc.js'
 
-const SOURCES_GLOB = `{${NOT_BUILT_SOURCES.join(',')}}/**`
 const SOURCES_ONLY_GLOB = `${GENERATED_SOURCES_DIR}/**`
 
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
