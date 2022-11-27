@@ -23,7 +23,7 @@ export const jscpd = async function () {
   }
 
   await exec(
-    `jscpd --config=${JSCPD_CONFIG} --pattern=**/*.ts --pattern=**/*.js --ignore=**/*.test-d.ts ${sourceDirs.join(
+    `jscpd --config=${JSCPD_CONFIG} --pattern=**/*.{js,ts} --ignore=**/*.test-d.ts ${sourceDirs.join(
       ' ',
     )}`,
     { echo: false },
