@@ -22,6 +22,8 @@ export const JSON_YAML = [
 ]
 export const TYPESCRIPT_EXT = 'ts'
 export const TYPESCRIPT = `${ANY_SOURCE_FILE}.${TYPESCRIPT_EXT}`
+export const TYPESCRIPT_AMBIENT_EXT = 'd.ts'
+export const TYPESCRIPT_AMBIENT_MAIN = `src/main.${TYPESCRIPT_AMBIENT_EXT}`
 export const TYPESCRIPT_TESTS_EXT = `test-d.${TYPESCRIPT_EXT}`
 export const TYPESCRIPT_TESTS = `src/**/*.${TYPESCRIPT_TESTS_EXT}`
 export const TYPESCRIPT_CONFIG = 'tsconfig.json'

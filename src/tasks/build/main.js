@@ -4,12 +4,16 @@ import mapSources from '@gulp-sourcemaps/map-sources'
 import { deleteAsync } from 'del'
 import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
+import { pathExists } from 'path-exists'
 
 import {
   BUILD_SOURCES,
   BUILD,
   GENERATED_SOURCES_DIR,
   JAVASCRIPT_EXTS_STR,
+  TYPESCRIPT_EXT,
+  TYPESCRIPT_AMBIENT_EXT,
+  TYPESCRIPT_AMBIENT_MAIN,
 } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
@@ -28,7 +32,7 @@ const copy = () =>
     .src(
       [
         `${SOURCES_GLOB}/*[^~]`,
-        `!${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR}}`,
+        `!${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR},${TYPESCRIPT_EXT}}`,
         `!${SOURCES_ONLY_GLOB}`,
       ],
       { dot: true, since: gulp.lastRun(copy) },
@@ -46,7 +50,17 @@ const babel = () =>
     .pipe(mapSources((path) => `${relative(path, '.')}/${path}`))
     .pipe(gulp.dest(BUILD, { sourcemaps: '.' }))
 
-const rebuild = gulp.parallel(copy, babel)
+const buildTypes = async function () {
+  if (await pathExists(TYPESCRIPT_AMBIENT_MAIN)) {
+    await gulp
+      .src([`${SOURCES_GLOB}/*.${TYPESCRIPT_AMBIENT_EXT}`], {
+        since: gulp.lastRun(buildTypes),
+      })
+      .pipe(gulp.dest(BUILD))
+  }
+}
+
+const rebuild = gulp.parallel(copy, babel, buildTypes)
 export const build = gulp.series(clean, rebuild)
 
 // eslint-disable-next-line fp/no-mutation
