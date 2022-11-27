@@ -1,6 +1,6 @@
 import gulp from 'gulp'
 
-import { build } from './build/main.js'
+import { build } from './builder/main.js'
 import { check } from './check/main.js'
 import { type } from './type.js'
 import { unit } from './unit/main.js'

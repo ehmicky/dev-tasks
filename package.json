@@ -4,7 +4,7 @@
   "type": "module",
   "exports": {
     ".": "./build/src/main.js",
-    "./register.js": "./build/src/tasks/build/register.js",
+    "./register.js": "./build/src/tasks/builder/register.js",
     "./ava.config.js": "./ava.config.js"
   },
   "main": "./build/src/main.js",
@@ -12,7 +12,7 @@
     "build/src/**/*.{js,json,sh}",
     "!build/src/**/*.test.js",
     "!build/src/{helpers,fixtures}",
-    "build/src/tasks/build/browserslist",
+    "build/src/tasks/builder/browserslist",
     "ava.config.js",
     "tsconfig.json"
   ],

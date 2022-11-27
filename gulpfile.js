@@ -2,7 +2,7 @@
 // hard-to-debug problems due to recursion.
 // Instead we call `@babel/register` and import the `src` directory.
 // eslint-disable-next-line import/no-unassigned-import
-import './src/tasks/build/register.js'
+import './src/tasks/builder/register.js'
 
 export * from './src/main.js'
 export { download } from './gulp/download.js'
