@@ -25,11 +25,11 @@ const printChangelog = async function () {
   const contents = await readFile(CHANGELOG_FILE, 'utf8')
   const contentsA = contents.trim()
 
-  if (contentsA === '' || true) {
+  if (contentsA === '') {
     await printAutoChangelog()
+    return
   }
 
-  console.log({ contents })
   await execa(
     `cat CHANGELOG.md \
       | tail -n+3 \
@@ -40,6 +40,7 @@ const printChangelog = async function () {
   )
 }
 
+// If `CHANGELOG.md` is empty, use `git log` as a fallback
 const printAutoChangelog = async function () {
   const { stdout: lastTag } = await execa('git', ['describe', '--abbrev=0'])
 
@@ -56,6 +57,9 @@ const printAutoChangelog = async function () {
   if (changelog.trim() === '') {
     throw new Error('Empty changelog.')
   }
+
+  // eslint-disable-next-line no-console, no-restricted-globals
+  console.log(changelog)
 }
 
 const CHANGELOG_FILE = 'CHANGELOG.md'
