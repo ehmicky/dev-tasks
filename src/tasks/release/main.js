@@ -10,7 +10,7 @@ const releaseItTask = async function (increment) {
 }
 
 const RELEASE_IT_CONFIG = {
-  // ci: true,
+  ci: true,
   git: {
     requireCleanWorkingDir: false,
   },
@@ -18,12 +18,12 @@ const RELEASE_IT_CONFIG = {
     release: true,
   },
   npm: {
-    publishArgs: ['--auth-type', 'legacy'],
-    // publish: false,
+    // This cannot be used with `ci: true`
+    publish: false,
   },
 }
 
-const prereleaseTasks = [] // [checkVersions, testTask]
+const prereleaseTasks = [checkVersions, testTask]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
