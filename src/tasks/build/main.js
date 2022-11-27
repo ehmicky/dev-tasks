@@ -53,4 +53,4 @@ export const build = gulp.series(clean, rebuild)
 build.description = 'Build source files'
 
 const buildWatchTask = getWatchTask(BUILD_SOURCES, rebuild)
-export const buildw = gulp.series(build, buildWatchTask)
+export const buildWatch = gulp.series(build, buildWatchTask)

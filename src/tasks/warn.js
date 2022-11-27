@@ -29,4 +29,4 @@ export const warn = gulp.parallel(audit, outdated)
 // eslint-disable-next-line fp/no-mutation
 warn.description = 'Check for outdated/vulnerable dependencies'
 
-export const warnw = getWatchTask(DEPENDENCIES, warn)
+export const warnWatch = getWatchTask(DEPENDENCIES, warn)

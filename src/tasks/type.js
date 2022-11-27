@@ -21,4 +21,4 @@ const isSelf = function () {
 // eslint-disable-next-line fp/no-mutation
 type.description = 'Run TypeScript type tests'
 
-export const typew = getWatchTask([TYPESCRIPT, TYPESCRIPT_CONFIG], type)
+export const typeWatch = getWatchTask([TYPESCRIPT, TYPESCRIPT_CONFIG], type)

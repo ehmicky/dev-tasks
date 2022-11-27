@@ -16,7 +16,7 @@ export const unit = () => runAva('', {})
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-export const unitw = () => runAva(' -w', { stdin: 'inherit' })
+export const unitWatch = () => runAva(' -w', { stdin: 'inherit' })
 
 // eslint-disable-next-line fp/no-mutation
-unitw.description = 'Run unit tests (watch mode)'
+unitWatch.description = 'Run unit tests (watch mode)'

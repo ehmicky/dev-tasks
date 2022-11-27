@@ -12,8 +12,8 @@ import { jscpd } from './jscpd.js'
 import { lint, lintWatch } from './lint.js'
 
 export const check = gulp.parallel(lint(), jscpd)
-// TODO: add `jscpd` and `prettier` in watch mode
-const checkWatch = gulp.parallel(lintWatch)
+// TODO: add `jscpd` in watch mode
+const checkWatchRun = gulp.parallel(lintWatch)
 
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint/check source files'
@@ -25,10 +25,10 @@ const checkWatchTask = getWatchTask(
     ...JSON_YAML,
     ...IGNORED_SOURCES.map((ignoredSource) => `!${ignoredSource}`),
   ],
-  checkWatch,
+  checkWatchRun,
 )
 
-export const checkw = gulp.series(check, checkWatchTask)
+export const checkWatch = gulp.series(check, checkWatchTask)
 
 // eslint-disable-next-line fp/no-mutation
-checkw.description = 'Lint/check source files (watch mode)'
+checkWatch.description = 'Lint/check source files (watch mode)'
