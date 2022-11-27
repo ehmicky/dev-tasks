@@ -21,3 +21,6 @@ build.description = 'Build source files'
 
 const buildWatchTask = getWatchTask(NOT_BUILT_SOURCES, rebuild)
 export const buildWatch = gulp.series(build, buildWatchTask)
+
+// eslint-disable-next-line fp/no-mutation
+buildWatch.description = 'Build source files (watch mode)'
