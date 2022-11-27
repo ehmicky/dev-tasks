@@ -100,7 +100,7 @@ To target a single test file, use `ava build/test/file.test.js` not
 ## `gulp test`
 
 Runs [`gulp check`](#gulp-check) then [`gulp build`](#gulp-build) then
-[`gulp unit`](#gulp-unit).
+[`gulp type`](#gulp-type) and [`gulp unit`](#gulp-unit).
 
 This is performed on CI ([GitHub actions](https://github.com/features/actions))
 for each OS (Windows, Mac, Linux) and supported Node.js version.
@@ -127,7 +127,7 @@ Check for security vulnerabilities (using
 Release a new patch/minor/major version on npm and GitHub using
 [`release-it`](https://github.com/webpro/release-it).
 
-`npm publish` must also be performed locally.
+`npm publish` must be performed locally afterwards.
 
 Only the repository owner can perform these tasks.
 
