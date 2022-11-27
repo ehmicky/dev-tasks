@@ -3,7 +3,11 @@ import { cwd } from 'node:process'
 import { exec } from 'gulp-execa'
 import { pathExists } from 'path-exists'
 
-import { TYPESCRIPT, TYPESCRIPT_CONFIG, TYPESCRIPT_TESTS } from '../files.js'
+import {
+  TYPESCRIPT_AMBIENT_BUILT,
+  TYPESCRIPT_CONFIG,
+  TYPESCRIPT_TESTS,
+} from '../files.js'
 import { getWatchTask } from '../watch.js'
 
 export const type = async function () {
@@ -21,4 +25,7 @@ const isSelf = function () {
 // eslint-disable-next-line fp/no-mutation
 type.description = 'Run TypeScript type tests'
 
-export const typeWatch = getWatchTask([TYPESCRIPT, TYPESCRIPT_CONFIG], type)
+export const typeWatch = getWatchTask(
+  [TYPESCRIPT_AMBIENT_BUILT, TYPESCRIPT_CONFIG],
+  type,
+)
