@@ -10,9 +10,6 @@ import {
   SOURCES_GLOB,
   BUILD,
   BUILT_MAIN_SOURCE,
-  GENERATED_SOURCES_DIR,
-  JAVASCRIPT_EXTS_STR,
-  TYPESCRIPT_EXT,
   TYPESCRIPT_MAIN,
   TYPESCRIPT_AMBIENT_EXT,
   TYPESCRIPT_AMBIENT_MAIN,
@@ -21,25 +18,12 @@ import {
 import { getWatchTask } from '../../watch.js'
 
 import { babel } from './babel.js'
-
-const SOURCES_ONLY_GLOB = `${GENERATED_SOURCES_DIR}/**`
+import { copy } from './copy.js'
 
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
 // issues with `chokidar` (file watching used by `ava --watch` and
 // `gulp.watch()`)
 const clean = () => deleteAsync(`${BUILD}/**`, { onlyFiles: true })
-
-const copy = () =>
-  gulp
-    .src(
-      [
-        `${SOURCES_GLOB}/*[^~]`,
-        `!${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR},${TYPESCRIPT_EXT}}`,
-        `!${SOURCES_ONLY_GLOB}`,
-      ],
-      { dot: true, since: gulp.lastRun(copy) },
-    )
-    .pipe(gulp.dest(BUILD))
 
 const buildTypes = async function () {
   if (await pathExists(TYPESCRIPT_AMBIENT_MAIN)) {
