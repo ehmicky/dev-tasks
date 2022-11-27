@@ -1,11 +1,35 @@
 #!/usr/bin/env node
+import { readFile } from 'node:fs/promises'
+
 import { execa } from 'execa'
+import handleCliError from 'handle-cli-error'
+import { pathExists } from 'path-exists'
 
 // Generate the release notes automatically by reading the last entry in
 // CHANGELOG.md
 // Use `prettier` to remove line wrapping, since it looks odd in GitHub
 // releases.
 const runCli = async function () {
+  try {
+    await printChangelog()
+  } catch (error) {
+    handleCliError(error, { stack: false })
+  }
+}
+
+const printChangelog = async function () {
+  if (!(await pathExists(CHANGELOG_FILE))) {
+    throw new Error(`Could not find ${CHANGELOG_FILE}.`)
+  }
+
+  const contents = await readFile(CHANGELOG_FILE, 'utf8')
+  const contentsA = contents.trim()
+
+  if (contentsA === '' || true) {
+    await printAutoChangelog()
+  }
+
+  console.log({ contents })
   await execa(
     `cat CHANGELOG.md \
       | tail -n+3 \
@@ -15,5 +39,25 @@ const runCli = async function () {
     { shell: true, stdio: 'inherit' },
   )
 }
+
+const printAutoChangelog = async function () {
+  const { stdout: lastTag } = await execa('git', ['describe', '--abbrev=0'])
+
+  if (!lastTag.startsWith('v')) {
+    throw new Error('Could not find last git tag.')
+  }
+
+  const { stdout: changelog } = await execa('git', [
+    'log',
+    '--pretty=format:* %s (%h)',
+    `${lastTag}..HEAD`,
+  ])
+
+  if (changelog.trim() === '') {
+    throw new Error('Empty changelog.')
+  }
+}
+
+const CHANGELOG_FILE = 'CHANGELOG.md'
 
 runCli()
