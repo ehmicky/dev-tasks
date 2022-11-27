@@ -1,9 +1,13 @@
+import { fileURLToPath } from 'node:url'
+
 import gulp from 'gulp'
 import releaseIt from 'release-it'
 
 import { testTask } from '../test.js'
 
 import { checkVersions } from './version.js'
+
+const CHANGELOG_SCRIPT = fileURLToPath(new URL('changelog.js', import.meta.url))
 
 const releaseItTask = async function (increment) {
   await releaseIt({ ...RELEASE_IT_CONFIG, increment })
@@ -14,15 +18,7 @@ const RELEASE_IT_CONFIG = {
   git: {
     // eslint-disable-next-line no-template-curly-in-string
     commitMessage: 'v${version}',
-    // Generate the release notes automatically by reading the last entry in
-    // CHANGELOG.md
-    // Use `prettier` to remove line wrapping, since it looks odd in GitHub
-    // releases.
-    changelog: `cat CHANGELOG.md \
-      | tail -n+3 \
-      | sed -n '/^# [0-9]/q; p' \
-      | head -n-1 \
-      | prettier --stdin-filepath=CHANGELOG.md --prose-wrap=never`,
+    changelog: `node ${CHANGELOG_SCRIPT}`,
     requireBranch: 'main',
     requireCommits: true,
   },
