@@ -19,7 +19,7 @@ const RELEASE_IT_CONFIG = {
   },
 }
 
-const prereleaseTasks = [checkVersions, testTask]
+const prereleaseTasks = [] // [checkVersions, testTask]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
