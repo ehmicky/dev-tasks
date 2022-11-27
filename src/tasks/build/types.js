@@ -15,25 +15,21 @@ import {
 } from '../../files.js'
 
 export const buildTypes = async function () {
-  if (await pathExists(TYPESCRIPT_AMBIENT_MAIN)) {
-    await buildAmbientTypes()
+  if (await pathExists(TYPESCRIPT_MAIN)) {
+    await buildFullTypes()
     return
   }
 
-  if (await pathExists(TYPESCRIPT_MAIN)) {
-    await buildFullTypes()
+  if (await pathExists(TYPESCRIPT_AMBIENT_MAIN)) {
+    await buildAmbientTypes()
   }
 }
 
-const buildAmbientTypes = async function () {
-  await gulp
-    .src([`${SOURCES_GLOB}/*.${TYPESCRIPT_AMBIENT_EXT}`], {
-      since: gulp.lastRun(buildTypes),
-    })
-    .pipe(gulp.dest(BUILD))
-}
-
 const buildFullTypes = async function () {
+  if (await pathExists(TYPESCRIPT_AMBIENT_MAIN)) {
+    throw new Error('"src/main.d.ts" and "src/main.ts" must not both exist.')
+  }
+
   await validateTSConfig()
   await exec(
     `tsc --declaration --emitDeclarationOnly --declarationDir ${BUILT_MAIN_SOURCE}`,
@@ -61,4 +57,12 @@ const validateTSFiles = function ({ files }) {
       'tsconfig.json should include a "files": ["src/main.ts"] property.',
     )
   }
+}
+
+const buildAmbientTypes = async function () {
+  await gulp
+    .src([`${SOURCES_GLOB}/*.${TYPESCRIPT_AMBIENT_EXT}`], {
+      since: gulp.lastRun(buildTypes),
+    })
+    .pipe(gulp.dest(BUILD))
 }
