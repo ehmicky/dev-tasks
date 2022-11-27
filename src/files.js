@@ -13,5 +13,5 @@ export const JSON_YAML = [
 ]
 
 export const DEPENDENCIES = ['package-lock.json']
-export const TYPES = ['src/**/*.ts', 'types/**/*.ts', 'tsconfig.json']
+export const TYPES = ['src/**/*.ts', 'tsconfig.json']
 export const TYPE_TESTS = 'src/**/*.test-d.ts'
