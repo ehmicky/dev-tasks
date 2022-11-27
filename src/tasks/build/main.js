@@ -1,10 +1,7 @@
 import { readFile } from 'node:fs/promises'
-import { relative } from 'node:path'
 
-import mapSources from '@gulp-sourcemaps/map-sources'
 import { deleteAsync } from 'del'
 import gulp from 'gulp'
-import gulpBabel from 'gulp-babel'
 import { exec } from 'gulp-execa'
 import { pathExists } from 'path-exists'
 
@@ -19,13 +16,11 @@ import {
   TYPESCRIPT_MAIN,
   TYPESCRIPT_AMBIENT_EXT,
   TYPESCRIPT_AMBIENT_MAIN,
-  TYPESCRIPT_TESTS_EXT,
   TYPESCRIPT_CONFIG,
 } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
-// eslint-disable-next-line import/max-dependencies
-import babelConfig from './.babelrc.js'
+import { babel } from './babel.js'
 
 const SOURCES_ONLY_GLOB = `${GENERATED_SOURCES_DIR}/**`
 
@@ -45,19 +40,6 @@ const copy = () =>
       { dot: true, since: gulp.lastRun(copy) },
     )
     .pipe(gulp.dest(BUILD))
-
-const babel = () =>
-  gulp
-    .src(
-      [
-        `${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR},${TYPESCRIPT_EXT}}`,
-        `!${SOURCES_GLOB}/*.{${TYPESCRIPT_AMBIENT_EXT},${TYPESCRIPT_TESTS_EXT}}`,
-      ],
-      { dot: true, since: gulp.lastRun(babel), sourcemaps: true },
-    )
-    .pipe(gulpBabel({ ...babelConfig, babelrc: false }))
-    .pipe(mapSources((path) => `${relative(path, '.')}/${path}`))
-    .pipe(gulp.dest(BUILD, { sourcemaps: '.' }))
 
 const buildTypes = async function () {
   if (await pathExists(TYPESCRIPT_AMBIENT_MAIN)) {
