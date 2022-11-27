@@ -28,7 +28,7 @@ const copy = () =>
     .src(
       [
         `${SOURCES_GLOB}/*[^~]`,
-        `!${SOURCES_GLOB}/*.${JAVASCRIPT_EXTS_STR}`,
+        `!${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR}}`,
         `!${SOURCES_ONLY_GLOB}`,
       ],
       { dot: true, since: gulp.lastRun(copy) },
@@ -37,7 +37,7 @@ const copy = () =>
 
 const babel = () =>
   gulp
-    .src(`${SOURCES_GLOB}/*.${JAVASCRIPT_EXTS_STR}`, {
+    .src(`${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR}}`, {
       dot: true,
       since: gulp.lastRun(babel),
       sourcemaps: true,
