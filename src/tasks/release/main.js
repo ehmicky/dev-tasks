@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import gulp from 'gulp'
 import releaseIt from 'release-it'
 
-import { testTask } from '../test.js'
+import { testTask } from '../test_task.js'
 
 import { checkVersions } from './version.js'
 
