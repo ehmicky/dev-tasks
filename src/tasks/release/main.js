@@ -28,10 +28,7 @@ const RELEASE_IT_CONFIG = {
     // eslint-disable-next-line no-template-curly-in-string
     commitMessage: 'v${version}',
     requireBranch: 'main',
-    // TODO: revert
-    // requireCommits: true,
-    // TODO: revert
-    requireCleanWorkingDir: false,
+    requireCommits: true,
   },
   github: {
     release: true,
@@ -44,8 +41,7 @@ const RELEASE_IT_CONFIG = {
   },
 }
 
-// TODO: revert
-const prereleaseTasks = [] // [checkVersions, testTask]
+const prereleaseTasks = [checkVersions, testTask]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
