@@ -75,13 +75,22 @@ Lint and check source files:
 
 Build source files and test files:
 
-- JavaScript files are transpiled with [Babel](https://babeljs.io/).
+- JavaScript and TypeScript files are transpiled with
+  [Babel](https://babeljs.io/).
 - Other files are copied as is.
 
 Source files and test files are built from the `src` directory to the
 `build/src` directory.
 
 This must be done before running any code or unit tests.
+
+TypeScript projects can use either:
+
+- Non-ambient TypeScript files (`*.ts`). An ambient file is automatically
+  created by
+  [`tsc --declaration`](https://www.typescriptlang.org/tsconfig#declaration).
+- JavaScript files (`*.js`) and ambient files (`*.d.ts`). Ambient files are
+  copied as is.
 
 ## `gulp type`
 
