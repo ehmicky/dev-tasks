@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 const { dependencies = {} } = JSON.parse(readFileSync('./package.json'))
 
 const browserslistConfigFile = fileURLToPath(
-  new URL('../../../browserslist', import.meta.url),
+  new URL('../../browserslist', import.meta.url),
 )
 
 export default {
