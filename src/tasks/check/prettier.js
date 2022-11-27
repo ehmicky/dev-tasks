@@ -6,6 +6,7 @@ import { format } from 'prettier'
 
 import {
   JAVASCRIPT,
+  TYPESCRIPT,
   MARKDOWN,
   JSON_YAML,
   IGNORED_SOURCES,
@@ -17,6 +18,7 @@ const prettier = function (mode) {
   const stream = gulp.src(
     [
       JAVASCRIPT,
+      TYPESCRIPT,
       MARKDOWN,
       ...JSON_YAML,
       ...IGNORED_SOURCES.map((ignoredSource) => `!${ignoredSource}`),

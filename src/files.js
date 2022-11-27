@@ -13,7 +13,7 @@ export const BUILD = 'build'
 export const JAVASCRIPT = `${ANY_SOURCE_FILE}.{js,cjs,mjs}`
 export const MARKDOWN = `${ANY_SOURCE_FILE}.md`
 export const JSON_YAML = [`${ANY_SOURCE_FILE}.{json,yml}`, '.*.{json,yml}']
-export const TYPESCRIPT = 'src/**/*.ts'
+export const TYPESCRIPT = `${ANY_SOURCE_FILE}.ts`
 export const TYPESCRIPT_TESTS = 'src/**/*.test-d.ts'
 export const TYPESCRIPT_CONFIG = 'tsconfig.json'
 // Those source files should not be linted nor prettified
