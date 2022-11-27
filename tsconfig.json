@@ -1,5 +1,4 @@
 {
-  "files": ["src/main.ts"],
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
