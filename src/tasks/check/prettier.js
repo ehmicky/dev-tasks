@@ -8,14 +8,19 @@ import {
   JAVASCRIPT,
   MARKDOWN,
   JSON_YAML,
-  GENERATED_SOURCES,
+  IGNORED_SOURCES,
 } from '../../files.js'
 import { bind } from '../../utils.js'
 
 // TODO: use `--cache`. It does not work programmatically.
 const prettier = function (mode) {
   const stream = gulp.src(
-    [JAVASCRIPT, MARKDOWN, ...JSON_YAML, `!${GENERATED_SOURCES}`],
+    [
+      JAVASCRIPT,
+      MARKDOWN,
+      ...JSON_YAML,
+      ...IGNORED_SOURCES.map((ignoredSource) => `!${ignoredSource}`),
+    ],
     {
       dot: true,
       // `prettierLoose()` is used in watch mode

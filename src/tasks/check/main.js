@@ -4,7 +4,7 @@ import {
   JAVASCRIPT,
   MARKDOWN,
   JSON_YAML,
-  GENERATED_SOURCES,
+  IGNORED_SOURCES,
 } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
@@ -19,7 +19,12 @@ const checkWatch = gulp.parallel(lintWatch)
 check.description = 'Lint/check source files'
 
 const checkWatchTask = getWatchTask(
-  [JAVASCRIPT, MARKDOWN, ...JSON_YAML, `!${GENERATED_SOURCES}`],
+  [
+    JAVASCRIPT,
+    MARKDOWN,
+    ...JSON_YAML,
+    ...IGNORED_SOURCES.map((ignoredSource) => `!${ignoredSource}`),
+  ],
   checkWatch,
 )
 
