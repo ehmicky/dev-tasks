@@ -9,6 +9,6 @@
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
-    "noEmit": true
+    "isolatedModules": true
   }
 }
