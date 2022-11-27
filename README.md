@@ -3,8 +3,8 @@
 [![Mastodon](https://img.shields.io/badge/-Mastodon-808080.svg?logo=mastodon&colorA=404040&logoColor=9590F9)](https://fosstodon.org/@ehmicky)
 [![Medium](https://img.shields.io/badge/-Medium-808080.svg?logo=medium&colorA=404040)](https://medium.com/@ehmicky)
 
-Automated development tasks (linting, testing, building) for JavaScript code
-(Node.js and/or browsers).
+Automated development tasks (linting, testing, building) for
+JavaScript/TypeScript code (Node.js and/or browsers).
 
 This is used in my own projects. This is not meant to be shared and semantic
 versioning is not followed.
@@ -27,7 +27,8 @@ We use [Ava](https://github.com/avajs/ava) to run tests. Each line of code must
 be tested.
 
 We use [tsd](https://github.com/SamVerschueren/tsd) to test TypeScript types.
-Each export must be fully typed.
+Each export must be fully typed using either TypeScript regular files (`*.ts`)
+or ambient files (`*.d.ts`).
 
 # Usage
 
@@ -43,7 +44,7 @@ If you're on `cmd.exe` (Windows) use `npx gulp ...` instead.
 
 The main commands are:
 
-- [`gulp check`](#gulp-check): lint/format the JavaScript files.
+- [`gulp check`](#gulp-check): lint/format the JavaScript and TypeScript files.
 - [`gulp build`](#gulp-build): build source files and test files. Must be run
   before running any code or unit tests.
 - [`gulp type`](#gulp-type): run TypeScript type tests.
@@ -64,10 +65,10 @@ to run them in watch mode.
 
 Lint and check source files:
 
-- format JavaScript files with [Prettier](https://prettier.io/).
+- format JavaScript and TypeScript files with [Prettier](https://prettier.io/).
 - lint and
   [autofix](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
-  JavaScript files using [ESLint](https://eslint.org/) (see the
+  JavaScript and TypeScript files using [ESLint](https://eslint.org/) (see the
   [coding style](https://github.com/ehmicky/eslint-config#coding-style)).
 - find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
 
@@ -84,21 +85,22 @@ Source files and test files are built from the `src` directory to the
 
 This must be done before running any code or unit tests.
 
-TypeScript projects can use either:
+To add TypeScript types, use either:
 
-- Non-ambient TypeScript files (`*.ts`). An ambient file is automatically
-  created by
+- Regular TypeScript files (`*.ts`). An ambient file is automatically created by
   [`tsc --declaration`](https://www.typescriptlang.org/tsconfig#declaration).
 - JavaScript files (`*.js`) and ambient files (`*.d.ts`). Ambient files are
   copied as is.
 
 ## `gulp type`
 
-Run TypeScript type tests with [tsd](https://github.com/SamVerschueren/tsd).
+Run TypeScript type tests with [tsd](https://github.com/SamVerschueren/tsd). The
+type tests must be named `*.test-d.ts`.
 
 ## `gulp unit`
 
-Run unit tests with [Ava](https://github.com/avajs/ava).
+Run unit tests with [Ava](https://github.com/avajs/ava). The test files must be
+named `*.test.js`.
 
 To specify
 [Ava options](https://github.com/avajs/ava/blob/master/docs/05-command-line.md),
