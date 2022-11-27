@@ -4,6 +4,10 @@ import { fileURLToPath } from 'url'
 // TODO: replace with JSON imports once supported
 const { dependencies = {} } = JSON.parse(readFileSync('./package.json'))
 
+const browserslistConfigFile = fileURLToPath(
+  new URL('../../../browserslist', import.meta.url),
+)
+
 export default {
   presets: [
     [
@@ -24,9 +28,7 @@ export default {
       },
     ],
   ],
-  browserslistConfigFile: fileURLToPath(
-    new URL('browserslist', import.meta.url),
-  ),
+  browserslistConfigFile,
   comments: false,
   shouldPrintComment: (comment) => comment.includes('c8 ignore'),
   minified: true,
