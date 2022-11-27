@@ -5,12 +5,13 @@ import { deleteAsync } from 'del'
 import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
 
-import { BUILD_SOURCES, BUILD } from '../../files.js'
+import { BUILD_SOURCES, BUILD, GENERATED_SOURCES_DIR } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
 import babelConfig from './.babelrc.js'
 
 const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
+const SOURCES_ONLY_GLOB = `${GENERATED_SOURCES_DIR}/**`
 
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
 // issues with `chokidar` (file watching used by `ava --watch` and
@@ -19,10 +20,14 @@ const clean = () => deleteAsync(`${BUILD}/**`, { onlyFiles: true })
 
 const copy = () =>
   gulp
-    .src([`${SOURCES_GLOB}/*[^~]`, `!${SOURCES_GLOB}/*.js`], {
-      dot: true,
-      since: gulp.lastRun(copy),
-    })
+    .src(
+      [
+        `${SOURCES_GLOB}/*[^~]`,
+        `!${SOURCES_GLOB}/*.js`,
+        `!${SOURCES_ONLY_GLOB}`,
+      ],
+      { dot: true, since: gulp.lastRun(copy) },
+    )
     .pipe(gulp.dest(BUILD))
 
 const babel = () =>

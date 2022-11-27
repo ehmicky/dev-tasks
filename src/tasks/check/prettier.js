@@ -4,16 +4,24 @@ import gulpIf from 'gulp-if'
 import gulpPrettier from 'gulp-prettier'
 import { format } from 'prettier'
 
-import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
+import {
+  JAVASCRIPT,
+  MARKDOWN,
+  JSON_YAML,
+  GENERATED_SOURCES,
+} from '../../files.js'
 import { bind } from '../../utils.js'
 
 // TODO: use `--cache`. It does not work programmatically.
 const prettier = function (mode) {
-  const stream = gulp.src([JAVASCRIPT, MARKDOWN, ...JSON_YAML], {
-    dot: true,
-    // `prettierLoose()` is used in watch mode
-    since: gulp.lastRun(prettierLoose),
-  })
+  const stream = gulp.src(
+    [JAVASCRIPT, MARKDOWN, ...JSON_YAML, `!${GENERATED_SOURCES}`],
+    {
+      dot: true,
+      // `prettierLoose()` is used in watch mode
+      since: gulp.lastRun(prettierLoose),
+    },
+  )
 
   if (mode === 'strict') {
     return stream.pipe(gulpPrettier.check(config))

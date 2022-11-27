@@ -77,8 +77,8 @@ Build source files and test files:
 - JavaScript files are transpiled with [Babel](https://babeljs.io/).
 - Other files are copied as is.
 
-Source files are built from the `src` directory to the `build/src` directory.
-Test files are built from the `test` directory to the `build/test` directory.
+Source files and test files are built from the `src` directory to the
+`build/src` directory.
 
 This must be done before running any code or unit tests.
 
@@ -94,15 +94,15 @@ To specify
 [Ava options](https://github.com/avajs/ava/blob/master/docs/05-command-line.md),
 please call `ava` directly instead. For example: `ava --update-snapshots`.
 
-To target a single test file, use `ava build/test/file.js` not
-`ava test/file.js`.
+To target a single test file, use `ava build/test/file.test.js` not
+`ava test/file.test.js`.
 
 ## `gulp test`
 
 Runs [`gulp check`](#gulp-check) then [`gulp build`](#gulp-build) then
 [`gulp unit`](#gulp-unit).
 
-This is performed on CI ([GitHub acitons](https://github.com/features/actions))
+This is performed on CI ([GitHub actions](https://github.com/features/actions))
 for each OS (Windows, Mac, Linux) and supported Node.js version.
 
 ## `gulp checkw`, `gulp buildw`, `gulp typew`, `gulp unitw`, `gulp warnw`

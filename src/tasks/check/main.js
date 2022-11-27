@@ -1,6 +1,11 @@
 import gulp from 'gulp'
 
-import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
+import {
+  JAVASCRIPT,
+  MARKDOWN,
+  JSON_YAML,
+  GENERATED_SOURCES,
+} from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
 import { jscpd } from './jscpd.js'
@@ -14,7 +19,7 @@ const checkWatch = gulp.parallel(lintWatch)
 check.description = 'Lint/check source files'
 
 const checkWatchTask = getWatchTask(
-  [JAVASCRIPT, MARKDOWN, ...JSON_YAML],
+  [JAVASCRIPT, MARKDOWN, ...JSON_YAML, `!${GENERATED_SOURCES}`],
   checkWatch,
 )
 
