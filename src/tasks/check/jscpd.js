@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url'
 
 import { task } from 'gulp-execa'
 
-import { JAVASCRIPT } from '../../files.js'
+// import { JAVASCRIPT } from '../../files.js'
 
 const JSCPD_CONFIG = fileURLToPath(new URL('.jscpd.json', import.meta.url))
 
@@ -11,6 +11,6 @@ const JSCPD_CONFIG = fileURLToPath(new URL('.jscpd.json', import.meta.url))
 // We cannot expand globbing patterns ourselves because it can hit the CLI
 // max length.
 export const jscpd = task(
-  `jscpd --config=${JSCPD_CONFIG} --pattern=${JAVASCRIPT}`,
+  `jscpd --config=${JSCPD_CONFIG} --pattern=**/*.ts --pattern=**/*.js --ignore=**/*.test-d.ts src benchmark docs examples gulp`,
   { echo: false },
 )
