@@ -7,6 +7,14 @@ const { dependencies = {} } = JSON.parse(readFileSync('./package.json'))
 export default {
   presets: [
     [
+      '@babel/preset-typescript',
+      {
+        onlyRemoveTypeImports: true,
+        optimizeConstEnums: true,
+        allowDeclareFields: true,
+      },
+    ],
+    [
       '@babel/preset-env',
       {
         modules: false,
