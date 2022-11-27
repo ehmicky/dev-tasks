@@ -5,10 +5,7 @@ import { execa } from 'execa'
 import handleCliError from 'handle-cli-error'
 import { pathExists } from 'path-exists'
 
-// Generate the release notes automatically by reading the last entry in
-// CHANGELOG.md
-// Use `prettier` to remove line wrapping, since it looks odd in GitHub
-// releases.
+// Generate the release notes automatically.
 const runCli = async function () {
   try {
     await printChangelog()
@@ -30,15 +27,10 @@ const printChangelog = async function () {
     return
   }
 
-  await execa(
-    `cat CHANGELOG.md \
-      | tail -n+3 \
-      | sed -n '/^# [0-9]/q; p' \
-      | head -n-1 \
-      | prettier --stdin-filepath=CHANGELOG.md --prose-wrap=never`,
-    { shell: true, stdio: 'inherit' },
-  )
+  await printManualChangelog(contentsA)
 }
+
+const CHANGELOG_FILE = 'CHANGELOG.md'
 
 // If `CHANGELOG.md` is empty, use `git log` as a fallback
 const printAutoChangelog = async function () {
@@ -62,6 +54,16 @@ const printAutoChangelog = async function () {
   console.log(changelog)
 }
 
-const CHANGELOG_FILE = 'CHANGELOG.md'
+// If `CHANGELOG.md` is not empty, use its last entry.
+const printManualChangelog = async function (contents) {
+  await execa(
+    `cat CHANGELOG.md \
+      | tail -n+3 \
+      | sed -n '/^# [0-9]/q; p' \
+      | head -n-1 \
+      | prettier --stdin-filepath=CHANGELOG.md --prose-wrap=never`,
+    { shell: true, stdio: 'inherit' },
+  )
+}
 
 runCli()
