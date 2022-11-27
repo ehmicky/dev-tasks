@@ -12,22 +12,24 @@ const releaseItTask = async function (increment) {
 const RELEASE_IT_CONFIG = {
   ci: true,
   git: {
-    requireBranch: 'main',
-    // requireCommits: true,
     // eslint-disable-next-line no-template-curly-in-string
     commitMessage: 'v${version}',
+    // Generate the release notes automatically by reading the last entry in
+    // CHANGELOG.md
+    // Use `prettier` to remove line wrapping, since it looks odd in GitHub
+    // releases.
     changelog: `cat CHANGELOG.md \
       | tail -n+3 \
       | sed -n '/^# [0-9]/q; p' \
       | head -n-1 \
       | prettier --stdin-filepath=CHANGELOG.md --prose-wrap=never`,
-    requireCleanWorkingDir: false,
+    requireBranch: 'main',
+    requireCommits: true,
   },
   github: {
     release: true,
     // eslint-disable-next-line no-template-curly-in-string
     releaseName: 'v${version}',
-    // web: true,
   },
   npm: {
     // This cannot be used with `ci: true`
@@ -35,7 +37,7 @@ const RELEASE_IT_CONFIG = {
   },
 }
 
-const prereleaseTasks = [] // [checkVersions, testTask]
+const prereleaseTasks = [checkVersions, testTask]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
