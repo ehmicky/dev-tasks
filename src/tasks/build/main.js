@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import { relative } from 'node:path'
 
 import mapSources from '@gulp-sourcemaps/map-sources'
@@ -18,9 +19,11 @@ import {
   TYPESCRIPT_AMBIENT_EXT,
   TYPESCRIPT_AMBIENT_MAIN,
   TYPESCRIPT_TESTS_EXT,
+  TYPESCRIPT_CONFIG,
 } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
+// eslint-disable-next-line import/max-dependencies
 import babelConfig from './.babelrc.js'
 
 const SOURCES_GLOB = `{${NOT_BUILT_SOURCES.join(',')}}/**`
@@ -58,18 +61,49 @@ const babel = () =>
 
 const buildTypes = async function () {
   if (await pathExists(TYPESCRIPT_AMBIENT_MAIN)) {
-    await gulp
-      .src([`${SOURCES_GLOB}/*.${TYPESCRIPT_AMBIENT_EXT}`], {
-        since: gulp.lastRun(buildTypes),
-      })
-      .pipe(gulp.dest(BUILD))
+    await buildAmbientTypes()
     return
   }
 
   if (await pathExists(TYPESCRIPT_MAIN)) {
-    await exec(
-      `tsc --declaration --emitDeclarationOnly --declarationDir ${BUILT_MAIN_SOURCE}`,
-      { echo: false },
+    await buildFullTypes()
+  }
+}
+
+const buildAmbientTypes = async function () {
+  await gulp
+    .src([`${SOURCES_GLOB}/*.${TYPESCRIPT_AMBIENT_EXT}`], {
+      since: gulp.lastRun(buildTypes),
+    })
+    .pipe(gulp.dest(BUILD))
+}
+
+const buildFullTypes = async function () {
+  await validateTSConfig()
+  await exec(
+    `tsc --declaration --emitDeclarationOnly --declarationDir ${BUILT_MAIN_SOURCE}`,
+    { echo: false },
+  )
+}
+
+const validateTSConfig = async function () {
+  if (!(await pathExists(TYPESCRIPT_CONFIG))) {
+    throw new Error('Missing tsconfig.json.')
+  }
+
+  const tsConfigRaw = await readFile(TYPESCRIPT_CONFIG)
+  const tsConfig = JSON.parse(tsConfigRaw)
+  validateTSFiles(tsConfig)
+}
+
+const validateTSFiles = function ({ files }) {
+  if (
+    !Array.isArray(files) ||
+    files.length !== 1 ||
+    files[0] !== TYPESCRIPT_MAIN
+  ) {
+    throw new Error(
+      'tsconfig.json should include a "files": ["src/main.ts"] property.',
     )
   }
 }
