@@ -14,7 +14,10 @@ export default {
   workerThreads: false,
   // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
   // creates issues.
-  files: [`${BUILD_TEST}/**/*.js`, `!${BUILD_TEST}/helpers`],
+  files: [
+    `${BUILD_TEST}/**/*.js`,
+    `!${BUILD_TEST}/{helpers,fixtures,snapshots}/**`,
+  ],
   // Otherwise, if build watch is run as well, modifying source files trigger
   // tests twice
   ignoredByWatcher: [SRC],
