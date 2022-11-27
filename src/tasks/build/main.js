@@ -4,14 +4,17 @@ import mapSources from '@gulp-sourcemaps/map-sources'
 import { deleteAsync } from 'del'
 import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
+import { exec } from 'gulp-execa'
 import { pathExists } from 'path-exists'
 
 import {
-  BUILD_SOURCES,
+  NOT_BUILT_SOURCES,
   BUILD,
+  BUILT_MAIN_SOURCE,
   GENERATED_SOURCES_DIR,
   JAVASCRIPT_EXTS_STR,
   TYPESCRIPT_EXT,
+  TYPESCRIPT_MAIN,
   TYPESCRIPT_AMBIENT_EXT,
   TYPESCRIPT_AMBIENT_MAIN,
   TYPESCRIPT_TESTS_EXT,
@@ -20,7 +23,7 @@ import { getWatchTask } from '../../watch.js'
 
 import babelConfig from './.babelrc.js'
 
-const SOURCES_GLOB = `{${BUILD_SOURCES.join(',')}}/**`
+const SOURCES_GLOB = `{${NOT_BUILT_SOURCES.join(',')}}/**`
 const SOURCES_ONLY_GLOB = `${GENERATED_SOURCES_DIR}/**`
 
 // We remove files deeply but leave empty [sub]directories. Otherwise it creates
@@ -60,6 +63,14 @@ const buildTypes = async function () {
         since: gulp.lastRun(buildTypes),
       })
       .pipe(gulp.dest(BUILD))
+    return
+  }
+
+  if (await pathExists(TYPESCRIPT_MAIN)) {
+    await exec(
+      `tsc --declaration --emitDeclarationOnly --declarationDir ${BUILT_MAIN_SOURCE}`,
+      { echo: false },
+    )
   }
 }
 
@@ -69,5 +80,5 @@ export const build = gulp.series(clean, rebuild)
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build source files'
 
-const buildWatchTask = getWatchTask(BUILD_SOURCES, rebuild)
+const buildWatchTask = getWatchTask(NOT_BUILT_SOURCES, rebuild)
 export const buildWatch = gulp.series(build, buildWatchTask)

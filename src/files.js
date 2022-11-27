@@ -1,13 +1,21 @@
+const MAIN_SOURCE = 'src'
 // Generated files that should be considered like source files
-export const GENERATED_SOURCES_DIR = 'src/snapshots'
+export const GENERATED_SOURCES_DIR = `${MAIN_SOURCE}/snapshots`
 // Directories containing "sources" in the wide sense of the term
-export const SOURCES_DIRS = ['src', 'benchmark', 'docs', 'examples', 'gulp']
+export const SOURCES_DIRS = [
+  MAIN_SOURCE,
+  'benchmark',
+  'docs',
+  'examples',
+  'gulp',
+]
 // Any file in the top-level directory or inside source-like directories
 const ANY_SOURCE_FILE = `{,{${SOURCES_DIRS.join(',')}}/{,**/}}*`
 // Source directories to build
-export const BUILD_SOURCES = ['src', 'benchmark']
+export const NOT_BUILT_SOURCES = [MAIN_SOURCE, 'benchmark']
 // Build directory
 export const BUILD = 'build'
+export const BUILT_MAIN_SOURCE = `${BUILD}/${MAIN_SOURCE}`
 
 // Source files, per file type or category
 const JAVASCRIPT_EXTS = ['js', 'cjs', 'mjs']
@@ -22,11 +30,15 @@ export const JSON_YAML = [
 ]
 export const TYPESCRIPT_EXT = 'ts'
 export const TYPESCRIPT = `${ANY_SOURCE_FILE}.${TYPESCRIPT_EXT}`
+export const TYPESCRIPT_MAIN = `${MAIN_SOURCE}/main.${TYPESCRIPT_EXT}`
 export const TYPESCRIPT_AMBIENT_EXT = 'd.ts'
-export const TYPESCRIPT_AMBIENT_MAIN = `src/main.${TYPESCRIPT_AMBIENT_EXT}`
+export const TYPESCRIPT_AMBIENT_MAIN = `${MAIN_SOURCE}/main.${TYPESCRIPT_AMBIENT_EXT}`
 export const TYPESCRIPT_TESTS_EXT = `test-d.${TYPESCRIPT_EXT}`
-export const TYPESCRIPT_TESTS = `src/**/*.${TYPESCRIPT_TESTS_EXT}`
+export const TYPESCRIPT_TESTS = `${MAIN_SOURCE}/**/*.${TYPESCRIPT_TESTS_EXT}`
 export const TYPESCRIPT_CONFIG = 'tsconfig.json'
 // Those source files should not be linted nor prettified
-export const IGNORED_SOURCES = [`src/snapshots/**`, `src/fixtures/invalid*/**`]
+export const IGNORED_SOURCES = [
+  `${MAIN_SOURCE}/snapshots/**`,
+  `${MAIN_SOURCE}/fixtures/invalid*/**`,
+]
 export const DEPENDENCIES = ['package-lock.json']

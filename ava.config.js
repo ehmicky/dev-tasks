@@ -1,16 +1,19 @@
 // Ava requires configuration file to be a the repository's top-level
 import { fileURLToPath } from 'node:url'
 
-const SRC = 'src'
-const BUILD = 'build/src'
-const SNAPSHOT_DIR = `${SRC}/snapshots/`
+const MAIN_SOURCE = 'src'
+const BUILT_MAIN_SOURCE = 'build/src'
+const SNAPSHOT_DIR = `${MAIN_SOURCE}/snapshots/`
 // We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
 // creates issues
-const TEST_FILES = `${BUILD}/**/*.test.js`
-const NON_TEST_FILES = `${BUILD}/{helpers,fixtures}/**`
+const TEST_FILES = `${BUILT_MAIN_SOURCE}/**/*.test.js`
+const NON_TEST_FILES = `${BUILT_MAIN_SOURCE}/{helpers,fixtures}/**`
 
 const LOG_PROCESS_ERRORS = fileURLToPath(
-  new URL(`${BUILD}/tasks/unit/log_process_errors.js`, import.meta.url),
+  new URL(
+    `${BUILT_MAIN_SOURCE}/tasks/unit/log_process_errors.js`,
+    import.meta.url,
+  ),
 )
 
 export default {
@@ -21,7 +24,7 @@ export default {
   snapshotDir: SNAPSHOT_DIR,
   // Otherwise, if build watch is run as well, modifying source files trigger
   // tests twice
-  ignoredByWatcher: [SRC],
+  ignoredByWatcher: [MAIN_SOURCE],
   // Use `log-process-errors`
   require: [LOG_PROCESS_ERRORS],
   timeout: `3600s`,
