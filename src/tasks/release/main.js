@@ -15,7 +15,7 @@ const RELEASE_IT_CONFIG = {
     release: true,
   },
   npm: {
-    publish: false,
+    // publish: false,
   },
 }
 
