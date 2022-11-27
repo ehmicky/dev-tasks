@@ -3,10 +3,11 @@
 [![Mastodon](https://img.shields.io/badge/-Mastodon-808080.svg?logo=mastodon&colorA=404040&logoColor=9590F9)](https://fosstodon.org/@ehmicky)
 [![Medium](https://img.shields.io/badge/-Medium-808080.svg?logo=medium&colorA=404040)](https://medium.com/@ehmicky)
 
-Automated development tasks (linting, testing, building) used in my own
-projects.
+Automated development tasks (linting, testing, building) for JavaScript code
+(Node.js and/or browsers).
 
-This is not meant to be shared and semantic versioning is not followed.
+This is used in my own projects. This is not meant to be shared and semantic
+versioning is not followed.
 
 The task runner is [Gulp](https://gulpjs.com/), but you don't need to know Gulp
 to use these tasks.
