@@ -12,7 +12,7 @@ export const SOURCES_DIRS = [
 // Any file in the top-level directory or inside source-like directories
 const ANY_SOURCE_FILE = `{,{${SOURCES_DIRS.join(',')}}/{,**/}}*`
 // Source directories to build
-export const NOT_BUILT_SOURCES = [MAIN_SOURCE, 'benchmark']
+const NOT_BUILT_SOURCES = [MAIN_SOURCE, 'benchmark']
 export const SOURCES_GLOB = `{${NOT_BUILT_SOURCES.join(',')}}/**`
 
 // Build directory

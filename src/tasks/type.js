@@ -26,6 +26,6 @@ const isSelf = function () {
 type.description = 'Run TypeScript type tests'
 
 export const typeWatch = getWatchTask(
-  [TYPESCRIPT_AMBIENT_BUILT, TYPESCRIPT_CONFIG],
+  [TYPESCRIPT_AMBIENT_BUILT, TYPESCRIPT_TESTS, TYPESCRIPT_CONFIG],
   type,
 )

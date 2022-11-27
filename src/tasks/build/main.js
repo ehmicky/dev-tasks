@@ -1,7 +1,7 @@
 import { deleteAsync } from 'del'
 import gulp from 'gulp'
 
-import { NOT_BUILT_SOURCES, BUILD } from '../../files.js'
+import { SOURCES_GLOB, BUILD, TYPESCRIPT_TESTS } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
 import { babel } from './babel.js'
@@ -19,7 +19,10 @@ export const build = gulp.series(clean, rebuild)
 // eslint-disable-next-line fp/no-mutation
 build.description = 'Build source files'
 
-const buildWatchTask = getWatchTask(NOT_BUILT_SOURCES, rebuild)
+const buildWatchTask = getWatchTask(
+  [SOURCES_GLOB, `!${TYPESCRIPT_TESTS}`],
+  rebuild,
+)
 export const buildWatch = gulp.series(build, buildWatchTask)
 
 // eslint-disable-next-line fp/no-mutation
