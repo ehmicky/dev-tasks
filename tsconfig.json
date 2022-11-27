@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "module": "esnext",
+    "moduleResolution": "nodenext",
     "target": "esnext",
     "lib": ["esnext"],
     "strict": true,
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
-    "useUnknownInCatchVariables": true,
+    "forceConsistentCasingInFileNames": true,
+    "importsNotUsedAsValues": "error",
     "noEmit": true
   }
 }
