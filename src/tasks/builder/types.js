@@ -1,5 +1,3 @@
-import { readFile } from 'node:fs/promises'
-
 import gulp from 'gulp'
 import { exec } from 'gulp-execa'
 import { pathExists } from 'path-exists'
@@ -11,7 +9,6 @@ import {
   TYPESCRIPT_MAIN,
   TYPESCRIPT_AMBIENT_EXT,
   TYPESCRIPT_AMBIENT_MAIN,
-  TYPESCRIPT_CONFIG,
 } from '../../files.js'
 
 export const buildTypes = async function () {
@@ -30,34 +27,35 @@ const buildFullTypes = async function () {
     throw new Error('"src/main.d.ts" and "src/main.ts" must not both exist.')
   }
 
-  await validateTSConfig()
-  await exec(
-    `tsc --declaration --emitDeclarationOnly --declarationDir ${BUILT_MAIN_SOURCE}`,
-    { echo: false },
-  )
+  await exec(`tsc ${TSC_FLAGS}`, { echo: false })
 }
 
-const validateTSConfig = async function () {
-  if (!(await pathExists(TYPESCRIPT_CONFIG))) {
-    throw new Error('Missing tsconfig.json.')
-  }
+// This must be in sync with `tsconfig.json`.
+// We cannot use `tsconfig.json` since it is ignored when input files are passed
+// to `tsc`.
+// We cannot use the `files`/`include` properties in `tsconfig.json` because we
+// need to exclude `src/**/*.test-d.ts` from transpiling, while still applying
+// the `tsconfig.json` to them.
+const TSCONFIG_FLAGS = `
+--module nodenext \
+--moduleResolution nodenext \
+--target esnext \
+--lib esnext \
+--strict \
+--exactOptionalPropertyTypes \
+--noUncheckedIndexedAccess \
+--forceConsistentCasingInFileNames \
+--importsNotUsedAsValues error \
+--isolatedModules \
+`
 
-  const tsConfigRaw = await readFile(TYPESCRIPT_CONFIG)
-  const tsConfig = JSON.parse(tsConfigRaw)
-  validateTSFiles(tsConfig)
-}
-
-const validateTSFiles = function ({ files }) {
-  if (
-    !Array.isArray(files) ||
-    files.length !== 1 ||
-    files[0] !== TYPESCRIPT_MAIN
-  ) {
-    throw new Error(
-      'tsconfig.json should include a "files": ["src/main.ts"] property.',
-    )
-  }
-}
+const TSC_FLAGS = `\
+${TSCONFIG_FLAGS} \
+--declaration \
+--emitDeclarationOnly \
+--declarationDir ${BUILT_MAIN_SOURCE} \
+${TYPESCRIPT_MAIN}
+`.trim()
 
 const buildAmbientTypes = async function () {
   await gulp

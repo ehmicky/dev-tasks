@@ -1,4 +1,5 @@
 {
+  // When updating this file, `TSCONFIG_FLAGS` in `types.js` must be updated too
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
