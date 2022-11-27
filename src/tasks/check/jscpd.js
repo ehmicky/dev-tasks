@@ -4,7 +4,12 @@ import { exec } from 'gulp-execa'
 import pFilter from 'p-filter'
 import { pathExists } from 'path-exists'
 
-// import { JAVASCRIPT } from '../../files.js'
+import {
+  SOURCES_DIRS,
+  JAVASCRIPT_EXTS_STR,
+  TYPESCRIPT_EXT,
+  TYPESCRIPT_TESTS_EXT,
+} from '../../files.js'
 
 const JSCPD_CONFIG = fileURLToPath(new URL('.jscpd.json', import.meta.url))
 
@@ -13,19 +18,15 @@ const JSCPD_CONFIG = fileURLToPath(new URL('.jscpd.json', import.meta.url))
 // We cannot expand globbing patterns ourselves because it can hit the CLI
 // max length.
 export const jscpd = async function () {
-  const sourceDirs = await pFilter(
-    ['src', 'benchmark', 'docs', 'examples', 'gulp'],
-    pathExists,
-  )
+  const sourceDirs = await pFilter(SOURCES_DIRS, pathExists)
 
   if (sourceDirs.length === 0) {
     return
   }
 
+  const sourceDirsStr = sourceDirs.join(' ')
   await exec(
-    `jscpd --config=${JSCPD_CONFIG} --pattern=**/*.{js,ts} --ignore=**/*.test-d.ts ${sourceDirs.join(
-      ' ',
-    )}`,
+    `jscpd --config=${JSCPD_CONFIG} --pattern=**/*.{${JAVASCRIPT_EXTS_STR},${TYPESCRIPT_EXT}} --ignore=**/*.${TYPESCRIPT_TESTS_EXT} ${sourceDirsStr}`,
     { echo: false },
   )
 }
