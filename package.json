@@ -12,8 +12,8 @@
     "build/src/**/*.{js,json,sh}",
     "!build/src/**/*.test.js",
     "!build/src/{helpers,fixtures}",
-    "build/src/tasks/builder/browserslist",
     "ava.config.js",
+    "browserslist",
     "tsconfig.json"
   ],
   "scripts": {
