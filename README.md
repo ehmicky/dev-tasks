@@ -47,7 +47,7 @@ The main commands are:
   before running any code or unit tests.
 - [`gulp type`](#gulp-type): run TypeScript type tests.
 - [`gulp unit`](#gulp-unit): run unit tests.
-- [`gulp test`](#gulp-test): perform the three tasks above.
+- [`gulp test`](#gulp-test): perform all of the above tasks.
 
 Use `gulp checkWatch`, `gulp buildWatch`, `gulp typeWatch`, and `gulp unitWatch`
 to run them in watch mode.
