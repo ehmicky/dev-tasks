@@ -10,7 +10,14 @@ import { checkVersions } from './version.js'
 const CHANGELOG_SCRIPT = fileURLToPath(new URL('changelog.js', import.meta.url))
 
 const releaseItTask = async function (increment) {
-  await releaseIt({ ...RELEASE_IT_CONFIG, increment })
+  await releaseIt({
+    ...RELEASE_IT_CONFIG,
+    increment,
+    git: {
+      ...RELEASE_IT_CONFIG.git,
+      changelog: `node ${CHANGELOG_SCRIPT} ${increment}`,
+    },
+  })
 }
 
 const RELEASE_IT_CONFIG = {
@@ -18,7 +25,6 @@ const RELEASE_IT_CONFIG = {
   git: {
     // eslint-disable-next-line no-template-curly-in-string
     commitMessage: 'v${version}',
-    changelog: `node ${CHANGELOG_SCRIPT}`,
     requireBranch: 'main',
     // TODO: revert
     // requireCommits: true,

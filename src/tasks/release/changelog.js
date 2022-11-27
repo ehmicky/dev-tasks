@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { readFile } from 'node:fs/promises'
+import { argv } from 'node:process'
 
 import { execa } from 'execa'
 import handleCliError from 'handle-cli-error'
@@ -8,13 +9,14 @@ import { pathExists } from 'path-exists'
 // Generate the release notes automatically.
 const runCli = async function () {
   try {
-    await printChangelog()
+    const [, , increment] = argv
+    await printChangelog(increment)
   } catch (error) {
     handleCliError(error, { stack: false })
   }
 }
 
-const printChangelog = async function () {
+const printChangelog = async function (increment) {
   if (!(await pathExists(CHANGELOG_FILE))) {
     throw new Error(`Could not find ${CHANGELOG_FILE}.`)
   }
@@ -27,7 +29,7 @@ const printChangelog = async function () {
     return
   }
 
-  await printManualChangelog(contentsA)
+  await printManualChangelog(contentsA, increment)
 }
 
 const CHANGELOG_FILE = 'CHANGELOG.md'
@@ -55,7 +57,7 @@ const printAutoChangelog = async function () {
 }
 
 // If `CHANGELOG.md` is not empty, use its last entry.
-const printManualChangelog = async function (contents) {
+const printManualChangelog = async function (contents, increment) {
   await execa(
     `cat CHANGELOG.md \
       | tail -n+3 \
@@ -66,5 +68,4 @@ const printManualChangelog = async function (contents) {
   )
 }
 
-process.exit(1)
 runCli()
