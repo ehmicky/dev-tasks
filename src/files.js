@@ -1,7 +1,7 @@
-export const BUILD_SOURCES = ['src', 'test', 'types', 'benchmark']
+export const BUILD_SOURCES = ['src', 'test', 'benchmark']
 export const BUILD = 'build'
 
-const SRC_DIRS = ['src', 'types', 'benchmark', 'docs', 'examples', 'gulp']
+const SRC_DIRS = ['src', 'benchmark', 'docs', 'examples', 'gulp']
 const TEST_DIRS = ['test']
 const DIRS = [...SRC_DIRS, ...TEST_DIRS]
 // `test` snapshots should not be linted/prettified
