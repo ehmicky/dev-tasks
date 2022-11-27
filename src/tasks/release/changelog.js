@@ -66,4 +66,5 @@ const printManualChangelog = async function (contents) {
   )
 }
 
+process.exit(1)
 runCli()

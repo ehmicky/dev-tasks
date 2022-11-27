@@ -20,7 +20,9 @@ const RELEASE_IT_CONFIG = {
     commitMessage: 'v${version}',
     changelog: `node ${CHANGELOG_SCRIPT}`,
     requireBranch: 'main',
+    // TODO: revert
     // requireCommits: true,
+    // TODO: revert
     requireCleanWorkingDir: false,
   },
   github: {
@@ -34,7 +36,8 @@ const RELEASE_IT_CONFIG = {
   },
 }
 
-const prereleaseTasks = [checkVersions, testTask]
+// TODO: revert
+const prereleaseTasks = [] // [checkVersions, testTask]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
