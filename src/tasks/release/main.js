@@ -15,11 +15,13 @@ const RELEASE_IT_CONFIG = {
     requireBranch: 'main',
     // requireCommits: true,
     // eslint-disable-next-line no-template-curly-in-string
-    commitMessage: '${version}',
+    commitMessage: 'v${version}',
     requireCleanWorkingDir: false,
   },
   github: {
     release: true,
+    // eslint-disable-next-line no-template-curly-in-string
+    releaseName: 'v${version}',
   },
   npm: {
     // This cannot be used with `ci: true`
