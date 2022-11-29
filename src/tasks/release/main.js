@@ -15,7 +15,7 @@ const RELEASE_IT_CONFIG = {
     requireBranch: 'main',
     // requireCommits: true,
     // eslint-disable-next-line no-template-curly-in-string
-    commit: '${version}',
+    commitMessage: '${version}',
     requireCleanWorkingDir: false,
   },
   github: {
