@@ -23,7 +23,7 @@ const RELEASE_IT_CONFIG = {
     release: true,
     // eslint-disable-next-line no-template-curly-in-string
     releaseName: 'v${version}',
-    web: true,
+    // web: true,
   },
   npm: {
     // This cannot be used with `ci: true`
