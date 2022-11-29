@@ -20,7 +20,8 @@ const RELEASE_IT_CONFIG = {
     commitMessage: 'v${version}',
     changelog: `node ${CHANGELOG_SCRIPT}`,
     requireBranch: 'main',
-    requireCommits: true,
+    // requireCommits: true,
+    requireCleanWorkingDir: false,
   },
   github: {
     release: true,
