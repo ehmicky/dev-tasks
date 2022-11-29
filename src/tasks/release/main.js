@@ -10,11 +10,15 @@ const releaseItTask = async function (increment) {
 }
 
 const RELEASE_IT_CONFIG = {
-  ci: true,
+  // ci: true,
+  git: {
+    requireCleanWorkingDir: false,
+  },
   github: {
     release: true,
   },
   npm: {
+    publishArgs: ['--auth-type', 'legacy'],
     // publish: false,
   },
 }
