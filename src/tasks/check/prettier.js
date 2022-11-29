@@ -2,6 +2,7 @@ import config from '@ehmicky/eslint-config'
 import gulp from 'gulp'
 import gulpIf from 'gulp-if'
 import gulpPrettier from 'gulp-prettier'
+import { format } from 'prettier'
 
 import { JAVASCRIPT, MARKDOWN, JSON_YAML } from '../../files.js'
 import { bind } from '../../utils.js'
@@ -33,4 +34,9 @@ const isPrettified = function ({ isPrettier }) {
 
 const getBase = function ({ base }) {
   return base
+}
+
+// Prettier wraps `CHANGELOG.md`, but not GitHub release notes
+export const prettierReleaseNotes = function (contents) {
+  return format(contents, { ...config, parser: 'markdown', proseWrap: 'never' })
 }

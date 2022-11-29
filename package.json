@@ -1,6 +1,6 @@
 {
   "name": "@ehmicky/dev-tasks",
-  "version": "1.0.135",
+  "version": "1.0.136",
   "type": "module",
   "exports": {
     ".": "./build/src/main.js",
@@ -66,8 +66,10 @@
     "node-version-alias": "^3.4.0",
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.0",
+    "prettier": "^2.8.0",
     "release-it": "^15.5.0",
     "rename-fn": "^2.0.0",
+    "semver": "^7.3.8",
     "tsd": "^0.24.1"
   },
   "peerDependencies": {

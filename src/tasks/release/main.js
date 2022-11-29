@@ -7,7 +7,9 @@ import { testTask } from '../test.js'
 
 import { checkVersions } from './version.js'
 
-const CHANGELOG_SCRIPT = fileURLToPath(new URL('changelog.js', import.meta.url))
+const CHANGELOG_SCRIPT = fileURLToPath(
+  new URL('changelog/main.js', import.meta.url),
+)
 
 const releaseItTask = async function (increment) {
   await releaseIt({
