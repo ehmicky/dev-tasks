@@ -16,6 +16,7 @@ const RELEASE_IT_CONFIG = {
     // requireCommits: true,
     // eslint-disable-next-line no-template-curly-in-string
     commitMessage: 'v${version}',
+    changelog: 'cat CHANGELOG.md',
     requireCleanWorkingDir: false,
   },
   github: {
