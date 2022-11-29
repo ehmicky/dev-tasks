@@ -12,6 +12,7 @@ const releaseItTask = async function (increment) {
 const RELEASE_IT_CONFIG = {
   ci: true,
   git: {
+    requireBranch: 'main',
     requireCleanWorkingDir: false,
   },
   github: {
