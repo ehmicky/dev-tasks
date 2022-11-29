@@ -16,13 +16,14 @@ const RELEASE_IT_CONFIG = {
     // requireCommits: true,
     // eslint-disable-next-line no-template-curly-in-string
     commitMessage: 'v${version}',
-    changelog: 'cat CHANGELOG.md',
+    changelog: `cat CHANGELOG.md | tail -n+3 | sed -n '/^# [0-9]/q; p' | head -n-1 | prettier --stdin-filepath=CHANGELOG.md --prose-wrap=never`,
     requireCleanWorkingDir: false,
   },
   github: {
     release: true,
     // eslint-disable-next-line no-template-curly-in-string
     releaseName: 'v${version}',
+    web: true,
   },
   npm: {
     // This cannot be used with `ci: true`
