@@ -1,3 +1,10 @@
 # 1.0.0
 
-Test
+## Breaking changes
+
+test test test test test test test test test test test test test test test test
+test test test test test test test test test test test test test test test test
+
+## Features
+
+Test.
