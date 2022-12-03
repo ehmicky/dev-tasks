@@ -5,12 +5,7 @@ import { deleteAsync } from 'del'
 import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
 
-import {
-  BUILD_SOURCES,
-  BUILD,
-  GENERATED_SOURCES_DIR,
-  JAVASCRIPT_EXTS_STR,
-} from '../../files.js'
+import { BUILD_SOURCES, BUILD, GENERATED_SOURCES_DIR } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
 import babelConfig from './.babelrc.js'
@@ -28,7 +23,7 @@ const copy = () =>
     .src(
       [
         `${SOURCES_GLOB}/*[^~]`,
-        `!${SOURCES_GLOB}/*.${JAVASCRIPT_EXTS_STR}`,
+        `!${SOURCES_GLOB}/*.js`,
         `!${SOURCES_ONLY_GLOB}`,
       ],
       { dot: true, since: gulp.lastRun(copy) },
@@ -37,7 +32,7 @@ const copy = () =>
 
 const babel = () =>
   gulp
-    .src(`${SOURCES_GLOB}/*.${JAVASCRIPT_EXTS_STR}`, {
+    .src(`${SOURCES_GLOB}/*.js`, {
       dot: true,
       since: gulp.lastRun(babel),
       sourcemaps: true,
