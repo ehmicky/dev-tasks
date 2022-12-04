@@ -23,8 +23,8 @@
   "keywords": [
     "gulp",
     "gulpjs",
-    "gulp-tasks",
     "gulpfile",
+    "gulp-tasks",
     "babel",
     "eslint",
     "prettier",
