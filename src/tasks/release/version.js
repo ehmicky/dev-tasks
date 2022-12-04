@@ -1,7 +1,7 @@
 import { version } from 'node:process'
 
 import { execaCommand } from 'execa'
-import got from 'got'
+import { got } from 'got'
 import nodeVersionAlias from 'node-version-alias'
 import PluginError from 'plugin-error'
 

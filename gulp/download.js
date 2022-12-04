@@ -2,7 +2,7 @@ import { createWriteStream } from 'node:fs'
 import { pipeline } from 'node:stream'
 import { promisify } from 'node:util'
 
-import got from 'got'
+import { got } from 'got'
 
 // TODO: use `stream/promises` instead once dropping support for Node <15.0.0
 const pPipeline = promisify(pipeline)

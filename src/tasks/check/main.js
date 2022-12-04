@@ -2,6 +2,7 @@ import gulp from 'gulp'
 
 import {
   JAVASCRIPT,
+  TYPESCRIPT,
   MARKDOWN,
   JSON_YAML,
   IGNORED_SOURCES,
@@ -21,6 +22,7 @@ check.description = 'Lint/check source files'
 const checkWatchTask = getWatchTask(
   [
     JAVASCRIPT,
+    TYPESCRIPT,
     MARKDOWN,
     ...JSON_YAML,
     ...IGNORED_SOURCES.map((ignoredSource) => `!${ignoredSource}`),

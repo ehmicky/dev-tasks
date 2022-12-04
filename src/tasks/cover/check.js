@@ -1,6 +1,6 @@
 import { env } from 'node:process'
 
-import got from 'got'
+import { got } from 'got'
 import PluginError from 'plugin-error'
 
 import { shouldCover } from './utils.js'

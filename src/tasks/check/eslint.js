@@ -3,7 +3,12 @@ import gulpEslint from 'gulp-eslint'
 import { exec } from 'gulp-execa'
 import gulpIf from 'gulp-if'
 
-import { JAVASCRIPT, MARKDOWN, IGNORED_SOURCES } from '../../files.js'
+import {
+  JAVASCRIPT,
+  TYPESCRIPT,
+  MARKDOWN,
+  IGNORED_SOURCES,
+} from '../../files.js'
 import { bind } from '../../utils.js'
 
 // `gulp-eslint` does not support --cache
@@ -17,7 +22,7 @@ const eslint = async function (mode) {
   const fix = mode === 'strict' ? '' : '--fix '
   const verbose = mode !== 'silent'
 
-  const files = [JAVASCRIPT, MARKDOWN].join(' ')
+  const files = [JAVASCRIPT, TYPESCRIPT, MARKDOWN].join(' ')
   const ignoredSources = IGNORED_SOURCES.map(
     (ignoredSource) => `--ignore-pattern=${ignoredSource}`,
   ).join(' ')
@@ -38,7 +43,7 @@ export const eslintSilent = bind(eslint, 'silent')
 
 export const eslintWatch = function () {
   return gulp
-    .src([JAVASCRIPT, MARKDOWN, `!${IGNORED_SOURCES}`], {
+    .src([JAVASCRIPT, TYPESCRIPT, MARKDOWN, `!${IGNORED_SOURCES}`], {
       dot: true,
       since: gulp.lastRun(eslintWatch),
     })
