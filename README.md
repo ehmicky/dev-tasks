@@ -44,14 +44,14 @@ If you're on `cmd.exe` (Windows) use `npx gulp ...` instead.
 
 The main commands are:
 
-- [`gulp check`](#gulp-check): lint/format the JavaScript and TypeScript files.
 - [`gulp build`](#gulp-build): build source files and test files. Must be run
   before running any code or unit tests.
+- [`gulp check`](#gulp-check): lint/format the JavaScript and TypeScript files.
 - [`gulp type`](#gulp-type): run TypeScript type tests.
 - [`gulp unit`](#gulp-unit): run unit tests.
 - [`gulp test`](#gulp-test): perform all of the above tasks.
 
-Use `gulp checkWatch`, `gulp buildWatch`, `gulp typeWatch`, and `gulp unitWatch`
+Use `gulp buildWatch`, `gulp checkWatch`, `gulp typeWatch`, and `gulp unitWatch`
 to run them in watch mode.
 
 [GitHub actions](https://github.com/features/actions) ensures that:
@@ -60,17 +60,6 @@ to run them in watch mode.
 - all source files are covered by tests and follow the same coding style.
 
 # Available tasks
-
-## `gulp check`
-
-Lint and check source files:
-
-- format JavaScript and TypeScript files with [Prettier](https://prettier.io/).
-- lint and
-  [autofix](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
-  JavaScript and TypeScript files using [ESLint](https://eslint.org/) (see the
-  [coding style](https://github.com/ehmicky/eslint-config#coding-style)).
-- find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
 
 ## `gulp build`
 
@@ -83,7 +72,7 @@ Build source files and test files:
 Source files and test files are built from the `src` directory to the
 `build/src` directory.
 
-This must be done before running any code or unit tests.
+This must be done before linting or running any code or unit tests.
 
 To add TypeScript types, use either:
 
@@ -91,6 +80,17 @@ To add TypeScript types, use either:
   [`tsc --declaration`](https://www.typescriptlang.org/tsconfig#declaration).
 - JavaScript files (`*.js`) and ambient files (`*.d.ts`). Ambient files are
   copied as is.
+
+## `gulp check`
+
+Lint and check source files:
+
+- format JavaScript and TypeScript files with [Prettier](https://prettier.io/).
+- lint and
+  [autofix](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
+  JavaScript and TypeScript files using [ESLint](https://eslint.org/) (see the
+  [coding style](https://github.com/ehmicky/eslint-config#coding-style)).
+- find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
 
 ## `gulp type`
 
@@ -111,15 +111,15 @@ To target a single test file, use `ava build/test/file.test.js` not
 
 ## `gulp test`
 
-Runs [`gulp check`](#gulp-check) then [`gulp build`](#gulp-build) then
+Runs [`gulp build`](#gulp-build) then [`gulp check`](#gulp-check) then
 [`gulp type`](#gulp-type) and [`gulp unit`](#gulp-unit).
 
 This is performed on CI ([GitHub actions](https://github.com/features/actions))
 for each OS (Windows, Mac, Linux) and supported Node.js version.
 
-## `gulp checkWatch`, `gulp buildWatch`, `gulp typeWatch`, `gulp unitWatch`, `gulp warnWatch`
+## `gulp buildWatch`, `gulp checkWatch`, `gulp typeWatch`, `gulp unitWatch`, `gulp warnWatch`
 
-Like `gulp check`, `gulp build`, `gulp type`, `gulp unit` and `gulp warn` but in
+Like `gulp build`, `gulp check`, `gulp type`, `gulp unit` and `gulp warn` but in
 watch mode. The watch mode works even when installing/updating/uninstalling
 dependencies or changing the Gulp tasks themselves.
 
