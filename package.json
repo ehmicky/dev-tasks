@@ -58,7 +58,7 @@
     "got": "^12.5.3",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
-    "gulp-execa": "^4.3.0",
+    "gulp-execa": "^4.4.0",
     "gulp-if": "^3.0.0",
     "gulp-prettier": "^4.0.0",
     "handle-cli-error": "^3.1.0",
