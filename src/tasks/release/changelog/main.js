@@ -41,4 +41,4 @@ const printChangelog = async function (increment) {
 
 const CHANGELOG_FILE = 'CHANGELOG.md'
 
-runCli()
+await runCli()
