@@ -9,7 +9,7 @@ import { printAutoChangelog } from './auto.js'
 import { printManualChangelog } from './manual.js'
 
 // Generate the release notes automatically
-const runCli = async function () {
+const runCli = async () => {
   try {
     const [, , increment] = argv
     await printChangelog(increment)
@@ -23,7 +23,7 @@ const runCli = async function () {
   }
 }
 
-const printChangelog = async function (increment) {
+const printChangelog = async (increment) => {
   if (!(await pathExists(CHANGELOG_FILE))) {
     throw new TypeError(`Could not find ${CHANGELOG_FILE}.`)
   }

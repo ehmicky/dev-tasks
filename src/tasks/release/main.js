@@ -11,7 +11,7 @@ const CHANGELOG_SCRIPT = fileURLToPath(
   new URL('changelog/main.js', import.meta.url),
 )
 
-const releaseItTask = async function (increment) {
+const releaseItTask = async (increment) => {
   await releaseIt({
     ...RELEASE_IT_CONFIG,
     increment,

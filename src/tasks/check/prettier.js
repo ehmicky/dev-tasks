@@ -14,7 +14,7 @@ import {
 import { bind } from '../../utils.js'
 
 // TODO: use `--cache`. It does not work programmatically.
-const prettier = function (mode) {
+const prettier = (mode) => {
   const stream = gulp.src(
     [
       JAVASCRIPT,
@@ -43,15 +43,10 @@ export const prettierLoose = bind(prettier, 'loose')
 export const prettierStrict = bind(prettier, 'strict')
 export const prettierSilent = bind(prettier, 'silent')
 
-const isPrettified = function ({ isPrettier }) {
-  return isPrettier
-}
+const isPrettified = ({ isPrettier }) => isPrettier
 
-const getBase = function ({ base }) {
-  return base
-}
+const getBase = ({ base }) => base
 
 // Prettier wraps `CHANGELOG.md`, but not GitHub release notes
-export const prettierReleaseNotes = function (contents) {
-  return format(contents, { ...config, parser: 'markdown', proseWrap: 'never' })
-}
+export const prettierReleaseNotes = (contents) =>
+  format(contents, { ...config, parser: 'markdown', proseWrap: 'never' })

@@ -6,7 +6,7 @@ import { inc } from 'semver'
 import { prettierReleaseNotes } from '../../check/prettier.js'
 
 // If `CHANGELOG.md` is not empty, use its last entry
-export const printManualChangelog = async function (contents, increment) {
+export const printManualChangelog = async (contents, increment) => {
   const lines = contents.split('\n')
   await checkFirstLine(lines, increment)
   const linesA = excludePreviousVersions(lines)
@@ -17,7 +17,7 @@ export const printManualChangelog = async function (contents, increment) {
 }
 
 // Ensure the changelog includes the new release's changes
-const checkFirstLine = async function (lines, increment) {
+const checkFirstLine = async (lines, increment) => {
   const currentVersion = await getCurrentVersion()
   const newVersion = getNewVersion(currentVersion, increment)
   const firstVersion = parseVersionLine(lines[0])
@@ -32,7 +32,7 @@ const checkFirstLine = async function (lines, increment) {
 }
 
 // Find the version before the release
-const getCurrentVersion = async function () {
+const getCurrentVersion = async () => {
   if (!(await pathExists(PACKAGE_JSON))) {
     throw new TypeError(`Missing ${PACKAGE_JSON}.`)
   }
@@ -45,7 +45,7 @@ const getCurrentVersion = async function () {
 const PACKAGE_JSON = 'package.json'
 
 // Find the version after the release
-const getNewVersion = function (currentVersion, increment) {
+const getNewVersion = (currentVersion, increment) => {
   if (!VALID_INCREMENTS.has(increment)) {
     throw new TypeError(`Invalid increment parameter: ${increment}`)
   }
@@ -56,17 +56,15 @@ const getNewVersion = function (currentVersion, increment) {
 const VALID_INCREMENTS = new Set(['major', 'minor', 'patch'])
 
 // Do not include previous releases in the changelog
-const excludePreviousVersions = function (lines) {
+const excludePreviousVersions = (lines) => {
   const linesA = lines.slice(2)
   const nextVersionIndex = linesA.findIndex(isVersionLine)
   return nextVersionIndex === -1 ? linesA : linesA.slice(0, nextVersionIndex)
 }
 
-const isVersionLine = function (line) {
-  return parseVersionLine(line) !== undefined
-}
+const isVersionLine = (line) => parseVersionLine(line) !== undefined
 
-const parseVersionLine = function (line) {
+const parseVersionLine = (line) => {
   const result = VERSION_LINE_REGEXP.exec(line)
   return result === null ? undefined : result[1]
 }

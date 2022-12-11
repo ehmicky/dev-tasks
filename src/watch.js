@@ -8,7 +8,7 @@ import renameFn from 'rename-fn'
 //  - wait for watching to be initialized before resolving the task.
 //  - automatically add a task name.
 //  - automatically add a task description.
-export const getWatchTask = function (files, firstArg, secondArg) {
+export const getWatchTask = (files, firstArg, secondArg) => {
   const [watchOptions, task] = parseOptions(firstArg, secondArg)
 
   const watchTask = startWatch.bind(undefined, files, watchOptions, task)
@@ -22,7 +22,7 @@ export const getWatchTask = function (files, firstArg, secondArg) {
 // We use the same signature as `gulp.watch()`.
 // `gulp.watch()` allow both `watchOptions` and `task` to be optional.
 // We need to normalize this before adding default options.
-const parseOptions = function (firstArg, secondArg) {
+const parseOptions = (firstArg, secondArg) => {
   if (typeof firstArg !== 'object' || firstArg === null) {
     return [DEFAULT_WATCH_OPTIONS, firstArg]
   }
@@ -32,7 +32,7 @@ const parseOptions = function (firstArg, secondArg) {
 
 const DEFAULT_WATCH_OPTIONS = { ignoreInitial: false }
 
-const startWatch = function (files, watchOptions, task) {
+const startWatch = (files, watchOptions, task) => {
   // We do not return `watcher` because we want the task to complete once
   // watching is setup.
   gulp.watch(files, watchOptions, task)
@@ -47,12 +47,12 @@ const startWatch = function (files, watchOptions, task) {
 // Add `function.name` by re-using the watched task's name.
 // This is used by Gulp when displaying the task, except when it has been
 // assigned as a top-level task.
-const addName = function (watchTask, task) {
+const addName = (watchTask, task) => {
   const name = getName(task)
   renameFn(watchTask, name)
 }
 
-const getName = function (task) {
+const getName = (task) => {
   if (typeof task !== 'function' || INVALID_NAMES.has(task.name)) {
     return 'watch'
   }
@@ -63,7 +63,7 @@ const getName = function (task) {
 const INVALID_NAMES = new Set(['', 'parallel', 'series', 'watch'])
 
 // Add Gulp `task.description` by re-using the watched task's description
-const addDescription = function (watchTask, task) {
+const addDescription = (watchTask, task) => {
   if (typeof task !== 'function' || typeof task.description !== 'string') {
     return
   }

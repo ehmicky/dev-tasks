@@ -2,7 +2,7 @@ import { execa } from 'execa'
 import { valid } from 'semver'
 
 // If `CHANGELOG.md` is empty, use `git log` as a fallback
-export const printAutoChangelog = async function () {
+export const printAutoChangelog = async () => {
   const { stdout: lastTag } = await execa('git', ['describe', '--abbrev=0'])
 
   if (valid(lastTag) === null) {

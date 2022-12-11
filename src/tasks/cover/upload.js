@@ -10,7 +10,7 @@ const CODECOV_SCRIPT = fileURLToPath(new URL('codecov.sh', import.meta.url))
 const COVERAGE_PATH = 'coverage/coverage-final.json'
 
 // Upload test coverage to codecov
-export const uploadCoverage = async function () {
+export const uploadCoverage = async () => {
   if (!(await shouldCover())) {
     return
   }
@@ -22,7 +22,7 @@ export const uploadCoverage = async function () {
 }
 
 // Tag test coverage with OS and Node.js version
-const getCoverageTags = function () {
+const getCoverageTags = () => {
   const os = PLATFORMS[platform]
   // `codecov` only allows restricted characters
   const nodeVersion = `node_${version.replace(/\./gu, '_')}`
@@ -35,6 +35,4 @@ const PLATFORMS = {
   win32: 'windows',
 }
 
-const getCoverageTag = function (tag) {
-  return `-F ${tag}`
-}
+const getCoverageTag = (tag) => `-F ${tag}`

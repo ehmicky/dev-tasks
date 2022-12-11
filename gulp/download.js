@@ -16,7 +16,7 @@ const CODECOV_URL = 'https://codecov.io/bash'
 // run this Gulp task instead anytime the script has a new version.
 // Done in streaming mode for best performance.
 
-export const download = async function () {
+export const download = async () => {
   const response = await got.stream(CODECOV_URL)
   const stream = createWriteStream(CODECOV_DIST)
   await pPipeline(response, stream)

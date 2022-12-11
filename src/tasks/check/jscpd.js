@@ -17,7 +17,7 @@ const JSCPD_CONFIG = fileURLToPath(new URL('.jscpd.json', import.meta.url))
 // is cross-files.
 // We cannot expand globbing patterns ourselves because it can hit the CLI
 // max length.
-export const jscpd = async function () {
+export const jscpd = async () => {
   const sourceDirs = await pFilter(SOURCES_DIRS, pathExists)
 
   if (sourceDirs.length === 0) {

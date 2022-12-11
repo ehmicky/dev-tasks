@@ -9,7 +9,7 @@ const { GITHUB_REPOSITORY, GITHUB_SHA } = env
 
 // In CI, once each environment has sent their test coverage maps, we check that
 // when merging them we are above the minimum threshold
-export const checkCoverage = async function () {
+export const checkCoverage = async () => {
   if (!(await shouldCover())) {
     return
   }
@@ -27,7 +27,7 @@ export const checkCoverage = async function () {
   )
 }
 
-const getCoverage = async function () {
+const getCoverage = async () => {
   const codecovUrl = getCodecovUrl()
   const {
     commit: { totals },
@@ -52,8 +52,7 @@ const getCoverage = async function () {
 const CODECOV_TIMEOUT = 6e4
 const CODECOV_RETRY = 10
 
-const getCodecovUrl = function () {
-  return `https://codecov.io/api/gh/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}`
-}
+const getCodecovUrl = () =>
+  `https://codecov.io/api/gh/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}`
 
 const COVERAGE_THRESHOLD = 100

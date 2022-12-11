@@ -18,7 +18,7 @@ import { prettierLoose, prettierStrict, prettierSilent } from './prettier.js'
 //  - `full`: run before `git push`. Autofixable errors are fixed but emit
 //    errors.
 //  - `strict`: run in CI. Autofixable errors are not fixed and emit errors.
-export const lint = function () {
+export const lint = () => {
   if (argv.slice(2).some(isFullArg)) {
     return lintFull
   }
@@ -31,11 +31,9 @@ export const lint = function () {
 }
 
 // `gulp check --full` is run before `git push`
-const isFullArg = function (arg) {
-  return arg === '--full'
-}
+const isFullArg = (arg) => arg === '--full'
 
-const lintFull = async function () {
+const lintFull = async () => {
   try {
     await promisify(lintStrict)()
   } catch (error) {
@@ -45,7 +43,7 @@ const lintFull = async function () {
 
 // If linting fails, we run it again but in `silent` mode, i.e. it will
 // autofix what can be but silently.
-const handleLintError = async function (error) {
+const handleLintError = async (error) => {
   try {
     await promisify(lintSilent)()
   } catch {}

@@ -6,7 +6,7 @@ import isCi from 'is-ci'
 // Test coverage can also be opted out by not including the Codecov badge in
 // README, for example when there is no source code
 // (e.g. `@ehmicky/eslint-config`).
-export const shouldCover = async function () {
+export const shouldCover = async () => {
   if (!isCi) {
     return false
   }

@@ -11,7 +11,7 @@ import {
   TYPESCRIPT_AMBIENT_MAIN,
 } from '../../files.js'
 
-export const buildTypes = async function () {
+export const buildTypes = async () => {
   if (await pathExists(TYPESCRIPT_MAIN)) {
     await buildFullTypes()
     return
@@ -22,7 +22,7 @@ export const buildTypes = async function () {
   }
 }
 
-const buildFullTypes = async function () {
+const buildFullTypes = async () => {
   if (await pathExists(TYPESCRIPT_AMBIENT_MAIN)) {
     throw new Error('"src/main.d.ts" and "src/main.ts" must not both exist.')
   }
@@ -57,7 +57,7 @@ ${TSCONFIG_FLAGS} \
 ${TYPESCRIPT_MAIN}
 `.trim()
 
-const buildAmbientTypes = async function () {
+const buildAmbientTypes = async () => {
   await gulp
     .src([`${SOURCES_GLOB}/*.${TYPESCRIPT_AMBIENT_EXT}`], {
       since: gulp.lastRun(buildTypes),

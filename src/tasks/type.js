@@ -10,7 +10,7 @@ import {
 } from '../files.js'
 import { getWatchTask } from '../watch.js'
 
-export const type = async function () {
+export const type = async () => {
   if (!(await pathExists('tsconfig.json')) || isSelf()) {
     return
   }
@@ -18,9 +18,7 @@ export const type = async function () {
   await exec(`tsd --files ${TYPESCRIPT_TESTS}`, { echo: false })
 }
 
-const isSelf = function () {
-  return cwd().includes('dev-tasks')
-}
+const isSelf = () => cwd().includes('dev-tasks')
 
 // eslint-disable-next-line fp/no-mutation
 type.description = 'Run TypeScript type tests'
