@@ -9,6 +9,9 @@
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
+    // TODO: uncomment then remove importsNotUsedAsValues when upgrading to
+    // TypeScript 5.0
+    // "verbatimModuleSyntax": true,
     "importsNotUsedAsValues": "error",
     "isolatedModules": true
   }
