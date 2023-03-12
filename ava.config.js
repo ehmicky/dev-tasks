@@ -4,8 +4,6 @@ import { fileURLToPath } from 'node:url'
 const MAIN_SOURCE = 'src'
 const BUILT_MAIN_SOURCE = 'build/src'
 const SNAPSHOT_DIR = `${MAIN_SOURCE}/snapshots/`
-// We watch only for `*.js` files, otherwise `*.js.map` gets watched and it
-// creates issues
 const TEST_FILES = `${BUILT_MAIN_SOURCE}/**/*.test.js`
 const NON_TEST_FILES = `${BUILT_MAIN_SOURCE}/{helpers,fixtures}/**`
 
