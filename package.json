@@ -5,7 +5,8 @@
   "exports": {
     ".": "./build/src/main.js",
     "./register.js": "./build/src/tasks/builder/register.js",
-    "./ava.config.js": "./ava.config.js"
+    "./ava.config.js": "./ava.config.js",
+    "./tsconfig.json": "./tsconfig.json"
   },
   "main": "./build/src/main.js",
   "files": [
