@@ -46,7 +46,6 @@ const TSCONFIG_FLAGS = `
 --noUncheckedIndexedAccess \
 --forceConsistentCasingInFileNames \
 --verbatimModuleSyntax \
---isolatedModules \
 `
 
 const TSC_FLAGS = `\
