@@ -74,7 +74,7 @@
     "rename-fn": "^2.1.0",
     "semver": "^7.3.8",
     "tsd": "^0.27.0",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   },
   "peerDependencies": {
     "ava": "^5.2.0",
