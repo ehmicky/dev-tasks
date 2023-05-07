@@ -60,7 +60,7 @@
     "gulp-execa": "^5.0.0",
     "gulp-if": "^3.0.0",
     "gulp-prettier": "^4.0.0",
-    "handle-cli-error": "^4.0.1",
+    "handle-cli-error": "^4.0.2",
     "is-ci": "^3.0.1",
     "jscpd": "^3.5.9",
     "keep-func-props": "^6.0.0",
