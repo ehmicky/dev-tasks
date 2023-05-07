@@ -15,7 +15,7 @@ export const type = async () => {
     return
   }
 
-  await exec(`tsd --files ${TYPESCRIPT_TESTS}`, { echo: false })
+  await exec(`tsd --show-diff --files ${TYPESCRIPT_TESTS}`, { echo: false })
 }
 
 const isSelf = () => cwd().includes('dev-tasks')
