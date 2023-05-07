@@ -25,7 +25,7 @@ export const uploadCoverage = async () => {
 const getCoverageTags = () => {
   const os = PLATFORMS[platform]
   // `codecov` only allows restricted characters
-  const nodeVersion = `node_${version.replace(/\./gu, '_')}`
+  const nodeVersion = `node_${version.replaceAll('.', '_')}`
   return [os, nodeVersion].map(getCoverageTag).join(' ')
 }
 
