@@ -23,8 +23,8 @@
   "description": "Automated development tasks for my own projects",
   "keywords": [
     "gulp",
-    "gulpjs",
     "gulpfile",
+    "gulpjs",
     "gulp-tasks",
     "babel",
     "eslint",
