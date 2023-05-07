@@ -64,7 +64,7 @@
     "is-ci": "^3.0.1",
     "jscpd": "^3.5.9",
     "keep-func-props": "^6.0.0",
-    "log-process-errors": "^10.2.0",
+    "log-process-errors": "^11.0.0",
     "node-version-alias": "^4.0.0",
     "p-filter": "^3.0.0",
     "path-exists": "^5.0.0",
