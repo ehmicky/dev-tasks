@@ -1,11 +1,7 @@
 import { createWriteStream } from 'node:fs'
-import { pipeline } from 'node:stream'
-import { promisify } from 'node:util'
+import { pipeline } from 'node:stream/promises'
 
 import { got } from 'got'
-
-// TODO: use `stream/promises` instead once dropping support for Node <15.0.0
-const pPipeline = promisify(pipeline)
 
 const CODECOV_DIST = new URL('../src/tasks/cover/codecov.sh', import.meta.url)
 const CODECOV_URL = 'https://codecov.io/bash'
@@ -19,7 +15,7 @@ const CODECOV_URL = 'https://codecov.io/bash'
 export const download = async () => {
   const response = await got.stream(CODECOV_URL)
   const stream = createWriteStream(CODECOV_DIST)
-  await pPipeline(response, stream)
+  await pipeline(response, stream)
 }
 
 download.description = 'Download latest codecov upload script'
