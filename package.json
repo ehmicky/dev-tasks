@@ -77,7 +77,7 @@
     "typescript": "^5.0.2"
   },
   "peerDependencies": {
-    "ava": "^5.2.0",
+    "ava": "^5.3.1",
     "gulp": "^4.0.2"
   },
   "engines": {
