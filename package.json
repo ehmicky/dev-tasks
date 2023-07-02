@@ -47,7 +47,7 @@
     "lib": "src"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.22.6",
+    "@babel/preset-env": "^7.22.7",
     "@babel/preset-typescript": "^7.22.5",
     "@babel/register": "^7.22.5",
     "@ehmicky/eslint-config": "^18.0.34",
