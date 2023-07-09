@@ -48,5 +48,5 @@ const isPrettified = ({ isPrettier }) => isPrettier
 const getBase = ({ base }) => base
 
 // Prettier wraps `CHANGELOG.md`, but not GitHub release notes
-export const prettierReleaseNotes = (contents) =>
-  format(contents, { ...config, parser: 'markdown', proseWrap: 'never' })
+export const prettierReleaseNotes = async (contents) =>
+  await format(contents, { ...config, parser: 'markdown', proseWrap: 'never' })

@@ -11,7 +11,7 @@ export const printManualChangelog = async (contents, increment) => {
   await checkFirstLine(lines, increment)
   const linesA = excludePreviousVersions(lines)
   const contentsA = linesA.join('\n')
-  const changelog = prettierReleaseNotes(contentsA)
+  const changelog = await prettierReleaseNotes(contentsA)
   // eslint-disable-next-line no-console, no-restricted-globals
   console.log(changelog.trim())
 }
