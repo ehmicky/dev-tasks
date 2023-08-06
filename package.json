@@ -38,7 +38,10 @@
   ],
   "license": "Apache-2.0",
   "homepage": "https://www.github.com/ehmicky/dev-tasks",
-  "repository": "ehmicky/dev-tasks",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehmicky/dev-tasks.git"
+  },
   "bugs": {
     "url": "https://github.com/ehmicky/dev-tasks/issues"
   },
