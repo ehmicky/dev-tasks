@@ -76,7 +76,7 @@
     "release-it": "^16.1.5",
     "rename-fn": "^2.1.0",
     "semver": "^7.5.4",
-    "tsd": "^0.28.1",
+    "tsd": "^0.29.0",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
