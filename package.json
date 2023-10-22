@@ -68,7 +68,7 @@
     "jscpd": "^3.5.10",
     "keep-func-props": "^6.0.0",
     "log-process-errors": "^11.0.1",
-    "node-version-alias": "^4.1.0",
+    "node-version-alias": "^5.0.0",
     "p-filter": "^3.0.0",
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.1",
