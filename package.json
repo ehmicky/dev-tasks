@@ -73,7 +73,7 @@
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.1",
     "prettier": "^3.0.3",
-    "release-it": "^16.1.5",
+    "release-it": "^16.2.1",
     "rename-fn": "^2.1.0",
     "semver": "^7.5.4",
     "tsd": "^0.29.0",
