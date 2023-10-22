@@ -63,7 +63,7 @@
     "gulp-execa": "^5.0.1",
     "gulp-if": "^3.0.0",
     "gulp-prettier": "^5.0.0",
-    "handle-cli-error": "^4.0.2",
+    "handle-cli-error": "^5.0.0",
     "is-ci": "^3.0.1",
     "jscpd": "^3.5.10",
     "keep-func-props": "^6.0.0",
