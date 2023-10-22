@@ -1,7 +1,7 @@
 # We support the following platforms.
 
 # Node.js: the oldest version still officially supported
-node 18.18.0
+node 18.16.0
 
 # Safari: the oldest version still used by enough users
 safari 15.6
