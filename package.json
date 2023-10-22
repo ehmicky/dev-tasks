@@ -53,7 +53,7 @@
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-typescript": "^7.23.2",
     "@babel/register": "^7.22.15",
-    "@ehmicky/eslint-config": "^18.0.44",
+    "@ehmicky/eslint-config": "^18.0.45",
     "c8": "^8.0.1",
     "del": "^7.1.0",
     "execa": "^8.0.1",
