@@ -9,7 +9,12 @@ const loadLogProcessErrors = () => {
   }
 
   logProcessErrors({
-    onError: (error) => {
+    onError: (error, event) => {
+      // TODO: remove once this is fixed: https://github.com/release-it/release-it/issues/1051
+      if (event === 'warning' && error.message.includes('punycode')) {
+        return
+      }
+
       throw error
     },
   })
