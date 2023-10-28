@@ -15,7 +15,7 @@ jobs:
         node: [21]
         include:
           - os: ubuntu-latest
-            node: 16.17.0
+            node: 18.18.0
       fail-fast: false
     runs-on: ${{ matrix.os }}
     # We do not use @actions/cache because restoring/saving cache currently
