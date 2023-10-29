@@ -66,7 +66,7 @@
     "handle-cli-error": "^5.0.0",
     "is-ci": "^3.0.1",
     "jscpd": "^3.5.10",
-    "keep-func-props": "^7.0.0",
+    "keep-func-props": "^7.1.0",
     "log-process-errors": "^12.0.0",
     "node-version-alias": "^5.0.0",
     "p-filter": "^3.0.0",
