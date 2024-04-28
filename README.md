@@ -152,16 +152,9 @@ Release a new patch/minor/major version on npm and GitHub using
 
 Only the repository owner can perform these tasks.
 
-## `gulp uploadCoverage`
+## `gulp unitCoverage`
 
-In CI ([GitHub actions](https://github.com/features/actions)), upload test
-coverage (produced by `c8 ava`) to [codecov](https://codecov.io/).
-
-## `gulp checkCoverage`
-
-Ensures that files are fully covered by tests using
-[c8](https://github.com/bcoe/c8). This is meant to be performed on CI
-([GitHub actions](https://github.com/features/actions)).
+Like `gulp unit` but also compute test coverage.
 
 # Custom tasks
 

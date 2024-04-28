@@ -1,8 +1,10 @@
 name: Build
 on: workflow_call
+env:
+  codecov_token: ${{ secrets.CODECOV_TOKEN }}
 jobs:
   combinations:
-    name: ${{ matrix.os }}, Node.js ${{matrix.node}}
+    name: ${{ matrix.os }}, Node.js ${{ matrix.node }}
     # git push --tags does not create any commits so should not trigger a new
     # workflow. There are no ways to skip workflows, so we skip jobs instead
     if: toJson(github.event.commits) != '[]'
@@ -11,19 +13,19 @@ jobs:
       # Also test on Linux with older Node.js versions.
       # We do not run each possible combination to make CI faster.
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu, macOS, windows]
         node: [22]
         include:
-          - os: ubuntu-latest
+          - os: ubuntu
             node: 18.18.0
       fail-fast: false
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     # We do not use @actions/cache because restoring/saving cache currently
     # takes more time than the time saved on `npm ci`
     steps:
       - name: Git checkout
         uses: actions/checkout@v4
-      - name: Node.js ${{ matrix.node }}
+      - name: Install Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
@@ -32,11 +34,21 @@ jobs:
         run: npm ci
       - name: Build
         run: npx gulp build
-      - name: Linting
+      - name: Lint
         run: npx gulp check
-      - name: Types
+      - name: Check types
         run: npx gulp type
-      - name: Tests
+      - name: Test
+        if: ${{ env.codecov_token == '' }}
         run: npx gulp unit
+      # If the CODECOV_TOKEN secret is set, perform test coverage
+      - name: Test and coverage
+        if: ${{ env.codecov_token != '' }}
+        run: npx gulp unitCoverage
       - name: Upload test coverage
-        run: npx gulp uploadCoverage
+        if: ${{ env.codecov_token != '' }}
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ env.codecov_token }}
+          flags: '${{ matrix.os }}, node-${{ matrix.node }}'
+          verbose: true

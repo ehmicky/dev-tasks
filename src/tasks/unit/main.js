@@ -1,22 +1,22 @@
 import { exec } from 'gulp-execa'
 
-import { getC8 } from '../cover/c8.js'
-
-// Run `ava` and `c8`
 // To pass arguments to `ava`, one should use `ava` directly instead of the
 // Gulp task.
-const runAva = async (args, options) => {
-  const c8 = await getC8()
-  await exec(`${c8}ava${args}`, options)
-}
-
-export const unit = () => runAva('', {})
+export const unit = () => exec('ava')
 
 // eslint-disable-next-line fp/no-mutation
 unit.description = 'Run unit tests'
 
 // Ava watch mode is better than using `gulp.watch()`
-export const unitWatch = () => runAva(' -w', { stdin: 'inherit' })
+export const unitWatch = () => exec('ava -w', { stdin: 'inherit' })
 
 // eslint-disable-next-line fp/no-mutation
 unitWatch.description = 'Run unit tests (watch mode)'
+
+const c8Command =
+  'c8 --reporter=lcov --reporter=text --reporter=html --reporter=json'
+
+export const unitCoverage = () => exec(`${c8Command} ava`)
+
+// eslint-disable-next-line fp/no-mutation
+unitCoverage.description = 'Run unit tests and compute test coverage'

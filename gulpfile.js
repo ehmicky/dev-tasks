@@ -5,4 +5,3 @@
 import './src/tasks/builder/register.js'
 
 export * from './src/main.js'
-export { download } from './gulp/download.js'
