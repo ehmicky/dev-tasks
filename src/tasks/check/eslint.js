@@ -20,7 +20,7 @@ import { bind } from '../../utils.js'
 //   - `eslintWatch` task is faster when running in watch mode
 const eslint = async (mode) => {
   const fix = mode === 'strict' ? '' : '--fix '
-  const verbose = mode !== 'silent'
+  const debug = mode !== 'silent'
 
   const files = [JAVASCRIPT, TYPESCRIPT, MARKDOWN].join(' ')
   const ignoredSources = IGNORED_SOURCES.map(
@@ -33,7 +33,7 @@ const eslint = async (mode) => {
   // to use `import.meta.resolve()` to load the ESLint config.
   await exec(
     `eslint ${files} --ignore-path=.gitignore ${ignoredSources} ${fix}--cache --format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
-    { verbose, echo: false },
+    { debug, echo: false },
   )
 }
 

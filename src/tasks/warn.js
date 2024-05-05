@@ -7,13 +7,13 @@ import { getWatchTask } from '../watch.js'
 const audit = async () => {
   // Older `npm` versions do not have this command
   try {
-    await exec('npm audit -h', { verbose: false })
+    await exec('npm audit -h', { debug: false })
   } catch {
     return
   }
 
   try {
-    await exec('npm audit --color=always', { verbose: false, all: true })
+    await exec('npm audit --color=always', { debug: false, all: true })
   } catch (error) {
     // Only print `npm audit` output if it failed.
     // eslint-disable-next-line no-console, no-restricted-globals
