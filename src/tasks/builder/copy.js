@@ -17,6 +17,6 @@ export const copy = () =>
         `!${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR},${TYPESCRIPT_EXT}}`,
         `!${SOURCES_ONLY_GLOB}`,
       ],
-      { dot: true, since: gulp.lastRun(copy) },
+      { dot: true, since: gulp.lastRun(copy), resolveSymlinks: false },
     )
     .pipe(gulp.dest(BUILD))
