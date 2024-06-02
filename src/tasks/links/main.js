@@ -1,5 +1,4 @@
 import { exec } from 'gulp-execa'
-import isCi from 'is-ci'
 
 import { DOCKER_COMMAND } from './docker.js'
 import { getExcludedFiles } from './exclude.js'
@@ -11,8 +10,7 @@ export const links = async () => {
   await exec(
     [
       ...DOCKER_COMMAND,
-      '--include-fragments',
-      ...getFormatFlags(),
+      ...MAIN_FLAGS,
       ...getIncludedFiles(),
       ...getExcludedFiles(),
       ...getExcludedLinks(),
@@ -22,5 +20,9 @@ export const links = async () => {
   )
 }
 
-const getFormatFlags = () =>
-  isCi ? ['--verbose', '--format=detailed', '--no-progress'] : []
+const MAIN_FLAGS = [
+  '--include-fragments',
+  '--verbose',
+  '--format=detailed',
+  '--no-progress',
+]
