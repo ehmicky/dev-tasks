@@ -25,6 +25,8 @@ const EXCLUDED_LINKS = [
   'cat.com',
   'dog.com',
   'koala.com',
+  // Used in examples
+  'my-project',
 ]
 
 const addExcludeLinkFlag = (excludedLink) => `--exclude=${excludedLink}`
