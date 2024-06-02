@@ -12,6 +12,9 @@ versioning is not followed.
 The task runner is [Gulp](https://gulpjs.com/), but you don't need to know Gulp
 to use these tasks.
 
+Also, Docker must be installed globally and executable by the current user
+without `sudo`.
+
 # Hire me
 
 Please
@@ -27,10 +30,10 @@ Code is compiled from the `src` to the `build` directory using
 [Babel](https://babeljs.io/), so you can use the latest JavaScript features.
 
 Linting and formatting are performed with [ESLint](https://eslint.org/),
-[Prettier](https://prettier.io/) and
-[Jscpd](https://github.com/kucherenko/jscpd). We recommend using plugins with
-your IDE (code editor) for both Prettier and ESLint so that linting/formatting
-is performed as you code.
+[Prettier](https://prettier.io/), [Jscpd](https://github.com/kucherenko/jscpd)
+and [lychee](https://lychee.cli.rs/). We recommend using plugins with your IDE
+(code editor) for both Prettier and ESLint so that linting/formatting is
+performed as you code.
 
 We use [Ava](https://github.com/avajs/ava) to run tests. Each line of code must
 be tested.
@@ -100,6 +103,7 @@ Lint and check source files:
   JavaScript and TypeScript files using [ESLint](https://eslint.org/) (see the
   [coding style](https://github.com/ehmicky/eslint-config#coding-style)).
 - find duplicated code with [Jscpd](https://github.com/kucherenko/jscpd).
+- detect dead links with [lychee](https://lychee.cli.rs/).
 
 ## `gulp type`
 

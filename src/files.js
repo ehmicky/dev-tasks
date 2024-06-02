@@ -4,6 +4,7 @@ export const GENERATED_SOURCES_DIR = `${MAIN_SOURCE}/snapshots`
 // Directories containing "sources" in the wide sense of the term
 export const SOURCES_DIRS = [
   MAIN_SOURCE,
+  '.github',
   'benchmark',
   'docs',
   'examples',
@@ -20,13 +21,14 @@ export const BUILD = 'build'
 export const BUILT_MAIN_SOURCE = `${BUILD}/${MAIN_SOURCE}`
 
 // Source files, per file type or category
-const JAVASCRIPT_EXTS = ['js', 'cjs', 'mjs']
+export const JAVASCRIPT_EXTS = ['js', 'cjs', 'mjs']
 export const JAVASCRIPT_EXTS_STR = JAVASCRIPT_EXTS.join(',')
 export const JAVASCRIPT = `${ANY_SOURCE_FILE}.{${JAVASCRIPT_EXTS_STR}}`
 
-export const MARKDOWN = `${ANY_SOURCE_FILE}.md`
+export const MARKDOWN_EXT = ['md']
+export const MARKDOWN = `${ANY_SOURCE_FILE}.${MARKDOWN_EXT}`
 
-const JSON_YAML_EXTS = ['json', 'yaml', 'yml']
+export const JSON_YAML_EXTS = ['json', 'yaml', 'yml']
 const JSON_YAML_EXTS_STR = JSON_YAML_EXTS.join(',')
 export const JSON_YAML = [
   `${ANY_SOURCE_FILE}.{${JSON_YAML_EXTS_STR}}`,

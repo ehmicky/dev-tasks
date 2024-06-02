@@ -41,6 +41,9 @@ jobs:
       - name: Test
         if: ${{ env.codecov_token == '' }}
         run: npx gulp unit
+      - name: Check links
+        if: ${{ matrix.node == 22 && matrix.os == 'ubuntu' }}
+        run: npx gulp links
       # If the CODECOV_TOKEN secret is set, perform test coverage
       - name: Test and coverage
         if: ${{ env.codecov_token != '' }}

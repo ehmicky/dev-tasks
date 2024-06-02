@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import gulp from 'gulp'
 import releaseIt from 'release-it'
 
+import { links } from '../links/main.js'
 import { testTask } from '../test_task.js'
 
 import { checkVersions } from './version.js'
@@ -41,7 +42,7 @@ const RELEASE_IT_CONFIG = {
   },
 }
 
-const prereleaseTasks = [checkVersions, testTask]
+const prereleaseTasks = [checkVersions, links, testTask]
 
 // Cannot use `func.bind()` otherwise task name will be prepended with `bound `
 const releaseItMajor = () => releaseItTask('major')
