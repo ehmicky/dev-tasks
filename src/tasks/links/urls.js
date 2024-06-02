@@ -15,6 +15,8 @@ const EXCLUDED_LINKS = [
   `README.md#(${ALL_CONTRIBUTORS_TYPES.join('|')})-[\\w-]+$`,
   // Meant as a root URL, but does not work itself
   'https://npmmirror.com/mirrors/node',
+  // Seems to always fail with 403 inside GitHub action
+  'linux.die.net',
   // Used in tests
   'invalid-mirror.com',
   '//localhost',
