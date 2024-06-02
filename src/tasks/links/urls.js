@@ -9,8 +9,9 @@ const EXCLUDED_LINKS = [
   'file:///issues',
   // `git` URLs
   '\\.git$',
-  // Avoid LinkedIn rate limiting
+  // Avoid rate limiting
   'linkedin',
+  'medium.com/@ehmicky',
   // All-contributors adds fake anchors in README.md
   `README.md#(${ALL_CONTRIBUTORS_TYPES.join('|')})-[\\w-]+$`,
   // Meant as a root URL, but does not work itself
