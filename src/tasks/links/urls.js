@@ -18,6 +18,9 @@ const EXCLUDED_LINKS = [
   // Used in tests
   'invalid-mirror.com',
   '//localhost',
+  'cat.com',
+  'dog.com',
+  'koala.com',
 ]
 
 const addExcludeLinkFlag = (excludedLink) => `--exclude=${excludedLink}`
