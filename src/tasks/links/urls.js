@@ -30,6 +30,8 @@ const EXCLUDED_LINKS = [
   'my-project',
   // Used in templates
   'template-name',
+  // Emoji
+  '%EF%B8%8F',
 ]
 
 const addExcludeLinkFlag = (excludedLink) => `--exclude=${excludedLink}`
