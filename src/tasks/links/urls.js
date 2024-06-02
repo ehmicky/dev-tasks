@@ -26,6 +26,7 @@ const EXCLUDED_LINKS = [
   'dog.com',
   'koala.com',
   // Used in examples
+  'my-user',
   'my-project',
 ]
 
