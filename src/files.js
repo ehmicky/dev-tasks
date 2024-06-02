@@ -51,3 +51,12 @@ export const IGNORED_SOURCES = [
   `${MAIN_SOURCE}/fixtures/invalid*/**`,
 ]
 export const DEPENDENCIES = ['package-lock.json']
+
+// Files with links to check
+export const LINKS_EXTS = [
+  ...JAVASCRIPT_EXTS,
+  TYPESCRIPT_EXT,
+  ...JSON_YAML_EXTS,
+  MARKDOWN_EXT,
+  'html',
+]

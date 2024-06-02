@@ -10,7 +10,7 @@ const EXCLUDED_LINKS = [
   // `git` URLs
   '\\.git$',
   // Avoid rate limiting
-  'linkedin',
+  'linkedin.com',
   'medium.com/@ehmicky',
   // All-contributors adds fake anchors in README.md
   `README.md#(${ALL_CONTRIBUTORS_TYPES.join('|')})-[\\w-]+$`,

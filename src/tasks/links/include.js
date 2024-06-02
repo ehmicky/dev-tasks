@@ -1,10 +1,4 @@
-import {
-  SOURCES_DIRS,
-  JAVASCRIPT_EXTS,
-  TYPESCRIPT_EXT,
-  JSON_YAML_EXTS,
-  MARKDOWN_EXT,
-} from '../../files.js'
+import { SOURCES_DIRS, LINKS_EXTS } from '../../files.js'
 
 import { addInputPrefix } from './docker.js'
 
@@ -17,11 +11,4 @@ export const getIncludedFiles = () =>
 const addGlobStar = (sourceDir) => `${sourceDir}/**`
 
 const addExtension = (sourceDir) =>
-  extensionNames.map((extensionName) => `${sourceDir}/*.${extensionName}`)
-
-const extensionNames = [
-  ...JAVASCRIPT_EXTS,
-  TYPESCRIPT_EXT,
-  ...JSON_YAML_EXTS,
-  MARKDOWN_EXT,
-]
+  LINKS_EXTS.map((extensionName) => `${sourceDir}/*.${extensionName}`)
