@@ -17,6 +17,7 @@ const EXCLUDED_LINKS = [
   'https://npmmirror.com/mirrors/node',
   // Used in tests
   'invalid-mirror.com',
+  '//localhost',
 ]
 
 const addExcludeLinkFlag = (excludedLink) => `--exclude=${excludedLink}`
