@@ -12,7 +12,11 @@ const EXCLUDED_LINKS = [
   // Avoid LinkedIn rate limiting
   'linkedin',
   // All-contributors adds fake anchors in README.md
-  `README.md#(${ALL_CONTRIBUTORS_TYPES.join('|')})-[\\w]+$`,
+  `README.md#(${ALL_CONTRIBUTORS_TYPES.join('|')})-[\\w-]+$`,
+  // Meant as a root URL, but does not work itself
+  'https://npmmirror.com/mirrors/node',
+  // Used in tests
+  'invalid-mirror.com',
 ]
 
 const addExcludeLinkFlag = (excludedLink) => `--exclude=${excludedLink}`
