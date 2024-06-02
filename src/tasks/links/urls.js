@@ -18,6 +18,7 @@ const EXCLUDED_LINKS = [
   'https://npmmirror.com/mirrors/node',
   // Seems to always fail with 403 inside GitHub action
   'linux.die.net',
+  'creativefabrica.com',
   // Used in tests
   'invalid-mirror.com',
   '//localhost',
