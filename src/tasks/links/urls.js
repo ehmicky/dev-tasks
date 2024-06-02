@@ -28,6 +28,8 @@ const EXCLUDED_LINKS = [
   // Used in examples
   'my-user',
   'my-project',
+  // Used in templates
+  'template-name',
 ]
 
 const addExcludeLinkFlag = (excludedLink) => `--exclude=${excludedLink}`
