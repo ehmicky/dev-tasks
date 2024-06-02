@@ -31,7 +31,7 @@ Code is compiled from the `src` to the `build` directory using
 
 Linting and formatting are performed with [ESLint](https://eslint.org/),
 [Prettier](https://prettier.io/), [Jscpd](https://github.com/kucherenko/jscpd)
-and [lychee](https://lychee.cli.rs/). We recommend using plugins with your IDE
+and [lychee](https://lychee.cli.rs). We recommend using plugins with your IDE
 (code editor) for both Prettier and ESLint so that linting/formatting is
 performed as you code.
 
@@ -140,6 +140,10 @@ They can be performed together, e.g. `gulp buildWatch` in one terminal tab and
 `gulp unitWatch` in another.
 
 # Other tasks
+
+## `gulp links`
+
+Detect dead links with [lychee](https://lychee.cli.rs/).
 
 ## `gulp warn`
 
