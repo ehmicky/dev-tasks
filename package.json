@@ -54,7 +54,7 @@
     "@babel/preset-typescript": "^7.23.2",
     "@babel/register": "^7.22.15",
     "@ehmicky/eslint-config": "^18.0.48",
-    "c8": "^8.0.1",
+    "c8": "^10.1.2",
     "del": "^7.1.0",
     "execa": "^9.2.0",
     "got": "^13.0.0",
