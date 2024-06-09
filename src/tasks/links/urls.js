@@ -19,6 +19,8 @@ const EXCLUDED_LINKS = [
   // Seems to always fail with 403 inside GitHub action
   'linux.die.net',
   'creativefabrica.com',
+  // Sometimes fail with 502
+  'unpkg.com',
   // Used in tests
   'invalid-mirror.com',
   '//localhost',
