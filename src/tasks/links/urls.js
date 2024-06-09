@@ -21,6 +21,7 @@ const EXCLUDED_LINKS = [
   'creativefabrica.com',
   // Sometimes fail with 502
   'unpkg.com',
+  'bundlephobia.com',
   // Used in tests
   'invalid-mirror.com',
   '//localhost',
