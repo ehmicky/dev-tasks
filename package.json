@@ -75,7 +75,7 @@
     "prettier": "^3.0.3",
     "release-it": "^17.0.5",
     "rename-fn": "^2.1.0",
-    "semver": "^7.5.4",
+    "semver": "^7.6.2",
     "tsd": "^0.31.0",
     "typescript": "^5.4.5"
   },
