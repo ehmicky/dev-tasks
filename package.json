@@ -56,7 +56,7 @@
     "@ehmicky/eslint-config": "^18.0.48",
     "c8": "^8.0.1",
     "del": "^7.1.0",
-    "execa": "^9.0.1",
+    "execa": "^9.2.0",
     "got": "^13.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
