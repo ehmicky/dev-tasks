@@ -12,6 +12,7 @@ const EXCLUDED_LINKS = [
   // Avoid rate limiting
   'linkedin.com',
   'medium.com/@ehmicky',
+  'instagram.com',
   // All-contributors adds fake anchors in README.md
   `README.md#(${ALL_CONTRIBUTORS_TYPES.join('|')})-[\\w-]+$`,
   // Meant as a root URL, but does not work itself
