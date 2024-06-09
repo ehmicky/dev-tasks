@@ -60,3 +60,6 @@ export const LINKS_EXTS = [
   MARKDOWN_EXT,
   'html',
 ]
+
+// Cache file for `gulp links`
+export const LINKS_CACHE_FILE = '.lycheecache'
