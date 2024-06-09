@@ -41,6 +41,13 @@ jobs:
       - name: Test
         if: ${{ env.codecov_token == '' }}
         run: npx gulp unit
+      - name: Restore links cache
+        if: ${{ matrix.node == 22 && matrix.os == 'ubuntu' }}
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
       - name: Check links
         if: ${{ matrix.node == 22 && matrix.os == 'ubuntu' }}
         run: npx gulp links
