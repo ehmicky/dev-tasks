@@ -69,7 +69,7 @@
     "keep-func-props": "^7.1.0",
     "log-process-errors": "^12.0.0",
     "node-version-alias": "^5.0.0",
-    "p-filter": "^3.0.0",
+    "p-filter": "^4.1.0",
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.1",
     "prettier": "^3.0.3",
