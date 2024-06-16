@@ -20,11 +20,6 @@ export default {
   workerThreads: false,
   files: [TEST_FILES, `!${NON_TEST_FILES}`],
   snapshotDir: SNAPSHOT_DIR,
-  // Otherwise, if build watch is run as well, modifying source files trigger
-  // tests twice
-  watchMode: {
-    ignoreChanges: [MAIN_SOURCE],
-  },
   // Use `log-process-errors`
   require: LOG_PROCESS_ERRORS,
   timeout: `3600s`,
