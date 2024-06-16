@@ -22,9 +22,11 @@ export default {
   snapshotDir: SNAPSHOT_DIR,
   // Otherwise, if build watch is run as well, modifying source files trigger
   // tests twice
-  ignoredByWatcher: [MAIN_SOURCE],
+  watchMode: {
+    ignoreChanges: [MAIN_SOURCE],
+  },
   // Use `log-process-errors`
-  require: [LOG_PROCESS_ERRORS],
+  require: LOG_PROCESS_ERRORS,
   timeout: `3600s`,
   // Ensure reproducible tests.
   // For example, `--enable-source-maps` results in different `error.stack`
