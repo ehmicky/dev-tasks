@@ -52,7 +52,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
-    "@babel/register": "^7.22.15",
+    "@babel/register": "^7.24.6",
     "@ehmicky/eslint-config": "^18.0.49",
     "c8": "^10.1.2",
     "del": "^7.1.0",
