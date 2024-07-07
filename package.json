@@ -72,7 +72,7 @@
     "p-filter": "^4.1.0",
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.1",
-    "prettier": "^3.3.2",
+    "prettier": "^3.3.3",
     "release-it": "^17.5.0",
     "rename-fn": "^2.1.0",
     "semver": "^7.6.2",
