@@ -65,7 +65,7 @@
     "gulp-prettier": "^6.0.0",
     "handle-cli-error": "^5.0.0",
     "is-ci": "^3.0.1",
-    "jscpd": "^4.0.4",
+    "jscpd": "^4.0.5",
     "keep-func-props": "^7.1.0",
     "log-process-errors": "^12.0.0",
     "node-version-alias": "^5.0.0",
