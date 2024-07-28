@@ -44,6 +44,7 @@ const TSCONFIG_FLAGS = `
 --strict \
 --exactOptionalPropertyTypes \
 --noUncheckedIndexedAccess \
+--noUncheckedSideEffectImports \
 --forceConsistentCasingInFileNames \
 --verbatimModuleSyntax \
 `
