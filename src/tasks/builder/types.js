@@ -36,6 +36,7 @@ const buildFullTypes = async () => {
 // We cannot use the `files`/`include` properties in `tsconfig.json` because we
 // need to exclude `src/**/*.test-d.ts` from transpiling, while still applying
 // the `tsconfig.json` to them.
+// TODO: add `--noUncheckedSideEffectImports` after upgrading to TypeScript >=5.6.0
 const TSCONFIG_FLAGS = `
 --module nodenext \
 --moduleResolution nodenext \
@@ -44,7 +45,6 @@ const TSCONFIG_FLAGS = `
 --strict \
 --exactOptionalPropertyTypes \
 --noUncheckedIndexedAccess \
---noUncheckedSideEffectImports \
 --forceConsistentCasingInFileNames \
 --verbatimModuleSyntax \
 `
