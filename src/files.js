@@ -7,7 +7,6 @@ export const SOURCES_DIRS = [
   '.github',
   'benchmark',
   'docs',
-  'examples',
   'gulp',
 ]
 // Any file in the top-level directory or inside source-like directories
