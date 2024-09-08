@@ -56,7 +56,6 @@
     "@ehmicky/eslint-config": "^18.0.52",
     "c8": "^10.1.2",
     "del": "^7.1.0",
-    "execa": "^9.3.1",
     "got": "^13.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
@@ -85,5 +84,8 @@
   },
   "engines": {
     "node": ">=18.18.0"
+  },
+  "devDependencies": {
+    "nano-spawn": "^0.1.0"
   }
 }
