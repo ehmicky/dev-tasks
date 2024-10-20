@@ -67,7 +67,7 @@
     "jscpd": "^4.0.5",
     "keep-func-props": "^7.1.0",
     "log-process-errors": "^12.0.0",
-    "nano-spawn": "^0.1.0",
+    "nano-spawn": "^0.2.0",
     "node-version-alias": "^5.0.0",
     "p-filter": "^4.1.0",
     "path-exists": "^5.0.0",
