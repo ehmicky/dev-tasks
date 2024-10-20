@@ -55,7 +55,7 @@
     "@babel/register": "^7.24.6",
     "@ehmicky/eslint-config": "^18.0.52",
     "c8": "^10.1.2",
-    "del": "^7.1.0",
+    "del": "^8.0.0",
     "got": "^13.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
