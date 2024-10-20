@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.26.0",
-    "@babel/preset-typescript": "^7.24.7",
+    "@babel/preset-typescript": "^7.26.0",
     "@babel/register": "^7.24.6",
     "@ehmicky/eslint-config": "^18.0.52",
     "c8": "^10.1.2",
