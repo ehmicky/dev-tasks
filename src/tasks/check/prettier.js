@@ -11,23 +11,10 @@ import {
   TYPESCRIPT,
 } from '../../files.js'
 
+import { runTwice } from './twice.js'
+
 export const prettier = async () => {
-  try {
-    await runPrettier(false)
-  } catch (error) {
-    await applyAutoFix()
-    throw error
-  }
-}
-
-const applyAutoFix = async () => {
-  if (isCi) {
-    return
-  }
-
-  try {
-    await runPrettier(true)
-  } catch {}
+  await runTwice(runPrettier)
 }
 
 const runPrettier = async (autofix) => {

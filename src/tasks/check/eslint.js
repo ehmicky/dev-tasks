@@ -11,23 +11,10 @@ import {
   TYPESCRIPT,
 } from '../../files.js'
 
+import { runTwice } from './twice.js'
+
 export const eslint = async () => {
-  try {
-    await runEslint(false)
-  } catch (error) {
-    await applyAutoFix()
-    throw error
-  }
-}
-
-const applyAutoFix = async () => {
-  if (isCi) {
-    return
-  }
-
-  try {
-    await runEslint(true)
-  } catch {}
+  await runTwice(runEslint)
 }
 
 const runEslint = async (autofix) => {
