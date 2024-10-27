@@ -1,3 +1,5 @@
+import { pipeline } from 'node:stream/promises'
+
 import gulp from 'gulp'
 import { exec } from 'gulp-execa'
 import { pathExists } from 'path-exists'
@@ -57,10 +59,10 @@ ${TSCONFIG_FLAGS} \
 ${TYPESCRIPT_MAIN}
 `.trim()
 
-const buildAmbientTypes = async () => {
-  await gulp
-    .src([`${SOURCES_GLOB}/*.${TYPESCRIPT_AMBIENT_EXT}`], {
+const buildAmbientTypes = () =>
+  pipeline(
+    gulp.src([`${SOURCES_GLOB}/*.${TYPESCRIPT_AMBIENT_EXT}`], {
       since: gulp.lastRun(buildTypes),
-    })
-    .pipe(gulp.dest(BUILD))
-}
+    }),
+    gulp.dest(BUILD),
+  )

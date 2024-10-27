@@ -1,3 +1,5 @@
+import { pipeline } from 'node:stream/promises'
+
 import gulp from 'gulp'
 
 import {
@@ -10,8 +12,8 @@ import {
 
 const SOURCES_ONLY_GLOB = `${GENERATED_SOURCES_DIR}/**`
 export const copy = () =>
-  gulp
-    .src(
+  pipeline(
+    gulp.src(
       [
         `${SOURCES_GLOB}/*[^~]`,
         `!${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR},${TYPESCRIPT_EXT}}`,
@@ -23,5 +25,6 @@ export const copy = () =>
         resolveSymlinks: false,
         encoding: false,
       },
-    )
-    .pipe(gulp.dest(BUILD))
+    ),
+    gulp.dest(BUILD),
+  )

@@ -1,3 +1,5 @@
+import { pipeline } from 'node:stream/promises'
+
 import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
 
@@ -13,13 +15,14 @@ import {
 import babelConfig from './.babelrc.js'
 
 export const babel = () =>
-  gulp
-    .src(
+  pipeline(
+    gulp.src(
       [
         `${SOURCES_GLOB}/*.{${JAVASCRIPT_EXTS_STR},${TYPESCRIPT_EXT}}`,
         `!${SOURCES_GLOB}/*.{${TYPESCRIPT_AMBIENT_EXT},${TYPESCRIPT_TESTS_EXT}}`,
       ],
       { dot: true, since: gulp.lastRun(babel) },
-    )
-    .pipe(gulpBabel({ ...babelConfig, babelrc: false }))
-    .pipe(gulp.dest(BUILD))
+    ),
+    gulpBabel({ ...babelConfig, babelrc: false }),
+    gulp.dest(BUILD),
+  )
