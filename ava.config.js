@@ -23,7 +23,7 @@ export default {
   snapshotDir: SNAPSHOT_DIR,
   // Use `log-process-errors`
   require: LOG_PROCESS_ERRORS,
-  timeout: `3600s`,
+  timeout: '3600s',
   // Windows tests randomly crash in GitHub actions
   ...(platform === 'win32' ? { concurrency: 1 } : {}),
   // Ensure reproducible tests.
