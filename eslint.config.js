@@ -1,1 +1,1 @@
-export { default } from '@ehmicky/eslint-config'
+export { default } from '@ehmicky/eslint-config/eslint'
