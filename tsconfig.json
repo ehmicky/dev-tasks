@@ -8,8 +8,7 @@
     "strict": true,
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
-    // TODO: enabled after upgrading to TypeScript >=5.6.0
-    // "noUncheckedSideEffectImports": true,
+    "noUncheckedSideEffectImports": true,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true
   }
