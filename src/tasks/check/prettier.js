@@ -12,15 +12,38 @@ import {
 } from '../../files.js'
 
 export const prettier = async () => {
+  try {
+    await runPrettier(false)
+  } catch (error) {
+    await applyAutoFix()
+    throw error
+  }
+}
+
+const applyAutoFix = async () => {
+  if (isCi) {
+    return
+  }
+
+  try {
+    await runPrettier(true)
+  } catch {}
+}
+
+const runPrettier = async (autofix) => {
+  const checkFlag = autofix ? '--write' : '--check'
+  const cacheFlag = isCi ? '' : '--cache'
   const files = [
     JAVASCRIPT,
     TYPESCRIPT,
     MARKDOWN,
     ...JSON_YAML,
     ...IGNORED_SOURCES.map((ignoredSource) => `!${ignoredSource}`),
-  ].join('')
-  const writeFlag = isCi ? '--check' : '--write'
-  await exec(`prettier ${files} ${writeFlag} --cache`, { debug: isCi })
+  ].join(' ')
+  await exec(
+    `prettier ${files} ${checkFlag} ${cacheFlag} --no-error-on-unmatched-pattern --log-level=warn`,
+    { echo: false },
+  )
 }
 
 // Prettier wraps `CHANGELOG.md`, but not GitHub release notes

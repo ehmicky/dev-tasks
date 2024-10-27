@@ -31,15 +31,15 @@ const applyAutoFix = async () => {
 }
 
 const runEslint = async (autofix) => {
-  const fixFlag = autofix ? '--fix ' : ''
-  const cacheFlag = isCi ? '' : '--cache --cache-strategy=content '
+  const fixFlag = autofix ? '--fix' : ''
+  const cacheFlag = isCi ? '' : '--cache --cache-strategy=content'
   const files = [JAVASCRIPT, TYPESCRIPT, MARKDOWN].join(' ')
   const gitIgnore = includeIgnoreFile(resolve('.gitignore')).ignores
   const ignorePatterns = [...gitIgnore, ...IGNORED_SOURCES]
     .map((ignoredPattern) => `--ignore-pattern=${ignoredPattern}`)
     .join(' ')
   await exec(
-    `eslint ${files} ${ignorePatterns} ${fixFlag}${cacheFlag}--format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
+    `eslint ${files} ${ignorePatterns} ${fixFlag} ${cacheFlag} --format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
     { echo: false },
   )
 }
