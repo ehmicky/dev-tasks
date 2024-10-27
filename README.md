@@ -27,10 +27,10 @@ technical lead for 2.5 years. I am available for full-time remote positions.
 # Workflow
 
 Code is compiled from the `src` to the `build` directory using
-[Babel](https://babeljs.io/), so you can use the latest JavaScript features.
+[Babel](https://babeljs.io), so you can use the latest JavaScript features.
 
-Linting and formatting are performed with [ESLint](https://eslint.org/),
-[Prettier](https://prettier.io/), [Jscpd](https://github.com/kucherenko/jscpd)
+Linting and formatting are performed with [ESLint](https://eslint.org),
+[Prettier](https://prettier.io), [Jscpd](https://github.com/kucherenko/jscpd)
 and [lychee](https://lychee.cli.rs). We recommend using plugins with your IDE
 (code editor) for both Prettier and ESLint so that linting/formatting is
 performed as you code.
@@ -97,7 +97,8 @@ To add TypeScript types, use either:
 
 Lint and check source files:
 
-- format JavaScript and TypeScript files with [Prettier](https://prettier.io/).
+- format JavaScript and TypeScript files with
+  [Prettier](https://github.com/ehmicky/prettier-config).
 - lint and
   [autofix](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems)
   JavaScript and TypeScript files using [ESLint](https://eslint.org/) (see the

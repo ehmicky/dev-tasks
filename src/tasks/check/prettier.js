@@ -1,4 +1,4 @@
-import config from '@ehmicky/eslint-config'
+import config from '@ehmicky/prettier-config'
 import gulp from 'gulp'
 import gulpIf from 'gulp-if'
 import gulpPrettier from 'gulp-prettier'

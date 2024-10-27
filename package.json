@@ -54,6 +54,7 @@
     "@babel/preset-typescript": "^7.26.0",
     "@babel/register": "^7.25.9",
     "@ehmicky/eslint-config": "^19.0.4",
+    "@ehmicky/prettier-config": "^1.0.0",
     "@eslint/compat": "^1.2.2",
     "c8": "^10.1.2",
     "del": "^8.0.0",
