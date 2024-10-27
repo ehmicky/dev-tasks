@@ -1,3 +1,5 @@
+import { resolve } from 'node:path'
+import { includeIgnoreFile } from '@eslint/compat'
 import gulp from 'gulp'
 import gulpEslint from 'gulp-eslint'
 import { exec } from 'gulp-execa'
@@ -23,16 +25,17 @@ const eslint = async (mode) => {
   const debug = mode !== 'silent'
 
   const files = [JAVASCRIPT, TYPESCRIPT, MARKDOWN].join(' ')
-  const ignoredSources = IGNORED_SOURCES.map(
-    (ignoredSource) => `--ignore-pattern=${ignoredSource}`,
-  ).join(' ')
+  const gitIgnore = includeIgnoreFile(resolve('.gitignore')).ignores
+  const ignorePatterns = [...gitIgnore, ...IGNORED_SOURCES]
+    .map((ignoredPattern) => `--ignore-pattern=${ignoredPattern}`)
+    .join(' ')
   // We cannot use `--config` because:
   //  - it seems to change the base directory of rules `overrides` `files`,
   //    which make them not work anymore
   // Also, that module's main export is the Prettier config, i.e. we would need
   // to use `import.meta.resolve()` to load the ESLint config.
   await exec(
-    `eslint ${files} --ignore-path=.gitignore ${ignoredSources} ${fix}--cache --format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
+    `eslint ${files} ${ignorePatterns} ${fix}--cache --format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
     { debug, echo: false },
   )
 }
