@@ -1,9 +1,11 @@
 import gulp from 'gulp'
 
+import { eslint } from './eslint.js'
 import { jscpd } from './jscpd.js'
-import { lint } from './lint.js'
+import { prettier } from './prettier.js'
 
-export const check = gulp.parallel(lint(), jscpd)
+const lint = gulp.series(prettier, eslint)
+export const check = gulp.parallel(lint, jscpd)
 
 // eslint-disable-next-line fp/no-mutation
 check.description = 'Lint/check source files'

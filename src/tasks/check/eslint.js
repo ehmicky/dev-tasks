@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 
 import { includeIgnoreFile } from '@eslint/compat'
 import { exec } from 'gulp-execa'
+import isCi from 'is-ci'
 
 import {
   IGNORED_SOURCES,
@@ -9,28 +10,36 @@ import {
   MARKDOWN,
   TYPESCRIPT,
 } from '../../files.js'
-import { bind } from '../../utils.js'
 
-const eslint = async (mode) => {
-  const fix = mode === 'strict' ? '' : '--fix '
-  const debug = mode !== 'silent'
+export const eslint = async () => {
+  try {
+    await runEslint(false)
+  } catch (error) {
+    await applyAutoFix()
+    throw error
+  }
+}
 
+const applyAutoFix = async () => {
+  if (isCi) {
+    return
+  }
+
+  try {
+    await runEslint(true)
+  } catch {}
+}
+
+const runEslint = async (autofix) => {
+  const fixFlag = autofix ? '--fix ' : ''
+  const cacheFlag = isCi ? '' : '--cache --cache-strategy=content '
   const files = [JAVASCRIPT, TYPESCRIPT, MARKDOWN].join(' ')
   const gitIgnore = includeIgnoreFile(resolve('.gitignore')).ignores
   const ignorePatterns = [...gitIgnore, ...IGNORED_SOURCES]
     .map((ignoredPattern) => `--ignore-pattern=${ignoredPattern}`)
     .join(' ')
-  // We cannot use `--config` because:
-  //  - it seems to change the base directory of rules `overrides` `files`,
-  //    which make them not work anymore
-  // Also, that module's main export is the Prettier config, i.e. we would need
-  // to use `import.meta.resolve()` to load the ESLint config.
   await exec(
-    `eslint ${files} ${ignorePatterns} ${fix}--cache --format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
-    { debug, echo: false },
+    `eslint ${files} ${ignorePatterns} ${fixFlag}${cacheFlag}--format=codeframe --max-warnings=0 --no-error-on-unmatched-pattern`,
+    { echo: false },
   )
 }
-
-export const eslintLoose = bind(eslint, 'loose')
-export const eslintStrict = bind(eslint, 'strict')
-export const eslintSilent = bind(eslint, 'silent')
