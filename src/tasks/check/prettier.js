@@ -5,8 +5,8 @@ import { format } from 'prettier'
 
 import {
   IGNORED_SOURCES,
-  JSON_YAML,
   JAVASCRIPT,
+  JSON_YAML,
   MARKDOWN,
   TYPESCRIPT,
 } from '../../files.js'
