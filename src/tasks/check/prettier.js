@@ -21,7 +21,8 @@ const runPrettier = async (autofix) => {
   const checkFlag = autofix ? '--write' : '--check'
   const cacheFlag = isCi ? '' : '--cache'
   const files = [
-    JAVASCRIPT, TYPESCRIPT,
+    JAVASCRIPT,
+    TYPESCRIPT,
     MARKDOWN,
     ...JSON_YAML,
     ...IGNORED_SOURCES.map((ignoredSource) => `!${ignoredSource}`),
