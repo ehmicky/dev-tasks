@@ -88,6 +88,6 @@
     "node": ">=18.18.0"
   },
   "devDependencies": {
-    "@ehmicky/eslint-config": "^20.0.1"
+    "@ehmicky/eslint-config": "^20.0.3"
   }
 }
