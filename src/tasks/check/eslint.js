@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+
 import { includeIgnoreFile } from '@eslint/compat'
 import gulp from 'gulp'
 import gulpEslint from 'gulp-eslint'
