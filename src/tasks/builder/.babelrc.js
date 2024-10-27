@@ -1,13 +1,16 @@
+// eslint-disable-next-line n/no-sync
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 // TODO: replace with JSON imports once supported
+// eslint-disable-next-line n/no-sync
 const { dependencies = {} } = JSON.parse(readFileSync('./package.json'))
 
 const browserslistConfigFile = fileURLToPath(
   new URL('../../browserslist', import.meta.url),
 )
 
+// eslint-disable-next-line import/no-default-export
 export default {
   presets: [
     [
