@@ -24,9 +24,18 @@ export const jscpd = async () => {
     return
   }
 
+  // Run twice to avoid printing anything when there are no clones
+  try {
+    await runJscpd(sourceDirs, true)
+  } catch {
+    await runJscpd(sourceDirs, false)
+  }
+}
+
+const runJscpd = async (sourceDirs, silent) => {
   const sourceDirsStr = sourceDirs.join(' ')
   await exec(
     `jscpd --config=${JSCPD_CONFIG} --pattern=**/*.{${JAVASCRIPT_EXTS_STR},${TYPESCRIPT_EXT}} --ignore=**/*.${TYPESCRIPT_TESTS_EXT} ${sourceDirsStr}`,
-    { echo: false },
+    { echo: false, stdout: silent ? 'ignore' : 'inherit' },
   )
 }
