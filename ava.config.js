@@ -1,4 +1,5 @@
 // Ava requires configuration file to be a the repository's top-level
+import { platform } from 'node:process'
 import { fileURLToPath } from 'node:url'
 
 const MAIN_SOURCE = 'src'
@@ -23,6 +24,8 @@ export default {
   // Use `log-process-errors`
   require: LOG_PROCESS_ERRORS,
   timeout: `3600s`,
+  // Windows tests randomly crash in GitHub actions
+  ...(platform === 'win32' ? { concurrency: 1 } : {}),
   // Ensure reproducible tests.
   // For example, `--enable-source-maps` results in different `error.stack`
   // per environment.
