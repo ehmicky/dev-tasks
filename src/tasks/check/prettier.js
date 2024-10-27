@@ -1,5 +1,3 @@
-import { pipeline } from 'node:stream/promises'
-
 import config from '@ehmicky/prettier-config'
 import gulp from 'gulp'
 import gulpIf from 'gulp-if'
@@ -33,12 +31,10 @@ const prettier = (mode) => {
   )
 
   return mode === 'strict'
-    ? pipeline(stream, gulpPrettier.check(config))
-    : pipeline(
-        stream,
-        gulpPrettier(config),
-        gulpIf(isPrettified, gulp.dest(getBase)),
-      )
+    ? stream.pipe(gulpPrettier.check(config))
+    : stream
+        .pipe(gulpPrettier(config))
+        .pipe(gulpIf(isPrettified, gulp.dest(getBase)))
 }
 
 export const prettierLoose = bind(prettier, 'loose')
