@@ -60,7 +60,7 @@
     "del": "^8.0.0",
     "got": "^13.0.0",
     "gulp-babel": "^8.0.0",
-    "gulp-execa": "^7.0.1",
+    "gulp-execa": "^8.0.0",
     "handle-cli-error": "^5.0.0",
     "is-ci": "^3.0.1",
     "jscpd": "^4.0.5",
