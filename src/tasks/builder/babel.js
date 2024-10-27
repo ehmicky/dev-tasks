@@ -2,11 +2,11 @@ import gulp from 'gulp'
 import gulpBabel from 'gulp-babel'
 
 import {
-  SOURCES_GLOB,
   BUILD,
   JAVASCRIPT_EXTS_STR,
-  TYPESCRIPT_EXT,
+  SOURCES_GLOB,
   TYPESCRIPT_AMBIENT_EXT,
+  TYPESCRIPT_EXT,
   TYPESCRIPT_TESTS_EXT,
 } from '../../files.js'
 

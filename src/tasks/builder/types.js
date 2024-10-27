@@ -3,12 +3,12 @@ import { exec } from 'gulp-execa'
 import { pathExists } from 'path-exists'
 
 import {
-  SOURCES_GLOB,
   BUILD,
   BUILT_MAIN_SOURCE,
-  TYPESCRIPT_MAIN,
+  SOURCES_GLOB,
   TYPESCRIPT_AMBIENT_EXT,
   TYPESCRIPT_AMBIENT_MAIN,
+  TYPESCRIPT_MAIN,
 } from '../../files.js'
 
 export const buildTypes = async () => {

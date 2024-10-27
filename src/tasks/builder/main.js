@@ -1,7 +1,7 @@
 import { deleteAsync } from 'del'
 import gulp from 'gulp'
 
-import { SOURCES_GLOB, BUILD, TYPESCRIPT_TESTS } from '../../files.js'
+import { BUILD, SOURCES_GLOB, TYPESCRIPT_TESTS } from '../../files.js'
 import { getWatchTask } from '../../watch.js'
 
 import { babel } from './babel.js'

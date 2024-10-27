@@ -5,8 +5,8 @@ import pFilter from 'p-filter'
 import { pathExists } from 'path-exists'
 
 import {
-  SOURCES_DIRS,
   JAVASCRIPT_EXTS_STR,
+  SOURCES_DIRS,
   TYPESCRIPT_EXT,
   TYPESCRIPT_TESTS_EXT,
 } from '../../files.js'

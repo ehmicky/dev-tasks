@@ -1,4 +1,4 @@
-import { GENERATED_SOURCES_DIR, DEPENDENCIES } from '../../files.js'
+import { DEPENDENCIES, GENERATED_SOURCES_DIR } from '../../files.js'
 
 import { addInputPrefix } from './docker.js'
 

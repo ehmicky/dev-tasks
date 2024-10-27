@@ -1,10 +1,10 @@
 import gulp from 'gulp'
 
 import {
-  SOURCES_GLOB,
   BUILD,
   GENERATED_SOURCES_DIR,
   JAVASCRIPT_EXTS_STR,
+  SOURCES_GLOB,
   TYPESCRIPT_EXT,
 } from '../../files.js'
 

@@ -1,4 +1,4 @@
-import { SOURCES_DIRS, LINKS_EXTS } from '../../files.js'
+import { LINKS_EXTS, SOURCES_DIRS } from '../../files.js'
 
 import { addInputPrefix } from './docker.js'
 

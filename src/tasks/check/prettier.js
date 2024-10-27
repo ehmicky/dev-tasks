@@ -5,11 +5,11 @@ import gulpPrettier from 'gulp-prettier'
 import { format } from 'prettier'
 
 import {
-  JAVASCRIPT,
-  TYPESCRIPT,
-  MARKDOWN,
-  JSON_YAML,
   IGNORED_SOURCES,
+  JAVASCRIPT,
+  JSON_YAML,
+  MARKDOWN,
+  TYPESCRIPT,
 } from '../../files.js'
 import { bind } from '../../utils.js'
 

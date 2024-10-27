@@ -4,8 +4,8 @@ import { promisify } from 'node:util'
 import gulp from 'gulp'
 import isCi from 'is-ci'
 
-import { eslintLoose, eslintStrict, eslintSilent } from './eslint.js'
-import { prettierLoose, prettierStrict, prettierSilent } from './prettier.js'
+import { eslintLoose, eslintSilent, eslintStrict } from './eslint.js'
+import { prettierLoose, prettierSilent, prettierStrict } from './prettier.js'
 
 // `gulp lint` is `eslint` + `prettier`. It runs in 3 different modes:
 //  - `loose`: run by `gulp check`. Autofixable errors are fixed and do not emit

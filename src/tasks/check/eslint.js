@@ -4,10 +4,10 @@ import { includeIgnoreFile } from '@eslint/compat'
 import { exec } from 'gulp-execa'
 
 import {
-  JAVASCRIPT,
-  TYPESCRIPT,
-  MARKDOWN,
   IGNORED_SOURCES,
+  JAVASCRIPT,
+  MARKDOWN,
+  TYPESCRIPT,
 } from '../../files.js'
 import { bind } from '../../utils.js'
 
