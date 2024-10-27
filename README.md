@@ -63,8 +63,8 @@ The main commands are:
 - [`gulp unit`](#gulp-unit): run unit tests.
 - [`gulp test`](#gulp-test): perform all of the above tasks.
 
-Use `gulp buildWatch`, `gulp checkWatch`, `gulp typeWatch`, and `gulp unitWatch`
-to run them in watch mode.
+Use `gulp buildWatch`, `gulp typeWatch`, and `gulp unitWatch` to run them in
+watch mode.
 
 [GitHub actions](https://github.com/features/actions) ensures that:
 
@@ -130,11 +130,11 @@ Runs [`gulp build`](#gulp-build) then [`gulp check`](#gulp-check) then
 This is performed on CI ([GitHub actions](https://github.com/features/actions))
 for each OS (Windows, Mac, Linux) and supported Node.js version.
 
-## `gulp buildWatch`, `gulp checkWatch`, `gulp typeWatch`, `gulp unitWatch`, `gulp warnWatch`
+## `gulp buildWatch`, `gulp typeWatch`, `gulp unitWatch`, `gulp warnWatch`
 
-Like `gulp build`, `gulp check`, `gulp type`, `gulp unit` and `gulp warn` but in
-watch mode. The watch mode works even when installing/updating/uninstalling
-dependencies or changing the Gulp tasks themselves.
+Like `gulp build`, `gulp type`, `gulp unit` and `gulp warn` but in watch mode.
+The watch mode works even when installing/updating/uninstalling dependencies or
+changing the Gulp tasks themselves.
 
 They can be performed together, e.g. `gulp buildWatch` in one terminal tab and
 `gulp unitWatch` in another.

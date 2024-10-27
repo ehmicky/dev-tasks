@@ -4,12 +4,7 @@ import { promisify } from 'node:util'
 import gulp from 'gulp'
 import isCi from 'is-ci'
 
-import {
-  eslintLoose,
-  eslintStrict,
-  eslintSilent,
-  eslintWatch,
-} from './eslint.js'
+import { eslintLoose, eslintStrict, eslintSilent } from './eslint.js'
 import { prettierLoose, prettierStrict, prettierSilent } from './prettier.js'
 
 // `gulp lint` is `eslint` + `prettier`. It runs in 3 different modes:
@@ -54,4 +49,3 @@ const handleLintError = async (error) => {
 const lintStrict = gulp.series(prettierStrict, eslintStrict)
 const lintLoose = gulp.series(prettierLoose, eslintLoose)
 const lintSilent = gulp.series(prettierSilent, eslintSilent)
-export const lintWatch = gulp.series(prettierLoose, eslintWatch)
