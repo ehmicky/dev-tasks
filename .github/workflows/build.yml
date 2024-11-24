@@ -55,7 +55,7 @@ jobs:
         run: npx gulp unitCoverage
       - name: Upload test coverage
         if: ${{ env.codecov_token != '' }}
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ env.codecov_token }}
           flags: '${{ matrix.os }}, node-${{ matrix.node }}'
