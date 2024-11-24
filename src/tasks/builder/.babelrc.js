@@ -1,4 +1,4 @@
-// eslint-disable-next-line filenames/match-regex, n/no-sync
+// eslint-disable-next-line filenames/match-regex
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
