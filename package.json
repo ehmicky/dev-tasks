@@ -62,7 +62,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-execa": "^8.0.0",
     "handle-cli-error": "^5.0.0",
-    "is-ci": "^3.0.1",
+    "is-ci": "^4.1.0",
     "jscpd": "^4.0.5",
     "log-process-errors": "^12.0.0",
     "nano-spawn": "^0.2.0",
