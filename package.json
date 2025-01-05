@@ -71,7 +71,7 @@
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.1",
     "prettier": "^3.4.1",
-    "release-it": "^17.10.0",
+    "release-it": "^18.1.1",
     "rename-fn": "^2.1.0",
     "semver": "^7.6.3",
     "tsd": "^0.31.2",
