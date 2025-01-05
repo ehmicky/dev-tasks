@@ -20,6 +20,8 @@ const EXCLUDED_LINKS = [
   // Seems to always fail with 403 inside GitHub action
   'linux.die.net',
   'creativefabrica.com',
+  // Sometimes fail with 403
+  'freepik.com',
   // Sometimes fail with 429
   'gnu.org',
   // Sometimes fail with 502
