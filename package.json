@@ -53,7 +53,7 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
     "@babel/register": "^7.25.9",
-    "@ehmicky/eslint-config": "^20.0.20",
+    "@ehmicky/eslint-config": "^20.0.21",
     "@ehmicky/prettier-config": "^1.0.4",
     "@eslint/compat": "^1.2.5",
     "c8": "^10.1.3",
