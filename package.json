@@ -55,7 +55,7 @@
     "@babel/register": "^7.25.9",
     "@ehmicky/eslint-config": "^20.0.23",
     "@ehmicky/prettier-config": "^1.0.4",
-    "@eslint/compat": "^1.2.5",
+    "@eslint/compat": "^1.2.6",
     "c8": "^10.1.3",
     "del": "^8.0.0",
     "got": "^13.0.0",
