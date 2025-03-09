@@ -27,6 +27,7 @@ const EXCLUDED_LINKS = [
   // Sometimes fail with 502
   'unpkg.com',
   'bundlephobia',
+  'fosstodon',
   // Used in tests
   'invalid-mirror.com',
   '//localhost',
