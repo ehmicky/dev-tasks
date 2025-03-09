@@ -70,7 +70,7 @@
     "p-filter": "^4.1.0",
     "path-exists": "^5.0.0",
     "plugin-error": "^2.0.1",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.3",
     "release-it": "^18.1.2",
     "rename-fn": "^2.1.0",
     "semver": "^7.7.1",
