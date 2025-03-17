@@ -1,5 +1,7 @@
 import { version } from 'node:process'
 
+import { got } from 'got'
+import spawn from 'nano-spawn'
 import nodeVersionAlias from 'node-version-alias'
 import PluginError from 'plugin-error'
 
@@ -32,6 +34,25 @@ const checkNodeVersion = checkVersion.bind(undefined, 'Node.js', {
   latest: getLatestNode,
 })
 
+const getCurrentNpm = async () => {
+  const { stdout } = await spawn('npm', ['--version'])
+  return stdout
+}
+
+const getLatestNpm = async () => {
+  const {
+    body: { version: npmVersion },
+  } = await got(NPM_LATEST_URL, { responseType: 'json' })
+  return npmVersion
+}
+
+const NPM_LATEST_URL = 'https://registry.npmjs.com/npm/latest'
+
+const checkNpmVersion = checkVersion.bind(undefined, 'npm', {
+  current: getCurrentNpm,
+  latest: getLatestNpm,
+})
+
 export const checkVersions = async () => {
-  await checkNodeVersion()
+  await Promise.all([checkNodeVersion(), checkNpmVersion()])
 }
