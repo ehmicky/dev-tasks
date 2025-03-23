@@ -64,7 +64,7 @@
     "handle-cli-error": "^5.0.0",
     "is-ci": "^4.1.0",
     "jscpd": "^4.0.5",
-    "log-process-errors": "^12.0.0",
+    "log-process-errors": "^12.0.1",
     "nano-spawn": "^0.2.0",
     "node-version-alias": "^5.0.0",
     "p-filter": "^4.1.0",
