@@ -48,11 +48,17 @@ const getLatestNpm = async () => {
 
 const NPM_LATEST_URL = 'https://registry.npmjs.com/npm/latest'
 
+// eslint-disable-next-line no-unused-vars
 const checkNpmVersion = checkVersion.bind(undefined, 'npm', {
   current: getCurrentNpm,
   latest: getLatestNpm,
 })
 
 export const checkVersions = async () => {
-  await Promise.all([checkNodeVersion(), checkNpmVersion()])
+  // eslint-disable-next-line unicorn/no-single-promise-in-promise-methods
+  await Promise.all([
+    checkNodeVersion(),
+    // TODO: re-enable once latest Node starts using latest npm again
+    // checkNpmVersion(),
+  ])
 }
