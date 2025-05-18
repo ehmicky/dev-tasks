@@ -39,18 +39,16 @@ jobs:
       - name: Test
         if: ${{ env.codecov_token == '' }}
         run: npx gulp unit
-      # TODO: re-enable once the following fix is available in the Docker image:
-      # https://github.com/lycheeverse/lychee/issues/1457
-      # - name: Restore links cache
-      #   if: ${{ matrix.node == 23 && matrix.os == 'ubuntu' }}
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: .lycheecache
-      #     key: cache-lychee-${{ github.sha }}
-      #     restore-keys: cache-lychee-
-      # - name: Check links
-      #   if: ${{ matrix.node == 23 && matrix.os == 'ubuntu' }}
-      #   run: npx gulp links
+      - name: Restore links cache
+        if: ${{ matrix.node == 23 && matrix.os == 'ubuntu' }}
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+      - name: Check links
+        if: ${{ matrix.node == 23 && matrix.os == 'ubuntu' }}
+        run: npx gulp links
       # If the CODECOV_TOKEN secret is set, perform test coverage
       - name: Test and coverage
         if: ${{ env.codecov_token != '' }}

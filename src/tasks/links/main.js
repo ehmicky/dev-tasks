@@ -13,6 +13,11 @@ import { getExcludedLinks, getRemaps } from './urls.js'
 
 // Detect dead links with lychee
 export const links = async () => {
+  // TODO: re-enable once the following fix is available in the Docker image:
+  // https://github.com/lycheeverse/lychee/issues/1457
+  return
+
+  // eslint-disable-next-line no-unreachable
   if (isCi && !(await pathExists(LINKS_CACHE_FILE))) {
     await writeFile(LINKS_CACHE_FILE, '')
   }
