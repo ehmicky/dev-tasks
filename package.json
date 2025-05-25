@@ -61,7 +61,7 @@
     "got": "^13.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-execa": "^8.0.1",
-    "handle-cli-error": "^5.1.0",
+    "handle-cli-error": "^5.2.0",
     "is-ci": "^4.1.0",
     "jscpd": "^4.0.5",
     "log-process-errors": "^12.0.1",
